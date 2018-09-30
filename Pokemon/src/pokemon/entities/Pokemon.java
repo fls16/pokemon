@@ -1,12 +1,19 @@
 package pokemon.entities;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 import pokemon.util.Nature;
 import pokemon.util.NatureModifier;
 import pokemon.util.Type;
 
 public abstract class Pokemon {
 
-	// dynamic stats
+	// util
+	Random random = new Random();
+
+	// specific stats
 	protected int id;
 	protected String nickname = this.getClass().getSimpleName();
 	protected int level = 1;
@@ -15,6 +22,7 @@ public abstract class Pokemon {
 	protected Type type2;
 	protected Nature nature;
 
+	// calculated stats
 	protected int maxhitpoints;
 	protected int attack;
 	protected int defense;
@@ -31,12 +39,12 @@ public abstract class Pokemon {
 	protected int baseSpeed;
 
 	// iv's
-	protected int individualHitpoints;
-	protected int individualAttack;
-	protected int individualDefense;
-	protected int individualSpecialAttack;
-	protected int individualSpecialDefense;
-	protected int individualSpeed;
+	protected int individualHitpoints = random.nextInt(32);
+	protected int individualAttack = random.nextInt(32);
+	protected int individualDefense = random.nextInt(32);
+	protected int individualSpecialAttack = random.nextInt(32);
+	protected int individualSpecialDefense = random.nextInt(32);
+	protected int individualSpeed = random.nextInt(32);
 
 	// ev's
 	protected int effortHitpoints;
@@ -46,13 +54,17 @@ public abstract class Pokemon {
 	protected int effortSpecialDefense;
 	protected int effortSpeed;
 
-	public Pokemon(String nickname, int level) {
-		this.nickname = nickname;
-		this.level = level;
-
+	public Pokemon() {
+		setNature();
 		calculateMaximumStats();
 
 		currentHitpoints = maxhitpoints;
+	}
+
+	private void setNature() {
+		Random random = new Random();
+		List<Nature> natures = Arrays.asList(Nature.values());
+		this.nature = natures.get(random.nextInt(25));
 	}
 
 	private void calculateMaximumStats() {

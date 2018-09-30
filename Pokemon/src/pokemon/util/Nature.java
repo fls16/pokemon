@@ -1,6 +1,7 @@
 package pokemon.util;
 
 public enum Nature {
+
 	// - Attack, - Defense, - SpAtk, - SpDef, - Speed
 
 	// + Attack
@@ -12,7 +13,8 @@ public enum Nature {
 	// + SpDef
 	Calm, Gentle, Careful, Quirky, Sassy,
 	// + Speed
-	Timid, Hasty, Jolly, Naive, Serious
+	Timid, Hasty, Jolly, Naive, Serious;
 
 	// - Attack, - Defense, - SpAtk, - SpDef, - Speed
+
 }
