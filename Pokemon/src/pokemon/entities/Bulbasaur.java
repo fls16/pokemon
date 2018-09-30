@@ -3,7 +3,7 @@ package pokemon.entities;
 import pokemon.util.Nature;
 import pokemon.util.Type;
 
-public class Bisasam extends Pokemon {
+public class Bulbasaur extends Pokemon {
 
 	// dynamic stats
 	private int id;
@@ -45,7 +45,7 @@ public class Bisasam extends Pokemon {
 	private int effortSpecialDefense;
 	private int effortSpeed;
 
-	public Bisasam(String nickname, int level) {
+	public Bulbasaur(String nickname, int level) {
 		super(nickname, level);
 		this.nickname = nickname;
 		this.level = level;
