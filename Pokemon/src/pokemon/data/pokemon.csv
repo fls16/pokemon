@@ -1,0 +1,4 @@
+ID;Name;Type1;Type2;Ability1;Ability2;Ability3;GenderRatio;CatchRate;EggGroup;HatchTime;Height;Weight;BaseHP;BaseAtk;BaseDef;BaseSpAtk;BaseSpDef;BaseSpd;BaseExpYield;LevelingRate;evHp;evAtk;evDef;evSpAtk;evSpDef;evSpd
+1;Bulbasaur;Grass;Poison;Overgrow;-;Chlorophyll;87.5;45;Monster and Grass;5140-5396;0.7;6.9;45;49;49;65;65;45;64;MediumSlow;0;0;0;1;0;0
+2;Ivysaur;Grass;Poison;;;;;;;;;;60;62;63;80;80;60;;;;;;;;
+3;Venusaur;Grass;Poison;;;;;;;;;;80;82;83;100;100;80;;;;;;;;

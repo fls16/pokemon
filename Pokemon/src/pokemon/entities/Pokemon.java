@@ -3,90 +3,117 @@ package pokemon.entities;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import pokemon.util.Nature;
 import pokemon.util.NatureModifier;
-import pokemon.util.Type;
 
-public abstract class Pokemon {
+public class Pokemon {
 
-	// util
-	Random random = new Random();
+  private enum Type {
+    Normal, Fighting, Flying, Poison, Ground, Rock, Bug, Ghost, Steel, Fire, Water, Grass, Electric, Psychic, Ice, Dragon, Dark
+  }
 
-	// specific stats
-	protected int id;
-	protected String nickname = this.getClass().getSimpleName();
-	protected int level = 1;
-	protected int currentHitpoints;
-	protected Type type1;
-	protected Type type2;
-	protected Nature nature;
+  public enum Nature {
+    // - Attack, - Defense, - SpAtk, - SpDef, - Speed
+    // + Attack
+    Hardy, Lonely, Adamant, Naughty, Brave,
+    // + Defense
+    Bold, Docile, Impish, Lax, Relaxed,
+    // + SpAtk
+    Modest, Mild, Bashful, Rash, Quiet,
+    // + SpDef
+    Calm, Gentle, Careful, Quirky, Sassy,
+    // + Speed
+    Timid, Hasty, Jolly, Naive, Serious;
+  }
 
-	// calculated stats
-	protected int maxhitpoints;
-	protected int attack;
-	protected int defense;
-	protected int specialAttack;
-	protected int specialDefense;
-	protected int speed;
+  private enum Sex {
+    M, W
+  }
 
-	// base stats
-	protected int baseHitpoints;
-	protected int baseAttack;
-	protected int baseDefense;
-	protected int baseSpecialAttack;
-	protected int baseSpecialDefense;
-	protected int baseSpeed;
+  // util
+  Random random = new Random();
 
-	// iv's
-	protected int individualHitpoints = random.nextInt(32);
-	protected int individualAttack = random.nextInt(32);
-	protected int individualDefense = random.nextInt(32);
-	protected int individualSpecialAttack = random.nextInt(32);
-	protected int individualSpecialDefense = random.nextInt(32);
-	protected int individualSpeed = random.nextInt(32);
+  // specific stats
+  private int id;
+  private String name;
+  private String nickname;
+  private int level = 1;
+  private int currentHitpoints;
+  private Type type1;
+  private Type type2;
+  private Nature nature;
+  private Sex sex;
 
-	// ev's
-	protected int effortHitpoints;
-	protected int effortAttack;
-	protected int effortDefense;
-	protected int effortSpecialAttack;
-	protected int effortSpecialDefense;
-	protected int effortSpeed;
+  // calculated stats
+  private int maxhitpoints;
+  private int attack;
+  private int defense;
+  private int specialAttack;
+  private int specialDefense;
+  private int speed;
 
-	public Pokemon() {
-		setNature();
-		calculateMaximumStats();
+  // base stats
+  private int baseHitpoints;
+  private int baseAttack;
+  private int baseDefense;
+  private int baseSpecialAttack;
+  private int baseSpecialDefense;
+  private int baseSpeed;
 
-		currentHitpoints = maxhitpoints;
-	}
+  // iv's
+  private int individualHitpoints = random.nextInt(32);
+  private int individualAttack = random.nextInt(32);
+  private int individualDefense = random.nextInt(32);
+  private int individualSpecialAttack = random.nextInt(32);
+  private int individualSpecialDefense = random.nextInt(32);
+  private int individualSpeed = random.nextInt(32);
 
-	private void setNature() {
-		Random random = new Random();
-		List<Nature> natures = Arrays.asList(Nature.values());
-		this.nature = natures.get(random.nextInt(25));
-	}
+  // ev's
+  private int effortHitpoints;
+  private int effortAttack;
+  private int effortDefense;
+  private int effortSpecialAttack;
+  private int effortSpecialDefense;
+  private int effortSpeed;
 
-	private void calculateMaximumStats() {
-		maxhitpoints = (int) (((int) ((((2 * baseHitpoints) + individualHitpoints + ((int) (effortHitpoints / 4)))
-				* level) / 100)) + level + 10);
+  public Pokemon(int level) {
+    setNature();
+    calculateMaximumStats();
 
-		attack = (int) ((((int) ((((2 * baseAttack) + individualAttack + ((int) (effortAttack / 4))) * level) / 100))
-				+ 5) * NatureModifier.attackModifier(nature));
+    currentHitpoints = maxhitpoints;
+  }
 
-		defense = (int) ((((int) ((((2 * baseDefense) + individualDefense + ((int) (effortDefense / 4))) * level)
-				/ 100)) + 5) * NatureModifier.defenseModifier(nature));
+  public static Pokemon create() {
+    return null;
+  }
 
-		specialAttack = (int) ((((int) ((((2 * baseSpecialAttack) + individualSpecialAttack
-				+ ((int) (effortSpecialAttack / 4))) * level) / 100)) + 5)
-				* NatureModifier.specialAttackModifier(nature));
+  private void setNature() {
+    List<Nature> natures = Arrays.asList(Nature.values());
+    this.nature = natures.get(random.nextInt(25));
+  }
 
-		specialDefense = (int) ((((int) ((((2 * baseSpecialDefense) + individualSpecialDefense
-				+ ((int) (effortSpecialDefense / 4))) * level) / 100)) + 5)
-				* NatureModifier.specialDefenseModifier(nature));
+  private void calculateMaximumStats() {
+    maxhitpoints =
+        (int) (((int) ((((2 * baseHitpoints) + individualHitpoints + ((int) (effortHitpoints / 4)))
+            * level) / 100)) + level + 10);
 
-		speed = (int) ((((int) ((((2 * baseSpeed) + individualSpeed + ((int) (effortSpeed / 4))) * level) / 100)) + 5)
-				* NatureModifier.speedModifier(nature));
-	}
+    attack =
+        (int) ((((int) ((((2 * baseAttack) + individualAttack + ((int) (effortAttack / 4))) * level)
+            / 100)) + 5) * NatureModifier.attackModifier(nature));
+
+    defense = (int) ((((int) ((((2 * baseDefense) + individualDefense + ((int) (effortDefense / 4)))
+        * level) / 100)) + 5) * NatureModifier.defenseModifier(nature));
+
+    specialAttack = (int) ((((int) ((((2 * baseSpecialAttack) + individualSpecialAttack
+        + ((int) (effortSpecialAttack / 4))) * level) / 100)) + 5)
+        * NatureModifier.specialAttackModifier(nature));
+
+    specialDefense = (int) ((((int) ((((2 * baseSpecialDefense) + individualSpecialDefense
+        + ((int) (effortSpecialDefense / 4))) * level) / 100)) + 5)
+        * NatureModifier.specialDefenseModifier(nature));
+
+    speed =
+        (int) ((((int) ((((2 * baseSpeed) + individualSpeed + ((int) (effortSpeed / 4))) * level)
+            / 100)) + 5) * NatureModifier.speedModifier(nature));
+  }
 
 }
