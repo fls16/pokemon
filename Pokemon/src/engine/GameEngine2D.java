@@ -25,170 +25,171 @@ import engine.level.LevelManager;
 
 public abstract class GameEngine2D {
 
-	private TileSheetManager tile_sheet_manager;
+    private TileSheetManager tile_sheet_manager;
 
-	private GUIManager gui_manager;
-	private LevelManager level_manager;
-	private LevelEditor level_editor;
+    private GUIManager gui_manager;
+    private LevelManager level_manager;
+    private LevelEditor level_editor;
 
-	private Window window;
-	private Camera camera;
-	private Shader shader;
+    private Window window;
+    private Camera camera;
+    private Shader shader;
 
-	private Settings settings;
-	private Input input;
+    private Settings settings;
+    private Input input;
 
-	private int UPS = 0;
-	private int FPS = 0;
+    private int UPS = 0;
+    private int FPS = 0;
 
-	public void run() {
-		Logger.print("Running.. " + Version.getVersion());
+    public void run() {
+	Logger.print("Running.. " + Version.getVersion());
 
-		init();
-		loadRessources(tile_sheet_manager);
-		handleGUIManager(gui_manager);
-		handleLevelManager(level_manager);
-		loop();
+	init();
+	loadRessources(tile_sheet_manager);
+	handleGUIManager(gui_manager);
+	handleLevelManager(level_manager);
+	loop();
 
-		onEnd();
-		Assets.cleanUp();
-		window.cleanUp();
-		glfwTerminate();
-		glfwSetErrorCallback(null).free();
-	}
+	onEnd();
+	Assets.cleanUp();
+	window.cleanUp();
+	glfwTerminate();
+	glfwSetErrorCallback(null).free();
+    }
 
-	private void update(float delta) {
-		window.update();
-		level_editor.update(delta, window, camera);
-		level_manager.getCurrentLevel().ifPresent(level -> level.update(delta, window, camera));
-		gui_manager.getCurrentGUI().ifPresent(gui -> gui.update(delta));
-		onUpdate(delta);
-	}
+    private void update(float delta) {
+	window.update();
+	level_editor.update(delta, window, camera);
+	level_manager.getCurrentLevel().ifPresent(level -> level.update(delta, window, camera));
+	gui_manager.getCurrentGUI().ifPresent(gui -> gui.update(delta));
+	onUpdate(delta);
+    }
 
-	private void render() {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-		level_manager.getCurrentLevel().ifPresent(level -> {
-			level.correctCamera(camera, window);
-			level.render(shader, camera);
-		});
-		gui_manager.getCurrentGUI().ifPresent(gui -> gui.render());
-		onRender();
-		window.swapBuffers();
-	}
+    private void render() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+	level_manager.getCurrentLevel().ifPresent(level -> {
+	    level.correctCamera(camera, window);
+	    level.render(shader, camera);
+	});
+	gui_manager.getCurrentGUI().ifPresent(gui -> gui.render());
+	onRender();
+	window.swapBuffers();
+    }
 
-	private void init() {
-		this.settings = new Settings();
-		onSetUp(settings);
+    private void init() {
+	this.settings = new Settings();
+	onSetUp(settings);
 
-		GLFWErrorCallback.createPrint(System.err).set();
-		if (!glfwInit())
-			throw new IllegalStateException("Unable to initialize GLFW");
+	GLFWErrorCallback.createPrint(System.err).set();
+	if (!glfwInit())
+	    throw new IllegalStateException("Unable to initialize GLFW");
 
-		window = new Window(settings.width, settings.height, settings.title, settings.fullscreen, settings.vsync);
-		window.createWindow();
-		window.setOnResize((windowID, width, height) -> {
-			this.window.width = width;
-			this.window.height = height;
-			camera.setProjection(width, height);
-			GL11.glViewport(0, 0, width, height);
-			level_manager.calculateView(this.window);
-			gui_manager.resize(width, height);
-		});
+	window = new Window(settings.width, settings.height, settings.title, settings.fullscreen, settings.vsync);
+	window.createWindow();
+	window.setOnResize((windowID, width, height) -> {
+	    this.window.width = width;
+	    this.window.height = height;
+	    camera.setProjection(width, height);
+	    GL11.glViewport(0, 0, width, height);
+	    level_manager.calculateView(this.window);
+	    gui_manager.resize(width, height);
+	});
 
-		handleWindow(window);
+	handleWindow(window);
 
-		GL.createCapabilities();
-		GL11.glEnable(GL11.GL_BLEND); // TRANSPARENCY
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TRANSPARENCY
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	GL.createCapabilities();
+	GL11.glEnable(GL11.GL_BLEND); // TRANSPARENCY
+	GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TRANSPARENCY
+	GL11.glEnable(GL11.GL_TEXTURE_2D);
+	GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-		input = window.getInput();
-		camera = window.getCamera();
-		shader = new Shader("shader");
+	input = window.getInput();
+	camera = window.getCamera();
+	shader = new Shader("shader");
 
-		tile_sheet_manager = new TileSheetManager();
-		tile_sheet_manager.addTileSheet("font", BitmapFont.TILE_SHEET);
-		tile_sheet_manager.addTileSheet("gui", GUI.TILE_SHEET);
-		tile_sheet_manager.addTileSheet("tiles", TileRenderer.TILE_SHEET);
+	tile_sheet_manager = new TileSheetManager();
+	tile_sheet_manager.addTileSheet("font", BitmapFont.TILE_SHEET);
+	tile_sheet_manager.addTileSheet("gui", GUI.TILE_SHEET);
+	tile_sheet_manager.addTileSheet("tiles", TileRenderer.TILE_SHEET);
 
-		gui_manager = new GUIManager(window);
-		level_manager = new LevelManager();
-		level_editor = new LevelEditor(gui_manager, level_manager, tile_sheet_manager, input, window);
+	gui_manager = new GUIManager(window);
+	level_manager = new LevelManager();
+	level_manager.init(window);
+	level_editor = new LevelEditor(gui_manager, level_manager, tile_sheet_manager, input, window);
 
-		Assets.init();
-	}
+	Assets.init();
+    }
 
-	private void loop() {
-		long lastTime = System.nanoTime();
-		double delta = 0.0;
-		double ns = 1000000000.0 / 60.0;
-		long timer = System.currentTimeMillis();
-		int updates = 0;
-		int frames = 0;
+    private void loop() {
+	long lastTime = System.nanoTime();
+	double delta = 0.0;
+	double ns = 1000000000.0 / 60.0;
+	long timer = System.currentTimeMillis();
+	int updates = 0;
+	int frames = 0;
 
-		while (!window.shouldClose()) {
-			if (input.isKeyReleased(Input.ESC)) {
-				window.requestClose();
-			}
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
-			if (delta >= 1.0) { // UPDATE
-				update((float) delta);
-				updates++;
-				delta--;
-			}
-			// RENDER
-			render();
-			frames++;
-			if (System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				UPS = updates;
-				FPS = frames;
-				Logger.print(updates + " ups, " + frames + " fps");
-				updates = 0;
-				frames = 0;
-			}
-
-		}
-
-	}
-
-	protected void showLevelEditor() {
-		level_editor.show(camera);
-	}
-
-	protected void requestClose() {
+	while (!window.shouldClose()) {
+	    if (input.isKeyReleased(Input.ESC)) {
 		window.requestClose();
+	    }
+	    long now = System.nanoTime();
+	    delta += (now - lastTime) / ns;
+	    lastTime = now;
+	    if (delta >= 1.0) { // UPDATE
+		update((float) delta);
+		updates++;
+		delta--;
+	    }
+	    // RENDER
+	    render();
+	    frames++;
+	    if (System.currentTimeMillis() - timer > 1000) {
+		timer += 1000;
+		UPS = updates;
+		FPS = frames;
+		Logger.print(updates + " ups, " + frames + " fps");
+		updates = 0;
+		frames = 0;
+	    }
+
 	}
 
-	protected int getUPS() {
-		return UPS;
-	}
+    }
 
-	protected int getFPS() {
-		return FPS;
-	}
+    protected void showLevelEditor() {
+	level_editor.show(camera);
+    }
 
-	protected abstract void onSetUp(Settings settings);
+    protected void requestClose() {
+	window.requestClose();
+    }
 
-	protected abstract void handleWindow(Window window);
+    protected int getUPS() {
+	return UPS;
+    }
 
-	protected abstract void loadRessources(TileSheetManager tsm);
+    protected int getFPS() {
+	return FPS;
+    }
 
-	protected abstract void handleGUIManager(GUIManager gui_manager);
+    protected abstract void onSetUp(Settings settings);
 
-	protected abstract void handleLevelManager(LevelManager level_manager);
+    protected abstract void handleWindow(Window window);
 
-	protected abstract void onRender();
+    protected abstract void loadRessources(TileSheetManager tsm);
 
-	protected abstract void onUpdate(float delta);
+    protected abstract void handleGUIManager(GUIManager gui_manager);
 
-	protected abstract void onEnd();
+    protected abstract void handleLevelManager(LevelManager level_manager);
 
-	protected static void launch(String[] args, GameEngine2D engine) {
-		engine.run();
-	}
+    protected abstract void onRender();
+
+    protected abstract void onUpdate(float delta);
+
+    protected abstract void onEnd();
+
+    protected static void launch(String[] args, GameEngine2D engine) {
+	engine.run();
+    }
 
 }
