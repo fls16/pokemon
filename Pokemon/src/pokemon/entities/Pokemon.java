@@ -54,10 +54,10 @@ public class Pokemon {
 
     // util
     Random random = new Random();
-    private static int idCounter = 0;
+    private static long idCounter = 0;
 
     // specific stats
-    public int hiddenId;
+    public long hiddenId;
     public int id;
     public String name;
     public String nickname;

@@ -51,7 +51,7 @@ public class Player extends Entity {
 	} else {
 	    switch (direction) {
 	    case 0:
-		if (-transform.pos.y > moveTo) {
+		if (-transform.pos.y >= moveTo) {
 		    movement.add(0.0f, speed * 1.0f / 60.0f);
 		    transform.pos.y += 0.01f;
 		} else {
@@ -60,7 +60,7 @@ public class Player extends Entity {
 		}
 		break;
 	    case 1:
-		if (transform.pos.x < moveTo) {
+		if (transform.pos.x <= moveTo) {
 		    movement.add(speed * 1.0f / 60.0f, 0.0f);
 		} else {
 		    transform.pos.x = moveTo;
@@ -68,7 +68,7 @@ public class Player extends Entity {
 		}
 		break;
 	    case 2:
-		if (-transform.pos.y < moveTo) {
+		if (-transform.pos.y <= moveTo) {
 		    movement.add(0.0f, -speed * 1.0f / 60.0f);
 		} else {
 		    transform.pos.y = -moveTo;
@@ -76,7 +76,7 @@ public class Player extends Entity {
 		}
 		break;
 	    case 3:
-		if (transform.pos.x > moveTo) {
+		if (transform.pos.x >= moveTo) {
 		    movement.add(-speed * 1.0f / 60.0f, 0.0f);
 		} else {
 		    transform.pos.x = moveTo;
