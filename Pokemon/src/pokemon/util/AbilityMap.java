@@ -8,7 +8,7 @@ public class AbilityMap {
     public static final Map<String, Ability> abilities = new HashMap<>();
 
     static {
-	abilities.put("Wonder_Guard", new Ability("Wonder_Guard", "Only supereffective moves will hit.")//
+	abilities.put("Wonder Guard", new Ability("Wonder Guard", "Only supereffective moves will hit.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {

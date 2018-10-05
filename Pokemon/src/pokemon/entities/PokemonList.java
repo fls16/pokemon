@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import pokemon.entities.Pokemon.Ability;
 import pokemon.entities.Pokemon.EggGroup;
-import pokemon.entities.Pokemon.Gender;
 import pokemon.entities.Pokemon.LevelingRate;
 import pokemon.entities.Pokemon.Type;
 
@@ -25,32 +23,20 @@ public class PokemonList {
 	    String line;
 
 	    while ((line = br.readLine()) != null) {
-		pokemon = new Pokemon();
 		String[] parameters = line.split(";");
+		pokemon = new Pokemon();
 		pokemon.id = Integer.parseInt(parameters[0]);
 		pokemon.name = parameters[1];
 		pokemon.type1 = Type.valueOf(parameters[2]);
 		pokemon.type2 = Type.valueOf(parameters[3]);
-		if (parameters[4].split(",").length == 1)
-		    pokemon.ability = Ability.valueOf(parameters[4].split(",")[0]);
-		else
-		    pokemon.ability = Ability.valueOf(parameters[4].split(",")[random.nextInt(2)]);
+		pokemon.abilityname = parameters[4];
 		if (parameters[5].split(",").length == 1)
 		    pokemon.eggGroup1 = EggGroup.valueOf(parameters[5]);
 		else {
 		    pokemon.eggGroup1 = EggGroup.valueOf(parameters[5].split(",")[0]);
 		    pokemon.eggGroup2 = EggGroup.valueOf(parameters[5].split(",")[1]);
 		}
-		if (parameters[6].equals("100"))
-		    pokemon.gender = Gender.M;
-		else if (parameters[6].equals("0"))
-		    pokemon.gender = Gender.W;
-		else if (parameters[6].equals("-"))
-		    pokemon.gender = Gender.N;
-		else if (random.nextInt(100) < Integer.parseInt(parameters[6]))
-		    pokemon.gender = Gender.M;
-		else
-		    pokemon.gender = Gender.W;
+		pokemon.genderRate = parameters[6];
 		pokemon.captureRate = Integer.parseInt(parameters[7]);
 		pokemon.levelingRate = LevelingRate.valueOf(parameters[8]);
 		pokemon.expYield = Integer.parseInt(parameters[9]);
@@ -73,8 +59,9 @@ public class PokemonList {
 		pokemon.specialAttackYield = Integer.parseInt(parameters[23]);
 		pokemon.specialDefenseYield = Integer.parseInt(parameters[24]);
 		pokemon.speedYield = Integer.parseInt(parameters[25]);
+
+		pokemonMap.put(pokemon.id, pokemon);
 	    }
-	    pokemonMap.put(pokemon.id, pokemon);
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
