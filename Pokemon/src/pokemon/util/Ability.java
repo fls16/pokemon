@@ -1,39 +1,60 @@
 package pokemon.util;
 
-import java.util.HashMap;
-import java.util.Map;
+import pokemon.dto.BattleInfoDTO;
 
-public abstract class Ability {
+public class Ability {
 
-    public static final Map<String, Ability> abilities = new HashMap<>();
-
-    static {
-
-	abilities.put("Wonder_Guard", new Ability("Wonder_Guard", "Only supereffective moves will hit.") {
-
-	    @Override
-	    public void update() {
-
-	    }
-
-	    @Override
-	    public void onDamageCalculation() {
-
-	    }
-	});
-
+    // private interfaces
+    public interface OnUpdate {
+	public void execute();
     }
 
+    public interface OnDamageCalculation {
+	public void execute(BattleInfoDTO battleInfoDTO);
+    }
+
+    // ability information
     private String name;
     private String description;
+
+    // interface logic
+    private OnUpdate onUpdate = () -> {
+    };
+    private OnDamageCalculation onDamageCalculation = b -> {
+    };
 
     public Ability(String name, String description) {
 	this.name = name;
 	this.description = description;
     }
 
-    public abstract void update();
+    // interface implementation
+    public void update() {
+	onUpdate.execute();
+    }
 
-    public abstract void onDamageCalculation();
+    public void onDamageCalculation(BattleInfoDTO battleInfoDTO) {
+	onDamageCalculation.execute(battleInfoDTO);
+    }
+
+    // getter ability information
+    public String getDescription() {
+	return description;
+    }
+
+    public String getName() {
+	return name;
+    }
+
+    // setter interface logic
+    public Ability setOnUpdate(OnUpdate onUpdate) {
+	this.onUpdate = onUpdate;
+	return this;
+    }
+
+    public Ability setOnDamageCalculation(OnDamageCalculation onDamageCalculation) {
+	this.onDamageCalculation = onDamageCalculation;
+	return this;
+    }
 
 }
