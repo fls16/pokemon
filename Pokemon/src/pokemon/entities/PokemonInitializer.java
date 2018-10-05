@@ -11,13 +11,13 @@ import pokemon.entities.Pokemon.EggGroup;
 import pokemon.entities.Pokemon.LevelingRate;
 import pokemon.entities.Pokemon.Type;
 
-public class PokemonList {
+public class PokemonInitializer {
 
     Random random = new Random();
-    private static Map<Integer, Pokemon> pokemonMap = new HashMap<>();
+    public static Map<Integer, Pokemon> pokemonMap = new HashMap<>();
 
     public void initPokemon() {
-	try (BufferedReader br = new BufferedReader(new FileReader("pokemonvalues.csv"))) {
+	try (BufferedReader br = new BufferedReader(new FileReader("src/pokemon/data/pokemonvalues.csv"))) {
 	    br.readLine();
 	    Pokemon pokemon = null;
 	    String line;
@@ -28,7 +28,9 @@ public class PokemonList {
 		pokemon.id = Integer.parseInt(parameters[0]);
 		pokemon.name = parameters[1];
 		pokemon.type1 = Type.valueOf(parameters[2]);
-		pokemon.type2 = Type.valueOf(parameters[3]);
+		if (!parameters[3].equals("-")) {
+		    pokemon.type2 = Type.valueOf(parameters[3]);
+		}
 		pokemon.abilityname = parameters[4];
 		if (parameters[5].split(",").length == 1)
 		    pokemon.eggGroup1 = EggGroup.valueOf(parameters[5]);

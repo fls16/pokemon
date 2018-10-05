@@ -110,21 +110,24 @@ public class Pokemon {
     public int effortSpeed = 0;
 
     public Pokemon() {
-	hiddenId = idCounter;
-	idCounter++;
     }
 
-    public Pokemon create(int id, int level, Pokemon pokemon) {
-	this.level = level;
+    public Pokemon create(Pokemon tempPokemon, int level) {
+	hiddenId = idCounter;
+	idCounter++;
 
-	setAbility(abilityname);
-	setNature();
-	setGender(genderRate);
-	setEggSteps();
-	calculateMaximumStats();
-	currentHitpoints = maxhitpoints;
+	Pokemon finalPokemon = new Pokemon();
+	finalPokemon.id = tempPokemon.id;
+	finalPokemon.level = level;
+	finalPokemon.name = tempPokemon.name;
+	finalPokemon.setAbility(tempPokemon.abilityname);
+	finalPokemon.setNature();
+	finalPokemon.setGender(tempPokemon.genderRate);
+	finalPokemon.setEggSteps();
+	finalPokemon.calculateMaximumStats();
+	finalPokemon.currentHitpoints = maxhitpoints;
 
-	return null;
+	return finalPokemon;
     }
 
     public void onDamageCalculation(BattleInfoDTO battleInfoDTO) {
