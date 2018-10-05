@@ -41,8 +41,8 @@ public class Game extends GameEngine2D {
 	Logger.printMsg("Started..");
 	settings.title = "Pokemon";
 
-	settings.width = 1280;
-	settings.height = 720;
+	settings.width = 1216;
+	settings.height = 704;
 	settings.fullscreen = false;
 
 	// settings.width = 1920;
