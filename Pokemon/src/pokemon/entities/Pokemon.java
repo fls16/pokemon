@@ -50,7 +50,7 @@ public class Pokemon {
     public int id;
     public String name;
     public String nickname;
-    public int level = 1;
+    public int level;
     public int currentHitpoints;
     public Nature nature;
     public Type type1;
@@ -117,14 +117,39 @@ public class Pokemon {
 	finalPokemon.hiddenId = idCounter;
 	idCounter++;
 	finalPokemon.id = tempPokemon.id;
-	finalPokemon.level = level;
 	finalPokemon.name = tempPokemon.name;
-	finalPokemon.setAbility(tempPokemon.abilityname);
+	finalPokemon.nickname = tempPokemon.name;
+	finalPokemon.level = level;
+	finalPokemon.type1 = tempPokemon.type1;
+	finalPokemon.type2 = tempPokemon.type2;
+	finalPokemon.eggGroup1 = tempPokemon.eggGroup1;
+	finalPokemon.eggGroup2 = tempPokemon.eggGroup2;
+	finalPokemon.captureRate = tempPokemon.captureRate;
+	finalPokemon.levelingRate = tempPokemon.levelingRate;
+	finalPokemon.expYield = tempPokemon.expYield;
+	finalPokemon.eggSteps = tempPokemon.eggSteps;
+	finalPokemon.height = tempPokemon.height;
+	finalPokemon.weight = tempPokemon.weight;
+	finalPokemon.legendary = tempPokemon.legendary;
+	finalPokemon.baseHitpoints = tempPokemon.baseHitpoints;
+	finalPokemon.baseAttack = tempPokemon.baseAttack;
+	finalPokemon.baseDefense = tempPokemon.baseDefense;
+	finalPokemon.baseSpecialAttack = tempPokemon.baseSpecialAttack;
+	finalPokemon.baseSpecialDefense = tempPokemon.baseSpecialDefense;
+	finalPokemon.baseSpeed = tempPokemon.baseSpeed;
+	finalPokemon.hitpointsYield = tempPokemon.hitpointsYield;
+	finalPokemon.attackYield = tempPokemon.attackYield;
+	finalPokemon.defenseYield = tempPokemon.defenseYield;
+	finalPokemon.specialAttackYield = tempPokemon.specialAttackYield;
+	finalPokemon.specialDefenseYield = tempPokemon.specialDefenseYield;
+	finalPokemon.speedYield = tempPokemon.speedYield;
+
 	finalPokemon.setNature();
+	finalPokemon.setAbility(tempPokemon.abilityname);
 	finalPokemon.setGender(tempPokemon.genderRate);
 	finalPokemon.setEggSteps();
 	finalPokemon.calculateMaximumStats();
-	finalPokemon.currentHitpoints = maxhitpoints;
+	finalPokemon.currentHitpoints = finalPokemon.maxhitpoints;
 
 	return finalPokemon;
     }
@@ -134,9 +159,9 @@ public class Pokemon {
     }
 
     public void setAbility(String abilityname) {
-	if (abilityname.split(",").length == 1)
+	if (abilityname.split(",").length == 1) {
 	    ability = AbilityMap.abilities.get(abilityname);
-	else {
+	} else {
 	    if (random.nextInt(100) < 50) {
 		ability = AbilityMap.abilities.get(abilityname.split(",")[0]);
 	    } else {
@@ -187,6 +212,28 @@ public class Pokemon {
 
 	speed = (int) ((((int) ((((2 * baseSpeed) + individualSpeed + ((int) (effortSpeed / 4))) * level) / 100)) + 5)
 		* NatureModifier.speedModifier(nature));
+    }
+
+    @Override
+    public String toString() {
+	return "Pokemon [hiddenId=" + hiddenId + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", level="
+		+ level + ", currentHitpoints=" + currentHitpoints + ", nature=" + nature + ", type1=" + type1
+		+ ", type2=" + type2 + ", ability=" + ability + ", eggGroup1=" + eggGroup1 + ", eggGroup2=" + eggGroup2
+		+ ", gender=" + gender + ", captureRate=" + captureRate + ", levelingRate=" + levelingRate
+		+ ", expYield=" + expYield + ", eggSteps=" + eggSteps + ", height=" + height + ", weight=" + weight
+		+ ", legendary=" + legendary + ", maxhitpoints=" + maxhitpoints + ", attack=" + attack + ", defense="
+		+ defense + ", specialAttack=" + specialAttack + ", specialDefense=" + specialDefense + ", speed="
+		+ speed + ", baseHitpoints=" + baseHitpoints + ", baseAttack=" + baseAttack + ", baseDefense="
+		+ baseDefense + ", baseSpecialAttack=" + baseSpecialAttack + ", baseSpecialDefense="
+		+ baseSpecialDefense + ", baseSpeed=" + baseSpeed + ", individualHitpoints=" + individualHitpoints
+		+ ", individualAttack=" + individualAttack + ", individualDefense=" + individualDefense
+		+ ", individualSpecialAttack=" + individualSpecialAttack + ", individualSpecialDefense="
+		+ individualSpecialDefense + ", individualSpeed=" + individualSpeed + ", hitpointsYield="
+		+ hitpointsYield + ", attackYield=" + attackYield + ", defenseYield=" + defenseYield
+		+ ", specialAttackYield=" + specialAttackYield + ", specialDefenseYield=" + specialDefenseYield
+		+ ", speedYield=" + speedYield + ", effortHitpoints=" + effortHitpoints + ", effortAttack="
+		+ effortAttack + ", effortDefense=" + effortDefense + ", effortSpecialAttack=" + effortSpecialAttack
+		+ ", effortSpecialDefense=" + effortSpecialDefense + ", effortSpeed=" + effortSpeed + "]";
     }
 
 }
