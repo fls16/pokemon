@@ -31,9 +31,6 @@ public class LevelEditor {
 	this.gui_manager = gui_manager;
 	this.level_manager = level_manager;
 	this.tile_sheet_manager = tile_sheet_manager;
-	Level temp = new Level("temp", 256, 256);
-	temp.calculateView(window);
-	level_manager.addLevel("temp", temp);
 	initLevelSelectGUI(input, window);
 	initEditorGUI(input, window);
     }
@@ -53,7 +50,6 @@ public class LevelEditor {
 	if (window.getInput().isKeyDown(Input.A)) {
 	    camera.addPosition(new Vector3f(speed, 0, 0));
 	}
-	// System.out.println(camera.getPosition());
     }
 
     public void render(Shader shader, Camera camera) {

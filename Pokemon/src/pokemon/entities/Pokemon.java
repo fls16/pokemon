@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import pokemon.dto.BattleInfoDTO;
+import pokemon.util.Ability;
+import pokemon.util.AbilityMap;
 import pokemon.util.NatureModifier;
 
 public class Pokemon {
@@ -24,20 +27,6 @@ public class Pokemon {
 	Calm, Gentle, Careful, Quirky, Sassy,
 	// + Speed
 	Timid, Hasty, Jolly, Naive, Serious;
-    }
-
-    public enum Ability {
-	Air_Lock, Arena_Trap, Battle_Armor, Blaze, Chlorophyll, Clear_Body, Cloud_Nine, Color_Change, Compound_Eyes, Cute_Charm, Damp, //
-	Drizzle, Drought, Early_Bird, Effect_Spore, Flame_Body, Flash_Fire, Forecast, Guts, Huge_Power, Hustle, Hyper_Cutter, Illuminate, //
-	Immunity, Inner_Focus, Insomnia, Intimidate, Keen_Eye, Levitate, Lightning_Rod, Limber, Liquid_Ooze, Magma_Armor, Magnet_Pull, //
-	Marvel_Scale, Minus, Natural_Cure, Oblivious, Overgrow, Own_Tempo, Pickup, Plus, Poison_Point, Pressure, Pure_Power, Rain_Dish, //
-	Rock_Head, Rough_Skin, Run_Away, Sand_Stream, Sand_Veil, Serene_Grace, Shadow_Tag, Shed_Skin, Shell_Armor, Shield_Dust, Soundproof, //
-	Speed_Boost, Static, Stench, Sticky_Hold, Sturdy, Suction_Cups, Swarm, Swift_Swim, Synchronize, Thick_Fat, Torrent, Trace, Truant, //
-	Vital_Spirit, Volt_Absorb, Water_Absorb, Water_Veil, White_Smoke, Wonder_Guard, Adaptability, Aftermath, Anger_Point, Anticipation, //
-	Bad_Dreams, Download, Dry_Skin, Filter, Flower_Gift, Forewarn, Frisk, Gluttony, Heatproof, Honey_Gather, Hydration, Ice_Body, //
-	Iron_Fist, Klutz, Leaf_Guard, Magic_Guard, Mold_Breaker, Motor_Drive, Multitype, No_Guard, Normalize, Poison_Heal, Quick_Feet, //
-	Reckless, Rivalry, Scrappy, Simple, Skill_Link, Slow_Start, Sniper, Snow_Cloak, Snow_Warning, Solar_Power, Solid_Rock, Stall, //
-	Steadfast, Storm_Drain, Super_Luck, Tangled_Feet, Technician, Tinted_Lens, Unaware, Unburden
     }
 
     public enum EggGroup {
@@ -123,15 +112,26 @@ public class Pokemon {
 	idCounter++;
     }
 
-    public Pokemon create(int id, int level) {
-	Pokemon pokemon = new Pokemon();
+    public Pokemon create(int id, int level, Pokemon pokemon) {
 	this.level = level;
+
+	pokemon.ability;
+	setAbility(abilityName);
+
 	setNature();
 	setGender();
 	calculateMaximumStats();
 	currentHitpoints = maxhitpoints;
 
 	return null;
+    }
+
+    public void onDamageCalculation(BattleInfoDTO battleInfoDTO) {
+	ability.onDamageCalculation(battleInfoDTO);
+    }
+
+    private void setAbility(String ability) {
+	this.ability = AbilityMap.abilities.get(ability);
     }
 
     private void setNature() {

@@ -42,7 +42,7 @@ public abstract class GameEngine2D {
     private int FPS = 0;
 
     public void run() {
-	Logger.print("Running.. " + Version.getVersion());
+	Logger.printMsg("Running.. " + Version.getVersion());
 
 	init();
 	loadRessources(tile_sheet_manager);
@@ -147,7 +147,7 @@ public abstract class GameEngine2D {
 		timer += 1000;
 		UPS = updates;
 		FPS = frames;
-		Logger.print(updates + " ups, " + frames + " fps");
+		Logger.printMsg(updates + " ups, " + frames + " fps");
 		updates = 0;
 		frames = 0;
 	    }
