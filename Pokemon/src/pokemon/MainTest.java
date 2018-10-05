@@ -18,6 +18,13 @@ public class MainTest {
 	Pokemon pokemon2 = new Pokemon().create(PokemonInitializer.pokemonMap.get(6), 5);
 	System.out.println(pokemon2.hiddenId);
 	System.out.println(pokemon2.id);
+	System.out.println(pokemon2.name);
+	System.out.println(pokemon2.gender);
+	Pokemon pokemon3 = new Pokemon().create(PokemonInitializer.pokemonMap.get(493), 5);
+	System.out.println(pokemon3.hiddenId);
+	System.out.println(pokemon3.id);
+	System.out.println(pokemon3.name);
+	System.out.println(pokemon3.gender);
     }
 
 }

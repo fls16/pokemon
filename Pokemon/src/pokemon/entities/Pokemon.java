@@ -113,10 +113,9 @@ public class Pokemon {
     }
 
     public Pokemon create(Pokemon tempPokemon, int level) {
-	hiddenId = idCounter;
-	idCounter++;
-
 	Pokemon finalPokemon = new Pokemon();
+	finalPokemon.hiddenId = idCounter;
+	idCounter++;
 	finalPokemon.id = tempPokemon.id;
 	finalPokemon.level = level;
 	finalPokemon.name = tempPokemon.name;
