@@ -56,7 +56,7 @@ public class Player extends Entity {
 	    float tempSpeed = speed * 1.0f / 60.0f;
 	    switch (direction) {
 	    case 0: // W
-		if (-transform.pos.y - tempSpeed > moveTo)
+		if (-transform.pos.y - tempSpeed * 2 >= moveTo)
 		    movement.set(0.0f, tempSpeed);
 		else
 		    canMove = true;
@@ -74,7 +74,7 @@ public class Player extends Entity {
 		    canMove = true;
 		break;
 	    case 3: // A
-		if (transform.pos.x - tempSpeed > moveTo)
+		if (transform.pos.x - tempSpeed * 2 > moveTo)
 		    movement.set(-tempSpeed, 0.0f);
 		else
 		    canMove = true;
