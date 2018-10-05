@@ -55,9 +55,11 @@ public class Pokemon {
     public Nature nature;
     public Type type1;
     public Type type2;
+    public String abilityname;
     public Ability ability;
     public EggGroup eggGroup1;
     public EggGroup eggGroup2;
+    public String genderRate;
     public Gender gender;
     public int captureRate;
     public LevelingRate levelingRate;
@@ -115,11 +117,10 @@ public class Pokemon {
     public Pokemon create(int id, int level, Pokemon pokemon) {
 	this.level = level;
 
-	pokemon.ability;
-	setAbility(abilityName);
-
+	setAbility(abilityname);
 	setNature();
-	setGender();
+	setGender(genderRate);
+	setEggSteps();
 	calculateMaximumStats();
 	currentHitpoints = maxhitpoints;
 
@@ -130,8 +131,16 @@ public class Pokemon {
 	ability.onDamageCalculation(battleInfoDTO);
     }
 
-    private void setAbility(String ability) {
-	this.ability = AbilityMap.abilities.get(ability);
+    public void setAbility(String abilityname) {
+	if (abilityname.split(",").length == 1)
+	    ability = AbilityMap.abilities.get(abilityname);
+	else {
+	    if (random.nextInt(100) < 50) {
+		ability = AbilityMap.abilities.get(abilityname.split(",")[0]);
+	    } else {
+		ability = AbilityMap.abilities.get(abilityname.split(",")[1]);
+	    }
+	}
     }
 
     private void setNature() {
@@ -139,8 +148,21 @@ public class Pokemon {
 	this.nature = natures.get(random.nextInt(25));
     }
 
-    private void setGender() {
+    private void setGender(String genderRate) {
+	if (genderRate.equals("-")) {
+	    gender = Gender.N;
+	} else {
+	    float genderRatio = Float.parseFloat(genderRate);
+	    if (random.nextFloat() * 100 < genderRatio) {
+		gender = Gender.M;
+	    } else {
+		gender = Gender.W;
+	    }
+	}
+    }
 
+    private void setEggSteps() {
+	this.eggSteps -= random.nextInt(301);
     }
 
     private void calculateMaximumStats() {
