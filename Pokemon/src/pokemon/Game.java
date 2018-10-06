@@ -60,8 +60,8 @@ public class Game extends GameEngine2D {
 	this.camera = window.getCamera();
 
 	// INIT ALL TILES
-	for (int y = 0; y < 16; y++) {
-	    for (int x = 0; x < 16; x++) {
+	for (int y = 0; y < 64; y++) {
+	    for (int x = 0; x < 64; x++) {
 		new Tile(x, y);
 	    }
 	}
@@ -69,8 +69,8 @@ public class Game extends GameEngine2D {
 
     @Override
     protected void loadRessources(TileSheetManager tsm) {
-	tsm.addTileSheet("test", new TileSheet("test", 16));
-	tsm.addTileSheet("player_m", new TileSheet("player_m", 32));
+	tsm.addTileSheet(new TileSheet("test", 16));
+	tsm.addTileSheet(new TileSheet("player", 8));
 	this.tile_sheet_manager = tsm;
     }
 
@@ -108,7 +108,7 @@ public class Game extends GameEngine2D {
 	Level test_level_1 = level_manager.getLevel("level_1");
 
 	// adding test-entities
-	Player player = new Player(new Transform(new Vector2f(60, -60)), tile_sheet_manager.getTileSheet("test"));
+	Player player = new Player(new Transform(new Vector2f(60, -60)), tile_sheet_manager.getTileSheet("player"));
 	player.setSolid(true);
 	test_level_1.addEntity(player);
     }

@@ -116,9 +116,12 @@ public class LevelEditor {
 	ListView list_view = new ListView(window.width - 512, 0, 512, window.height - 32);
 	final Button temp = new Button("", 50 + 64, 50, 48, 48);
 	temp.setEnabled(false);
+	System.out.println(Tile.tiles.length);
+	int counter = 0;
 	for (int i = 0; i < Tile.tiles.length; i++) {
 	    Tile t = Tile.tiles[i];
 	    if (t != null) {
+		counter++;
 		Button button = new Button("", 50 + 64 * i, 50, 48, 48);
 		button.changeTileSheet(tile_sheet_manager.getTileSheet("tiles"));
 		button.changeAllTextures(t.getTextureX(), t.getTextureY());
@@ -146,6 +149,8 @@ public class LevelEditor {
 		list_view.addElement(button);
 	    }
 	}
+	System.out.println(list_view.size());
+	System.out.println(counter);
 
 	editor.addElements(save, level_name_input, list_view, temp);
 	gui_manager.addGUI("editor", editor);

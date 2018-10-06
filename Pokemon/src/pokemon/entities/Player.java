@@ -90,16 +90,16 @@ public class Player extends Entity {
 	Animation[] animations = new Animation[8];
 
 	// running
-	animations[0] = new Animation(new int[][] { { 0, 1, 2, 3, 4 }, { 4, 4, 4, 4, 4 } }, tile_sheet, 6);
-	animations[1] = new Animation(new int[][] { { 0, 1, 2, 3, 4 }, { 5, 5, 5, 5, 5 } }, tile_sheet, 6);
-	animations[2] = new Animation(new int[][] { { 0, 1, 2, 3, 4 }, { 2, 2, 2, 2, 2 } }, tile_sheet, 6);
-	animations[3] = new Animation(new int[][] { { 0, 1, 2, 3, 4 }, { 3, 3, 3, 3, 3 } }, tile_sheet, 6);
+	animations[0] = new Animation(new int[][] { { 0, 1, 2 }, { 3, 3, 3 } }, tile_sheet, 6);
+	animations[1] = new Animation(new int[][] { { 0, 1, 2 }, { 2, 2, 2 } }, tile_sheet, 6);
+	animations[2] = new Animation(new int[][] { { 0, 1, 2 }, { 0, 0, 0 } }, tile_sheet, 6);
+	animations[3] = new Animation(new int[][] { { 0, 1, 2 }, { 1, 1, 1 } }, tile_sheet, 6);
 
 	// standing
-	animations[4] = new Animation(new int[][] { { 0 }, { 4 } }, tile_sheet, 4);
-	animations[5] = new Animation(new int[][] { { 0 }, { 5 } }, tile_sheet, 4);
-	animations[6] = new Animation(new int[][] { { 0 }, { 2 } }, tile_sheet, 4);
-	animations[7] = new Animation(new int[][] { { 0 }, { 3 } }, tile_sheet, 4);
+	animations[4] = new Animation(new int[][] { { 0, 1 }, { 3, 3 } }, tile_sheet, 3);
+	animations[5] = new Animation(new int[][] { { 0, 1 }, { 2, 2 } }, tile_sheet, 3);
+	animations[6] = new Animation(new int[][] { { 0, 1 }, { 0, 0 } }, tile_sheet, 3);
+	animations[7] = new Animation(new int[][] { { 0, 1 }, { 1, 1 } }, tile_sheet, 3);
 
 	return animations;
     }

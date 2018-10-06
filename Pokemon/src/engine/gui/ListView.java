@@ -18,6 +18,9 @@ public class ListView extends GUIElement {
     private float spacing;
     private float content_width;
 
+    private int columns;
+    private int rows;
+
     public ListView(float x, float y, float width, float height) {
 	super(x, y, width, height);
 	this.elements = new ArrayList<>();
@@ -25,9 +28,9 @@ public class ListView extends GUIElement {
 	this.slider.setValue(0);
 	this.element_width = 48.0f;
 	this.element_height = 48.0f;
-	this.spacing = 1.2f;
+	this.spacing = 1.05f;
 	this.content_width = bounding_box.width - slider.bounding_box.width / spacing;
-	System.out.println(content_width);
+	updateColumsAndRows();
     }
 
     @Override
@@ -42,12 +45,9 @@ public class ListView extends GUIElement {
     @Override
     public void onRender(Camera camera, Shader shader, Window window, Vector2f position) {
 	slider.render(camera, shader, window);
-
-	int row_amount = (int) ((element_width * spacing * elements.size()) / content_width);
-	int column_length = elements.size() / row_amount;
 	int counter = 0;
-	for (int y = 0; y < row_amount; y++) {
-	    for (int x = 0; x < column_length; x++) {
+	for (int y = 0; y < rows; y++) {
+	    for (int x = 0; x < columns; x++) {
 		if (counter < elements.size()) {
 		    GUIElement e = elements.get(counter++);
 		    float dy = bounding_box.y + element_height * spacing * y
@@ -63,6 +63,16 @@ public class ListView extends GUIElement {
 	counter = 0;
     }
 
+    private void updateColumsAndRows() {
+	columns = 1;
+	if (content_width > element_width * spacing) {
+	    columns = (int) (content_width / (spacing * element_width));
+	}
+	rows = elements.size() / columns;
+	System.out.println("columns: " + columns);
+	System.out.println("rows: " + rows);
+    }
+
     @Override
     public void init(TileSheet tile_sheet) {
 	super.init(tile_sheet);
@@ -76,16 +86,23 @@ public class ListView extends GUIElement {
 
     public void setElementWidth(float element_width) {
 	this.element_width = element_width;
+	updateColumsAndRows();
     }
 
     public void setElementHeight(float element_height) {
 	this.element_height = element_height;
+	updateColumsAndRows();
     }
 
     public boolean addElement(GUIElement element) {
 	element.bounding_box.width = element_width;
 	element.bounding_box.height = element_height;
+	updateColumsAndRows();
 	return elements.add(element);
+    }
+
+    public int size() {
+	return elements.size();
     }
 
 }

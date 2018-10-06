@@ -108,9 +108,9 @@ public abstract class GameEngine2D {
 	shader = new Shader("shader");
 
 	tile_sheet_manager = new TileSheetManager();
-	tile_sheet_manager.addTileSheet("font", BitmapFont.TILE_SHEET);
-	tile_sheet_manager.addTileSheet("gui", GUI.TILE_SHEET);
-	tile_sheet_manager.addTileSheet("tiles", TileRenderer.TILE_SHEET);
+	tile_sheet_manager.addTileSheet(BitmapFont.TILE_SHEET);
+	tile_sheet_manager.addTileSheet(GUI.TILE_SHEET);
+	tile_sheet_manager.addTileSheet(TileRenderer.TILE_SHEET);
 
 	gui_manager = new GUIManager(window);
 	level_manager = new LevelManager();
