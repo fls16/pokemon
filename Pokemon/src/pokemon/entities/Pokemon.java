@@ -53,29 +53,14 @@ public class Pokemon {
 
     // specific stats
     public long hiddenId;
-    public int id;
-    public String name;
     public String nickname;
     public int level;
     public int currentExp;
     public int currentHitpoints;
     public Nature nature;
-    public Type type1;
-    public Type type2;
-    public String abilityname;
     public Ability ability;
-    public EggGroup eggGroup1;
-    public EggGroup eggGroup2;
-    public String genderRate;
     public Gender gender;
-    public int captureRate;
-    public LevelingRate levelingRate;
-    public int expYield;
-    public int eggSteps;
-    public float height;
-    public float weight;
     public int friendship = 70;
-    public boolean legendary;
     public int evolveType;
 
     // calculated stats
@@ -86,14 +71,6 @@ public class Pokemon {
     public int specialDefense;
     public int speed;
 
-    // base stats
-    public int baseHitpoints;
-    public int baseAttack;
-    public int baseDefense;
-    public int baseSpecialAttack;
-    public int baseSpecialDefense;
-    public int baseSpeed;
-
     // iv's
     public int individualHitpoints = random.nextInt(32);
     public int individualAttack = random.nextInt(32);
@@ -101,14 +78,6 @@ public class Pokemon {
     public int individualSpecialAttack = random.nextInt(32);
     public int individualSpecialDefense = random.nextInt(32);
     public int individualSpeed = random.nextInt(32);
-
-    // iv yield
-    public int hitpointsYield;
-    public int attackYield;
-    public int defenseYield;
-    public int specialAttackYield;
-    public int specialDefenseYield;
-    public int speedYield;
 
     // ev's
     public int effortHitpoints = 0;
@@ -118,10 +87,46 @@ public class Pokemon {
     public int effortSpecialDefense = 0;
     public int effortSpeed = 0;
 
+    public PokemonDTO generalStats;
+
+    // public int id;
+    // public String name;
+    // public Type type1;
+    // public Type type2;
+    // public String abilityname;
+    // public EggGroup eggGroup1;
+    // public EggGroup eggGroup2;
+    // public String genderRate;
+    // public int captureRate;
+    // public LevelingRate levelingRate;
+    // public int expYield;
+    // public int eggSteps;
+    // public float height;
+    // public float weight;
+    // public boolean legendary;
+    //
+    // // base stats
+    // public int baseHitpoints;
+    // public int baseAttack;
+    // public int baseDefense;
+    // public int baseSpecialAttack;
+    // public int baseSpecialDefense;
+    // public int baseSpeed;
+    //
+    //
+    //
+    // // iv yield
+    // public int hitpointsYield;
+    // public int attackYield;
+    // public int defenseYield;
+    // public int specialAttackYield;
+    // public int specialDefenseYield;
+    // public int speedYield;
+
     /**
      * Just an empty constructor.
      */
-    public Pokemon() {
+    private Pokemon() {
     }
 
     /**
@@ -136,39 +141,40 @@ public class Pokemon {
      */
     public Pokemon create(PokemonDTO pokemonDTO, int level) {
 	Pokemon pokemon = new Pokemon();
+	pokemon.generalStats = pokemonDTO;
 	pokemon.hiddenId = idCounter;
 	idCounter++;
-	pokemon.id = pokemonDTO.id;
-	pokemon.name = pokemonDTO.name;
+	// pokemon.id = pokemonDTO.id;
+	// pokemon.name = pokemonDTO.name;
 	pokemon.nickname = pokemonDTO.name;
 	pokemon.level = level;
-	pokemon.type1 = Type.valueOf(pokemonDTO.type1);
+	// pokemon.type1 = Type.valueOf(pokemonDTO.type1);
 	if (pokemonDTO.type2 != null) {
-	    pokemon.type2 = Type.valueOf(pokemonDTO.type2);
+	    // pokemon.type2 = Type.valueOf(pokemonDTO.type2);
 	}
-	pokemon.eggGroup1 = EggGroup.valueOf(pokemonDTO.eggGroup1);
+	// pokemon.eggGroup1 = EggGroup.valueOf(pokemonDTO.eggGroup1);
 	if (pokemonDTO.eggGroup2 != null) {
-	    pokemon.eggGroup2 = EggGroup.valueOf(pokemonDTO.eggGroup2);
+	    // pokemon.eggGroup2 = EggGroup.valueOf(pokemonDTO.eggGroup2);
 	}
-	pokemon.captureRate = pokemonDTO.captureRate;
-	pokemon.levelingRate = LevelingRate.valueOf(pokemonDTO.levelingRate);
-	pokemon.expYield = pokemonDTO.expYield;
-	pokemon.eggSteps = pokemonDTO.eggSteps;
-	pokemon.height = pokemonDTO.height;
-	pokemon.weight = pokemonDTO.weight;
-	pokemon.legendary = pokemonDTO.legendary;
-	pokemon.baseHitpoints = pokemonDTO.baseHitpoints;
-	pokemon.baseAttack = pokemonDTO.baseAttack;
-	pokemon.baseDefense = pokemonDTO.baseDefense;
-	pokemon.baseSpecialAttack = pokemonDTO.baseSpecialAttack;
-	pokemon.baseSpecialDefense = pokemonDTO.baseSpecialDefense;
-	pokemon.baseSpeed = pokemonDTO.baseSpeed;
-	pokemon.hitpointsYield = pokemonDTO.hitpointsYield;
-	pokemon.attackYield = pokemonDTO.attackYield;
-	pokemon.defenseYield = pokemonDTO.defenseYield;
-	pokemon.specialAttackYield = pokemonDTO.specialAttackYield;
-	pokemon.specialDefenseYield = pokemonDTO.specialDefenseYield;
-	pokemon.speedYield = pokemonDTO.speedYield;
+	// pokemon.captureRate = pokemonDTO.captureRate;
+	// pokemon.levelingRate = LevelingRate.valueOf(pokemonDTO.levelingRate);
+	// pokemon.expYield = pokemonDTO.expYield;
+	// pokemon.eggSteps = pokemonDTO.eggSteps;
+	// pokemon.height = pokemonDTO.height;
+	// pokemon.weight = pokemonDTO.weight;
+	// pokemon.legendary = pokemonDTO.legendary;
+	// pokemon.baseHitpoints = pokemonDTO.baseHitpoints;
+	// pokemon.baseAttack = pokemonDTO.baseAttack;
+	// pokemon.baseDefense = pokemonDTO.baseDefense;
+	// pokemon.baseSpecialAttack = pokemonDTO.baseSpecialAttack;
+	// pokemon.baseSpecialDefense = pokemonDTO.baseSpecialDefense;
+	// pokemon.baseSpeed = pokemonDTO.baseSpeed;
+	// pokemon.hitpointsYield = pokemonDTO.hitpointsYield;
+	// pokemon.attackYield = pokemonDTO.attackYield;
+	// pokemon.defenseYield = pokemonDTO.defenseYield;
+	// pokemon.specialAttackYield = pokemonDTO.specialAttackYield;
+	// pokemon.specialDefenseYield = pokemonDTO.specialDefenseYield;
+	// pokemon.speedYield = pokemonDTO.speedYield;
 
 	pokemon.setNature();
 	pokemon.setAbility(pokemonDTO.abilityname);
@@ -228,27 +234,27 @@ public class Pokemon {
     public void calculateMaximumStats() {
 	int oldmaxhitpoints = maxhitpoints;
 
-	maxhitpoints = (int) (((int) ((((2 * baseHitpoints) + individualHitpoints + ((int) (effortHitpoints / 4)))
-		* level) / 100)) + level + 10);
+	maxhitpoints = (int) (((int) ((((2 * generalStats.baseHitpoints) + individualHitpoints
+		+ ((int) (effortHitpoints / 4))) * level) / 100)) + level + 10);
 
 	currentHitpoints = currentHitpoints + maxhitpoints - oldmaxhitpoints;
 
-	attack = (int) ((((int) ((((2 * baseAttack) + individualAttack + ((int) (effortAttack / 4))) * level) / 100))
-		+ 5) * NatureModifier.attackModifier(nature));
+	attack = (int) ((((int) ((((2 * generalStats.baseAttack) + individualAttack + ((int) (effortAttack / 4)))
+		* level) / 100)) + 5) * NatureModifier.attackModifier(nature));
 
-	defense = (int) ((((int) ((((2 * baseDefense) + individualDefense + ((int) (effortDefense / 4))) * level)
-		/ 100)) + 5) * NatureModifier.defenseModifier(nature));
+	defense = (int) ((((int) ((((2 * generalStats.baseDefense) + individualDefense + ((int) (effortDefense / 4)))
+		* level) / 100)) + 5) * NatureModifier.defenseModifier(nature));
 
-	specialAttack = (int) ((((int) ((((2 * baseSpecialAttack) + individualSpecialAttack
+	specialAttack = (int) ((((int) ((((2 * generalStats.baseSpecialAttack) + individualSpecialAttack
 		+ ((int) (effortSpecialAttack / 4))) * level) / 100)) + 5)
 		* NatureModifier.specialAttackModifier(nature));
 
-	specialDefense = (int) ((((int) ((((2 * baseSpecialDefense) + individualSpecialDefense
+	specialDefense = (int) ((((int) ((((2 * generalStats.baseSpecialDefense) + individualSpecialDefense
 		+ ((int) (effortSpecialDefense / 4))) * level) / 100)) + 5)
 		* NatureModifier.specialDefenseModifier(nature));
 
-	speed = (int) ((((int) ((((2 * baseSpeed) + individualSpeed + ((int) (effortSpeed / 4))) * level) / 100)) + 5)
-		* NatureModifier.speedModifier(nature));
+	speed = (int) ((((int) ((((2 * generalStats.baseSpeed) + individualSpeed + ((int) (effortSpeed / 4))) * level)
+		/ 100)) + 5) * NatureModifier.speedModifier(nature));
     }
 
     public void onDamageCalculation(BattleInfoDTO battleInfoDTO) {
@@ -296,25 +302,28 @@ public class Pokemon {
 
     @Override
     public String toString() {
-	return "Pokemon [hiddenId=" + hiddenId + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", level="
-		+ level + ", currentHitpoints=" + currentHitpoints + ", nature=" + nature + ", type1=" + type1
-		+ ", type2=" + type2 + ", ability=" + ability.getName() + ", eggGroup1=" + eggGroup1 + ", eggGroup2="
-		+ eggGroup2 + ", gender=" + gender + ", captureRate=" + captureRate + ", levelingRate=" + levelingRate
-		+ ", expYield=" + expYield + ", eggSteps=" + eggSteps + ", height=" + height + ", weight=" + weight
-		+ ", friendship=" + friendship + ", legendary=" + legendary + ", maxhitpoints=" + maxhitpoints
-		+ ", attack=" + attack + ", defense=" + defense + ", specialAttack=" + specialAttack
-		+ ", specialDefense=" + specialDefense + ", speed=" + speed + ", baseHitpoints=" + baseHitpoints
-		+ ", baseAttack=" + baseAttack + ", baseDefense=" + baseDefense + ", baseSpecialAttack="
-		+ baseSpecialAttack + ", baseSpecialDefense=" + baseSpecialDefense + ", baseSpeed=" + baseSpeed
+	return "Pokemon [hiddenId=" + hiddenId + ", id=" + generalStats.id + ", name=" + generalStats.name
+		+ ", nickname=" + nickname + ", level=" + level + ", currentHitpoints=" + currentHitpoints + ", nature="
+		+ nature + ", type1=" + generalStats.type1 + ", type2=" + generalStats.type2 + ", ability="
+		+ ability.getName() + ", eggGroup1=" + generalStats.eggGroup1 + ", eggGroup2=" + generalStats.eggGroup2
+		+ ", gender=" + gender + ", captureRate=" + generalStats.captureRate + ", levelingRate="
+		+ generalStats.levelingRate + ", expYield=" + generalStats.expYield + ", eggSteps="
+		+ generalStats.eggSteps + ", height=" + generalStats.height + ", weight=" + generalStats.weight
+		+ ", friendship=" + friendship + ", legendary=" + generalStats.legendary + ", maxhitpoints="
+		+ maxhitpoints + ", attack=" + attack + ", defense=" + defense + ", specialAttack=" + specialAttack
+		+ ", specialDefense=" + specialDefense + ", speed=" + speed + ", baseHitpoints="
+		+ generalStats.baseHitpoints + ", baseAttack=" + generalStats.baseAttack + ", baseDefense="
+		+ generalStats.baseDefense + ", baseSpecialAttack=" + generalStats.baseSpecialAttack
+		+ ", baseSpecialDefense=" + generalStats.baseSpecialDefense + ", baseSpeed=" + generalStats.baseSpeed
 		+ ", individualHitpoints=" + individualHitpoints + ", individualAttack=" + individualAttack
 		+ ", individualDefense=" + individualDefense + ", individualSpecialAttack=" + individualSpecialAttack
 		+ ", individualSpecialDefense=" + individualSpecialDefense + ", individualSpeed=" + individualSpeed
-		+ ", hitpointsYield=" + hitpointsYield + ", attackYield=" + attackYield + ", defenseYield="
-		+ defenseYield + ", specialAttackYield=" + specialAttackYield + ", specialDefenseYield="
-		+ specialDefenseYield + ", speedYield=" + speedYield + ", effortHitpoints=" + effortHitpoints
-		+ ", effortAttack=" + effortAttack + ", effortDefense=" + effortDefense + ", effortSpecialAttack="
-		+ effortSpecialAttack + ", effortSpecialDefense=" + effortSpecialDefense + ", effortSpeed="
-		+ effortSpeed + "]";
+		+ ", hitpointsYield=" + generalStats.hitpointsYield + ", attackYield=" + generalStats.attackYield
+		+ ", defenseYield=" + generalStats.defenseYield + ", specialAttackYield="
+		+ generalStats.specialAttackYield + ", specialDefenseYield=" + generalStats.specialDefenseYield
+		+ ", speedYield=" + generalStats.speedYield + ", effortHitpoints=" + effortHitpoints + ", effortAttack="
+		+ effortAttack + ", effortDefense=" + effortDefense + ", effortSpecialAttack=" + effortSpecialAttack
+		+ ", effortSpecialDefense=" + effortSpecialDefense + ", effortSpeed=" + effortSpeed + "]";
     }
 
 }
