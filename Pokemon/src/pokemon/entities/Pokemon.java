@@ -192,7 +192,7 @@ public class Pokemon {
 	this.eggSteps -= random.nextInt(301);
     }
 
-    private void calculateMaximumStats() {
+    public void calculateMaximumStats() {
 	maxhitpoints = (int) (((int) ((((2 * baseHitpoints) + individualHitpoints + ((int) (effortHitpoints / 4)))
 		* level) / 100)) + level + 10);
 
@@ -218,8 +218,8 @@ public class Pokemon {
     public String toString() {
 	return "Pokemon [hiddenId=" + hiddenId + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", level="
 		+ level + ", currentHitpoints=" + currentHitpoints + ", nature=" + nature + ", type1=" + type1
-		+ ", type2=" + type2 + ", ability=" + ability + ", eggGroup1=" + eggGroup1 + ", eggGroup2=" + eggGroup2
-		+ ", gender=" + gender + ", captureRate=" + captureRate + ", levelingRate=" + levelingRate
+		+ ", type2=" + type2 + ", ability=" + ability.getName() + ", eggGroup1=" + eggGroup1 + ", eggGroup2="
+		+ eggGroup2 + ", gender=" + gender + ", captureRate=" + captureRate + ", levelingRate=" + levelingRate
 		+ ", expYield=" + expYield + ", eggSteps=" + eggSteps + ", height=" + height + ", weight=" + weight
 		+ ", legendary=" + legendary + ", maxhitpoints=" + maxhitpoints + ", attack=" + attack + ", defense="
 		+ defense + ", specialAttack=" + specialAttack + ", specialDefense=" + specialDefense + ", speed="
