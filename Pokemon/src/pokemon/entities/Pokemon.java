@@ -149,7 +149,6 @@ public class Pokemon {
 	finalPokemon.setGender(tempPokemon.genderRate);
 	finalPokemon.setEggSteps();
 	finalPokemon.calculateMaximumStats();
-	finalPokemon.currentHitpoints = finalPokemon.maxhitpoints;
 
 	return finalPokemon;
     }
@@ -193,8 +192,12 @@ public class Pokemon {
     }
 
     public void calculateMaximumStats() {
+	int oldmaxhitpoints = maxhitpoints;
+
 	maxhitpoints = (int) (((int) ((((2 * baseHitpoints) + individualHitpoints + ((int) (effortHitpoints / 4)))
 		* level) / 100)) + level + 10);
+
+	currentHitpoints = currentHitpoints + maxhitpoints - oldmaxhitpoints;
 
 	attack = (int) ((((int) ((((2 * baseAttack) + individualAttack + ((int) (effortAttack / 4))) * level) / 100))
 		+ 5) * NatureModifier.attackModifier(nature));
