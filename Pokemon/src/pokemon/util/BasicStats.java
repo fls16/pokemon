@@ -1,23 +1,30 @@
 package pokemon.util;
 
-import java.util.Random;
+public class BasicStats {
 
-public class PokemonDTO {
+    public enum Type {
+	Normal, Fighting, Flying, Poison, Ground, Rock, Bug, Ghost, Steel, Fire, Water, Grass, Electric, Psychic, Ice, Dragon, Dark
+    }
 
-    // util
-    Random random = new Random();
+    public enum EggGroup {
+	Monster, Water_1, Water_2, Water_3, Bug, Flying, Field, Fairy, Grass, Undiscovered, Human_Like, Mineral, Amorphous, Ditto, Dragon
+    }
+
+    public enum LevelingRate {
+	Slow, Medium, Fast, MediumSlow, SlowThenFast, FastThenSlow
+    }
 
     // specific stats
     public int id;
     public String name;
-    public String type1;
-    public String type2;
+    public Type type1;
+    public Type type2;
     public String abilityname;
-    public String eggGroup1;
-    public String eggGroup2;
+    public EggGroup eggGroup1;
+    public EggGroup eggGroup2;
     public String genderRate;
     public int captureRate;
-    public String levelingRate;
+    public LevelingRate levelingRate;
     public int expYield;
     public int eggSteps;
     public float height;

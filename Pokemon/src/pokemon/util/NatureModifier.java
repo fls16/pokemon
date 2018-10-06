@@ -1,8 +1,20 @@
 package pokemon.util;
 
-import pokemon.entities.Pokemon.Nature;
-
 public class NatureModifier {
+
+    public enum Nature {
+	// - Attack, - Defense, - SpAtk, - SpDef, - Speed
+	// + Attack
+	Hardy, Lonely, Adamant, Naughty, Brave,
+	// + Defense
+	Bold, Docile, Impish, Lax, Relaxed,
+	// + SpAtk
+	Modest, Mild, Bashful, Rash, Quiet,
+	// + SpDef
+	Calm, Gentle, Careful, Quirky, Sassy,
+	// + Speed
+	Timid, Hasty, Jolly, Naive, Serious;
+    }
 
     public static float attackModifier(Nature nature) {
 	float natureMod;
