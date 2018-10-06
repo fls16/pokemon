@@ -8,7 +8,13 @@ import pokemon.dto.BattleInfoDTO;
 import pokemon.util.Ability;
 import pokemon.util.AbilityMap;
 import pokemon.util.NatureModifier;
+import pokemon.util.PokemonDTO;
 
+/**
+ * A Pokemon. Not much to say.
+ * 
+ * @author Lation
+ */
 public class Pokemon {
 
     public enum Type {
@@ -51,6 +57,7 @@ public class Pokemon {
     public String name;
     public String nickname;
     public int level;
+    public int currentExp;
     public int currentHitpoints;
     public Nature nature;
     public Type type1;
@@ -67,7 +74,9 @@ public class Pokemon {
     public int eggSteps;
     public float height;
     public float weight;
+    public int friendship = 70;
     public boolean legendary;
+    public int evolveType;
 
     // calculated stats
     public int maxhitpoints;
@@ -109,54 +118,71 @@ public class Pokemon {
     public int effortSpecialDefense = 0;
     public int effortSpeed = 0;
 
+    /**
+     * Just an empty constructor.
+     */
     public Pokemon() {
     }
 
-    public Pokemon create(Pokemon tempPokemon, int level) {
-	Pokemon finalPokemon = new Pokemon();
-	finalPokemon.hiddenId = idCounter;
+    /**
+     * Method to create any Pokemon at will.
+     * 
+     * @param pokemonDTO
+     *            Template of a general pokemon of which you want to create a unique
+     *            copy.
+     * @param level
+     *            The level the created Pokemon is going to have.
+     * @return Pokemon Basically a unique Pokemon you can encounter during the game.
+     */
+    public Pokemon create(PokemonDTO pokemonDTO, int level) {
+	Pokemon pokemon = new Pokemon();
+	pokemon.hiddenId = idCounter;
 	idCounter++;
-	finalPokemon.id = tempPokemon.id;
-	finalPokemon.name = tempPokemon.name;
-	finalPokemon.nickname = tempPokemon.name;
-	finalPokemon.level = level;
-	finalPokemon.type1 = tempPokemon.type1;
-	finalPokemon.type2 = tempPokemon.type2;
-	finalPokemon.eggGroup1 = tempPokemon.eggGroup1;
-	finalPokemon.eggGroup2 = tempPokemon.eggGroup2;
-	finalPokemon.captureRate = tempPokemon.captureRate;
-	finalPokemon.levelingRate = tempPokemon.levelingRate;
-	finalPokemon.expYield = tempPokemon.expYield;
-	finalPokemon.eggSteps = tempPokemon.eggSteps;
-	finalPokemon.height = tempPokemon.height;
-	finalPokemon.weight = tempPokemon.weight;
-	finalPokemon.legendary = tempPokemon.legendary;
-	finalPokemon.baseHitpoints = tempPokemon.baseHitpoints;
-	finalPokemon.baseAttack = tempPokemon.baseAttack;
-	finalPokemon.baseDefense = tempPokemon.baseDefense;
-	finalPokemon.baseSpecialAttack = tempPokemon.baseSpecialAttack;
-	finalPokemon.baseSpecialDefense = tempPokemon.baseSpecialDefense;
-	finalPokemon.baseSpeed = tempPokemon.baseSpeed;
-	finalPokemon.hitpointsYield = tempPokemon.hitpointsYield;
-	finalPokemon.attackYield = tempPokemon.attackYield;
-	finalPokemon.defenseYield = tempPokemon.defenseYield;
-	finalPokemon.specialAttackYield = tempPokemon.specialAttackYield;
-	finalPokemon.specialDefenseYield = tempPokemon.specialDefenseYield;
-	finalPokemon.speedYield = tempPokemon.speedYield;
+	pokemon.id = pokemonDTO.id;
+	pokemon.name = pokemonDTO.name;
+	pokemon.nickname = pokemonDTO.name;
+	pokemon.level = level;
+	pokemon.type1 = Type.valueOf(pokemonDTO.type1);
+	if (pokemonDTO.type2 != null) {
+	    pokemon.type2 = Type.valueOf(pokemonDTO.type2);
+	}
+	pokemon.eggGroup1 = EggGroup.valueOf(pokemonDTO.eggGroup1);
+	if (pokemonDTO.eggGroup2 != null) {
+	    pokemon.eggGroup2 = EggGroup.valueOf(pokemonDTO.eggGroup2);
+	}
+	pokemon.captureRate = pokemonDTO.captureRate;
+	pokemon.levelingRate = LevelingRate.valueOf(pokemonDTO.levelingRate);
+	pokemon.expYield = pokemonDTO.expYield;
+	pokemon.eggSteps = pokemonDTO.eggSteps;
+	pokemon.height = pokemonDTO.height;
+	pokemon.weight = pokemonDTO.weight;
+	pokemon.legendary = pokemonDTO.legendary;
+	pokemon.baseHitpoints = pokemonDTO.baseHitpoints;
+	pokemon.baseAttack = pokemonDTO.baseAttack;
+	pokemon.baseDefense = pokemonDTO.baseDefense;
+	pokemon.baseSpecialAttack = pokemonDTO.baseSpecialAttack;
+	pokemon.baseSpecialDefense = pokemonDTO.baseSpecialDefense;
+	pokemon.baseSpeed = pokemonDTO.baseSpeed;
+	pokemon.hitpointsYield = pokemonDTO.hitpointsYield;
+	pokemon.attackYield = pokemonDTO.attackYield;
+	pokemon.defenseYield = pokemonDTO.defenseYield;
+	pokemon.specialAttackYield = pokemonDTO.specialAttackYield;
+	pokemon.specialDefenseYield = pokemonDTO.specialDefenseYield;
+	pokemon.speedYield = pokemonDTO.speedYield;
 
-	finalPokemon.setNature();
-	finalPokemon.setAbility(tempPokemon.abilityname);
-	finalPokemon.setGender(tempPokemon.genderRate);
-	finalPokemon.setEggSteps();
-	finalPokemon.calculateMaximumStats();
+	pokemon.setNature();
+	pokemon.setAbility(pokemonDTO.abilityname);
+	pokemon.setGender(pokemonDTO.genderRate);
+	pokemon.calculateMaximumStats();
 
-	return finalPokemon;
+	return pokemon;
     }
 
-    public void onDamageCalculation(BattleInfoDTO battleInfoDTO) {
-	ability.onDamageCalculation(battleInfoDTO);
-    }
-
+    /**
+     * Sets the Ability for the Pokemon when created
+     * 
+     * @param abilityname
+     */
     public void setAbility(String abilityname) {
 	if (abilityname.split(",").length == 1) {
 	    ability = AbilityMap.abilities.get(abilityname);
@@ -169,11 +195,20 @@ public class Pokemon {
 	}
     }
 
+    /**
+     * Sets a random nature for the Pokemon when created.
+     */
     private void setNature() {
 	List<Nature> natures = Arrays.asList(Nature.values());
 	this.nature = natures.get(random.nextInt(25));
     }
 
+    /**
+     * Randomly assigns a gender for the created Pokemon by using the genderRate.
+     * 
+     * @param genderRate
+     *            The Float (String) probability of being male.
+     */
     private void setGender(String genderRate) {
 	if (genderRate.equals("-")) {
 	    gender = Gender.N;
@@ -187,10 +222,9 @@ public class Pokemon {
 	}
     }
 
-    private void setEggSteps() {
-	this.eggSteps -= random.nextInt(301);
-    }
-
+    /**
+     * Calculates the new Stats of a pokemon, e.g. after a level up.
+     */
     public void calculateMaximumStats() {
 	int oldmaxhitpoints = maxhitpoints;
 
@@ -217,6 +251,49 @@ public class Pokemon {
 		* NatureModifier.speedModifier(nature));
     }
 
+    public void onDamageCalculation(BattleInfoDTO battleInfoDTO) {
+	ability.onDamageCalculation(battleInfoDTO);
+    }
+
+    public void createEgg() {
+	// TO-DO
+	// ...
+	// eggSteps -= random.nextInt(301);
+    }
+
+    public void gainExp(BattleInfoDTO battleInfoDTO) {
+	// int exp = battleInfoDTO.getEnemyPokemon.expYield;
+	// ...
+	// if (level up) {
+	// calculateMaximumStats();
+	//
+    }
+
+    public boolean triggerEvolution() {
+	if (evolveType == 0) { // <-- can't evolve
+	    return false;
+	} else if (evolveType == 1) { // <-- evolution via leveling up
+	    // regular
+	    // if (friendship > 220)
+	    // if (holding certain item)
+	    // if (knows certain move or move type)
+	    // if (at certain location)
+	    // if (at certain time of day)
+	    return true;
+	} else if (evolveType == 2) { // <-- evolution via stone
+	    // regular
+	    return true;
+	} else if (evolveType == 3) { // <-- evolution via trade
+	    // regular
+	    // if (holding certain item)
+	    return true;
+	} else if (evolveType == 4) { // <-- miscellaneous (e.g. Shedinja)
+	    // ?
+	    return true;
+	}
+	return false;
+    }
+
     @Override
     public String toString() {
 	return "Pokemon [hiddenId=" + hiddenId + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", level="
@@ -224,19 +301,20 @@ public class Pokemon {
 		+ ", type2=" + type2 + ", ability=" + ability.getName() + ", eggGroup1=" + eggGroup1 + ", eggGroup2="
 		+ eggGroup2 + ", gender=" + gender + ", captureRate=" + captureRate + ", levelingRate=" + levelingRate
 		+ ", expYield=" + expYield + ", eggSteps=" + eggSteps + ", height=" + height + ", weight=" + weight
-		+ ", legendary=" + legendary + ", maxhitpoints=" + maxhitpoints + ", attack=" + attack + ", defense="
-		+ defense + ", specialAttack=" + specialAttack + ", specialDefense=" + specialDefense + ", speed="
-		+ speed + ", baseHitpoints=" + baseHitpoints + ", baseAttack=" + baseAttack + ", baseDefense="
-		+ baseDefense + ", baseSpecialAttack=" + baseSpecialAttack + ", baseSpecialDefense="
-		+ baseSpecialDefense + ", baseSpeed=" + baseSpeed + ", individualHitpoints=" + individualHitpoints
-		+ ", individualAttack=" + individualAttack + ", individualDefense=" + individualDefense
-		+ ", individualSpecialAttack=" + individualSpecialAttack + ", individualSpecialDefense="
-		+ individualSpecialDefense + ", individualSpeed=" + individualSpeed + ", hitpointsYield="
-		+ hitpointsYield + ", attackYield=" + attackYield + ", defenseYield=" + defenseYield
-		+ ", specialAttackYield=" + specialAttackYield + ", specialDefenseYield=" + specialDefenseYield
-		+ ", speedYield=" + speedYield + ", effortHitpoints=" + effortHitpoints + ", effortAttack="
-		+ effortAttack + ", effortDefense=" + effortDefense + ", effortSpecialAttack=" + effortSpecialAttack
-		+ ", effortSpecialDefense=" + effortSpecialDefense + ", effortSpeed=" + effortSpeed + "]";
+		+ ", friendship=" + friendship + ", legendary=" + legendary + ", maxhitpoints=" + maxhitpoints
+		+ ", attack=" + attack + ", defense=" + defense + ", specialAttack=" + specialAttack
+		+ ", specialDefense=" + specialDefense + ", speed=" + speed + ", baseHitpoints=" + baseHitpoints
+		+ ", baseAttack=" + baseAttack + ", baseDefense=" + baseDefense + ", baseSpecialAttack="
+		+ baseSpecialAttack + ", baseSpecialDefense=" + baseSpecialDefense + ", baseSpeed=" + baseSpeed
+		+ ", individualHitpoints=" + individualHitpoints + ", individualAttack=" + individualAttack
+		+ ", individualDefense=" + individualDefense + ", individualSpecialAttack=" + individualSpecialAttack
+		+ ", individualSpecialDefense=" + individualSpecialDefense + ", individualSpeed=" + individualSpeed
+		+ ", hitpointsYield=" + hitpointsYield + ", attackYield=" + attackYield + ", defenseYield="
+		+ defenseYield + ", specialAttackYield=" + specialAttackYield + ", specialDefenseYield="
+		+ specialDefenseYield + ", speedYield=" + speedYield + ", effortHitpoints=" + effortHitpoints
+		+ ", effortAttack=" + effortAttack + ", effortDefense=" + effortDefense + ", effortSpecialAttack="
+		+ effortSpecialAttack + ", effortSpecialDefense=" + effortSpecialDefense + ", effortSpeed="
+		+ effortSpeed + "]";
     }
 
 }

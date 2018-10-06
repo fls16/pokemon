@@ -7,62 +7,60 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import pokemon.entities.Pokemon.EggGroup;
-import pokemon.entities.Pokemon.LevelingRate;
-import pokemon.entities.Pokemon.Type;
+import pokemon.util.PokemonDTO;
 
 public class PokemonInitializer {
 
     Random random = new Random();
-    public static Map<Integer, Pokemon> pokemonMap = new HashMap<>();
+    public static Map<Integer, PokemonDTO> pokemonMap = new HashMap<>();
 
     public void initPokemon() {
 	try (BufferedReader br = new BufferedReader(new FileReader("src/pokemon/data/pokemonvalues.csv"))) {
 	    br.readLine();
-	    Pokemon pokemon = null;
+	    PokemonDTO pokemonDTO = null;
 	    String line;
 
 	    while ((line = br.readLine()) != null) {
 		String[] parameters = line.split(";");
-		pokemon = new Pokemon();
-		pokemon.id = Integer.parseInt(parameters[0]);
-		pokemon.name = parameters[1];
-		pokemon.type1 = Type.valueOf(parameters[2]);
+		pokemonDTO = new PokemonDTO();
+		pokemonDTO.id = Integer.parseInt(parameters[0]);
+		pokemonDTO.name = parameters[1];
+		pokemonDTO.type1 = parameters[2];
 		if (!parameters[3].equals("-")) {
-		    pokemon.type2 = Type.valueOf(parameters[3]);
+		    pokemonDTO.type2 = parameters[3];
 		}
-		pokemon.abilityname = parameters[4];
+		pokemonDTO.abilityname = parameters[4];
 		if (parameters[5].split(",").length == 1)
-		    pokemon.eggGroup1 = EggGroup.valueOf(parameters[5]);
+		    pokemonDTO.eggGroup1 = parameters[5];
 		else {
-		    pokemon.eggGroup1 = EggGroup.valueOf(parameters[5].split(",")[0]);
-		    pokemon.eggGroup2 = EggGroup.valueOf(parameters[5].split(",")[1]);
+		    pokemonDTO.eggGroup1 = parameters[5].split(",")[0];
+		    pokemonDTO.eggGroup2 = parameters[5].split(",")[1];
 		}
-		pokemon.genderRate = parameters[6];
-		pokemon.captureRate = Integer.parseInt(parameters[7]);
-		pokemon.levelingRate = LevelingRate.valueOf(parameters[8]);
-		pokemon.expYield = Integer.parseInt(parameters[9]);
-		pokemon.eggSteps = Integer.parseInt(parameters[10]);
-		pokemon.height = Float.parseFloat(parameters[11]);
-		pokemon.weight = Float.parseFloat(parameters[12]);
+		pokemonDTO.genderRate = parameters[6];
+		pokemonDTO.captureRate = Integer.parseInt(parameters[7]);
+		pokemonDTO.levelingRate = parameters[8];
+		pokemonDTO.expYield = Integer.parseInt(parameters[9]);
+		pokemonDTO.eggSteps = Integer.parseInt(parameters[10]);
+		pokemonDTO.height = Float.parseFloat(parameters[11]);
+		pokemonDTO.weight = Float.parseFloat(parameters[12]);
 		if (parameters[13].equals("0"))
-		    pokemon.legendary = false;
+		    pokemonDTO.legendary = false;
 		else
-		    pokemon.legendary = true;
-		pokemon.baseHitpoints = Integer.parseInt(parameters[14]);
-		pokemon.baseAttack = Integer.parseInt(parameters[15]);
-		pokemon.baseDefense = Integer.parseInt(parameters[16]);
-		pokemon.baseSpecialAttack = Integer.parseInt(parameters[17]);
-		pokemon.baseSpecialDefense = Integer.parseInt(parameters[18]);
-		pokemon.baseSpeed = Integer.parseInt(parameters[19]);
-		pokemon.hitpointsYield = Integer.parseInt(parameters[20]);
-		pokemon.attackYield = Integer.parseInt(parameters[21]);
-		pokemon.defenseYield = Integer.parseInt(parameters[22]);
-		pokemon.specialAttackYield = Integer.parseInt(parameters[23]);
-		pokemon.specialDefenseYield = Integer.parseInt(parameters[24]);
-		pokemon.speedYield = Integer.parseInt(parameters[25]);
+		    pokemonDTO.legendary = true;
+		pokemonDTO.baseHitpoints = Integer.parseInt(parameters[14]);
+		pokemonDTO.baseAttack = Integer.parseInt(parameters[15]);
+		pokemonDTO.baseDefense = Integer.parseInt(parameters[16]);
+		pokemonDTO.baseSpecialAttack = Integer.parseInt(parameters[17]);
+		pokemonDTO.baseSpecialDefense = Integer.parseInt(parameters[18]);
+		pokemonDTO.baseSpeed = Integer.parseInt(parameters[19]);
+		pokemonDTO.hitpointsYield = Integer.parseInt(parameters[20]);
+		pokemonDTO.attackYield = Integer.parseInt(parameters[21]);
+		pokemonDTO.defenseYield = Integer.parseInt(parameters[22]);
+		pokemonDTO.specialAttackYield = Integer.parseInt(parameters[23]);
+		pokemonDTO.specialDefenseYield = Integer.parseInt(parameters[24]);
+		pokemonDTO.speedYield = Integer.parseInt(parameters[25]);
 
-		pokemonMap.put(pokemon.id, pokemon);
+		pokemonMap.put(pokemonDTO.id, pokemonDTO);
 	    }
 	} catch (IOException e) {
 	    e.printStackTrace();
