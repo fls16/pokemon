@@ -59,6 +59,36 @@ public class Game extends GameEngine2D {
 	// TILES
 	Tile t_grass = new Tile(0, 0).setSolid(false);
 	Tile t_flower_1 = new Tile(0, 1).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
+
+	new Tile(8, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
+	new Tile(9, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
+	new Tile(10, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
+	new Tile(11, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
+	new Tile(12, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
+
+	new Tile(8, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(9, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(10, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(11, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(12, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+
+	new Tile(8, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(9, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(10, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(11, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(12, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+
+	new Tile(8, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(9, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(10, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(11, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(12, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+
+	new Tile(8, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(9, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(10, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(11, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(12, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
     }
 
     @Override

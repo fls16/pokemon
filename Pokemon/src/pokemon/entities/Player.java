@@ -27,7 +27,7 @@ public class Player extends Entity {
     }
 
     @Override
-    protected void onUpdate(float delta, Window window, Camera camera, Level world) {
+    protected void onUpdate(float delta, Window window, Camera camera, Level level) {
 	Input input = window.getInput();
 
 	speed = input.isKeyDown(Input.L_SHIFT) ? 5 * 2 : 5;
@@ -56,25 +56,25 @@ public class Player extends Entity {
 	    float tempSpeed = speed * 1.0f / 60.0f;
 	    switch (direction) {
 	    case 0: // W
-		if (-transform.pos.y - tempSpeed * 2 >= moveTo)
+		if (!targetTileSolid(level, transform.pos.x, moveTo) && -transform.pos.y - tempSpeed * 2 >= moveTo)
 		    movement.set(0.0f, tempSpeed);
 		else
 		    canMove = true;
 		break;
 	    case 1: // D
-		if (transform.pos.x + tempSpeed < moveTo)
+		if (!targetTileSolid(level, moveTo, -transform.pos.y) && transform.pos.x + tempSpeed < moveTo)
 		    movement.set(tempSpeed, 0.0f);
 		else
 		    canMove = true;
 		break;
 	    case 2: // S
-		if (-transform.pos.y + tempSpeed < moveTo)
+		if (!targetTileSolid(level, transform.pos.x, moveTo) && -transform.pos.y + tempSpeed < moveTo)
 		    movement.set(0.0f, -tempSpeed);
 		else
 		    canMove = true;
 		break;
 	    case 3: // A
-		if (transform.pos.x - tempSpeed * 2 > moveTo)
+		if (!targetTileSolid(level, moveTo, -transform.pos.y) && transform.pos.x - tempSpeed * 2 > moveTo)
 		    movement.set(-tempSpeed, 0.0f);
 		else
 		    canMove = true;
@@ -83,6 +83,13 @@ public class Player extends Entity {
 	    move(movement);
 	}
 
+    }
+
+    private boolean targetTileSolid(Level level, float x, float y) {
+	System.out.println(level.getPrimaryTileAt((int) x, (int) +y).isSolid());
+	System.out.println("target: " + x / 2 + " " + y / 2);
+	System.out.println(transform.pos.x / 2 + " " + transform.pos.y / 2);
+	return (level.getPrimaryTileAt((int) x / 2, (int) +y / 2).isSolid());
     }
 
     @Override
