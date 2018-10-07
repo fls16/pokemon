@@ -69,8 +69,6 @@ public class ListView extends GUIElement {
 	    columns = (int) (content_width / (spacing * element_width));
 	}
 	rows = elements.size() / columns;
-	System.out.println("columns: " + columns);
-	System.out.println("rows: " + rows);
     }
 
     @Override

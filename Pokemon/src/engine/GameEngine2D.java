@@ -101,11 +101,16 @@ public abstract class GameEngine2D {
 	GL11.glEnable(GL11.GL_BLEND); // TRANSPARENCY
 	GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TRANSPARENCY
 	GL11.glEnable(GL11.GL_TEXTURE_2D);
+	GL11.glEnable(GL11.GL_DEPTH_TEST);
 	GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+	Assets.init();
 
 	input = window.getInput();
 	camera = window.getCamera();
 	shader = new Shader("shader");
+
+	declareTiles();
 
 	tile_sheet_manager = new TileSheetManager();
 	tile_sheet_manager.addTileSheet(BitmapFont.TILE_SHEET);
@@ -116,8 +121,6 @@ public abstract class GameEngine2D {
 	level_manager = new LevelManager();
 	level_manager.init(window);
 	level_editor = new LevelEditor(gui_manager, level_manager, tile_sheet_manager, input, window);
-
-	Assets.init();
     }
 
     private void loop() {
@@ -175,6 +178,8 @@ public abstract class GameEngine2D {
     protected abstract void onSetUp(Settings settings);
 
     protected abstract void handleWindow(Window window);
+
+    protected abstract void declareTiles();
 
     protected abstract void loadRessources(TileSheetManager tsm);
 

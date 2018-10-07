@@ -9,6 +9,7 @@ import engine.Settings;
 import engine.Window;
 import engine.entity.Tile;
 import engine.entity.Transform;
+import engine.gfx.Assets.DrawOrder;
 import engine.gfx.TileSheet;
 import engine.gfx.TileSheetManager;
 import engine.gui.Button;
@@ -17,7 +18,6 @@ import engine.gui.GUIManager;
 import engine.input.Input;
 import engine.level.Level;
 import engine.level.LevelManager;
-import engine.math.Vector2f;
 import pokemon.entities.Player;
 
 public class Game extends GameEngine2D {
@@ -29,12 +29,6 @@ public class Game extends GameEngine2D {
     private TileSheetManager tile_sheet_manager;
     private GUIManager gui_manager;
     private LevelManager level_manager;
-
-    // TILES
-    // private final Tile t_grass = new Tile(2, 1).setSolid(true);
-    // private final Tile t_1 = new Tile(1, 0).setSolid(true);
-    // private final Tile t_2 = new Tile(2, 0).setSolid(true);
-    // private final Tile t_3 = new Tile(3, 0).setSolid(true);
 
     @Override
     protected void onSetUp(Settings settings) {
@@ -58,17 +52,18 @@ public class Game extends GameEngine2D {
 	this.window = window;
 	this.input = window.getInput();
 	this.camera = window.getCamera();
+    }
 
-	// INIT ALL TILES
-	for (int y = 0; y < 64; y++) {
-	    for (int x = 0; x < 64; x++) {
-		new Tile(x, y);
-	    }
-	}
+    @Override
+    protected void declareTiles() {
+	// TILES
+	Tile t_grass = new Tile(0, 0).setSolid(false);
+	Tile t_flower_1 = new Tile(0, 1).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
     }
 
     @Override
     protected void loadRessources(TileSheetManager tsm) {
+	// INIT ALL TILES
 	tsm.addTileSheet(new TileSheet("test", 16));
 	tsm.addTileSheet(new TileSheet("player", 8));
 	this.tile_sheet_manager = tsm;
@@ -81,7 +76,7 @@ public class Game extends GameEngine2D {
 
 	Button play = new Button("PLAY", window.width / 2 - 256 / 2, window.height / 2 - 200, 256, 64);
 	play.setOnReleased(() -> {
-	    level_manager.setCurrentLevel("level_1");
+	    level_manager.setCurrentLevel("BLUBB");
 	    gui_manager.setCurrentGUI("ingame");
 	});
 	Button editor = new Button("EDITOR", window.width / 2 - 256 / 2, window.height / 2 - 100, 256, 64);
@@ -105,10 +100,10 @@ public class Game extends GameEngine2D {
     @Override
     protected void handleLevelManager(LevelManager level_manager) {
 	this.level_manager = level_manager;
-	Level test_level_1 = level_manager.getLevel("level_1");
+	Level test_level_1 = level_manager.getLevel("BLUBB");
 
 	// adding test-entities
-	Player player = new Player(new Transform(new Vector2f(60, -60)), tile_sheet_manager.getTileSheet("player"));
+	Player player = new Player(new Transform(8, -8), tile_sheet_manager.getTileSheet("player"));
 	player.setSolid(true);
 	test_level_1.addEntity(player);
     }
