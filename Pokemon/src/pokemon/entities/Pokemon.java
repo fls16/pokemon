@@ -7,7 +7,6 @@ import java.util.Random;
 import pokemon.dto.BattleInfoDTO;
 import pokemon.util.Ability;
 import pokemon.util.AbilityMap;
-import pokemon.util.BasicStats;
 import pokemon.util.NatureModifier;
 import pokemon.util.NatureModifier.Nature;
 
@@ -180,10 +179,16 @@ public class Pokemon {
 
     public void gainExp(BattleInfoDTO battleInfoDTO) {
 	// int exp = battleInfoDTO.getEnemyPokemon.expYield;
-	// ...
-	// if (level up) {
-	// calculateMaximumStats();
-	//
+	// gainedExp = (exp * a * b * c) / d
+	// if (currentExp + gainedExp > maxExp) {
+	// levelUp();
+	// currentExp2 = gainedExp + currentExp - maxExp;
+	// gainExp(currentExp2);
+    }
+
+    public void levelUp() {
+	level++;
+	calculateMaximumStats();
     }
 
     public boolean triggerEvolution() {

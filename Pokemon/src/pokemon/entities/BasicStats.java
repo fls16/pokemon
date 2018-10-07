@@ -1,10 +1,8 @@
-package pokemon.util;
+package pokemon.entities;
+
+import pokemon.util.TypeModifier.Type;
 
 public class BasicStats {
-
-    public enum Type {
-	Normal, Fighting, Flying, Poison, Ground, Rock, Bug, Ghost, Steel, Fire, Water, Grass, Electric, Psychic, Ice, Dragon, Dark
-    }
 
     public enum EggGroup {
 	Monster, Water_1, Water_2, Water_3, Bug, Flying, Field, Fairy, Grass, Undiscovered, Human_Like, Mineral, Amorphous, Ditto, Dragon
