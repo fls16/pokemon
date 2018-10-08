@@ -32,7 +32,7 @@ public class TypeModifier {
 
     private static Type[] typeArray = Type.values();
     private static Map<Type, Integer> typeMap = new HashMap<>();
-    {
+    static {
 	for (int i = 0; i < typeArray.length; i++) {
 	    typeMap.put(typeArray[i], i);
 	}
