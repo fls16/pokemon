@@ -5,6 +5,8 @@ import java.util.List;
 
 import pokemon.entities.Pokemon;
 import pokemon.entities.PokemonTemplate;
+import pokemon.util.TypeModifier;
+import pokemon.util.TypeModifier.Type;
 
 public class MainTest {
 
@@ -35,6 +37,8 @@ public class MainTest {
 	pokemon.individualSpeed = 31;
 	pokemon.calculateMaximumStats();
 	System.out.println(pokemon.toString());
+
+	System.out.println(TypeModifier.attackTypeModifier(Type.Fighting, Type.Rock, null));
     }
 
 }

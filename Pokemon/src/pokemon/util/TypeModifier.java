@@ -32,7 +32,7 @@ public class TypeModifier {
 
     private static Type[] typeArray = Type.values();
     private static Map<Type, Integer> typeMap = new HashMap<>();
-    {
+    static {
 	for (int i = 0; i < typeArray.length; i++) {
 	    typeMap.put(typeArray[i], i);
 	}
@@ -40,7 +40,9 @@ public class TypeModifier {
 
     public static float attackTypeModifier(Type attackType, Type pokemonType1, Type pokemonType2) {
 	float modifier = modifierArray[typeMap.get(attackType)][typeMap.get(pokemonType1)];
-	modifier *= modifierArray[typeMap.get(attackType)][typeMap.get(pokemonType2)];
+	if (pokemonType2 != null) {
+	    modifier *= modifierArray[typeMap.get(attackType)][typeMap.get(pokemonType2)];
+	}
 	return modifier;
     }
 }
