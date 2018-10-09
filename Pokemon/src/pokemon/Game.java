@@ -84,11 +84,11 @@ public class Game extends GameEngine2D {
 	new Tile(11, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
 	new Tile(12, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
 
-	new Tile(8, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(9, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(8, 9).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(9, 9).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
 	new Tile(10, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(11, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(12, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(11, 9).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
+	new Tile(12, 9).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
     }
 
     @Override
