@@ -10,11 +10,6 @@ import pokemon.util.AbilityMap;
 import pokemon.util.NatureModifier;
 import pokemon.util.NatureModifier.Nature;
 
-/**
- * A Pokemon. Not much to say.
- * 
- * @author Lation
- */
 public class Pokemon {
 
     public enum Gender {
@@ -62,24 +57,12 @@ public class Pokemon {
     public int effortSpecialDefense = 0;
     public int effortSpeed = 0;
 
-    /**
-     * Just an empty constructor.
-     */
     public Pokemon() {
     }
 
-    /**
-     * Method to create any Pokemon at will.
-     * 
-     * @param basicStats
-     *            Basic stats of a general pokemon of which you want to create a
-     *            unique copy.
-     * @param level
-     *            The level the created Pokemon is going to have.
-     * @return Pokemon Basically a unique Pokemon you can encounter during the game.
-     */
     public static Pokemon create(BasicStats basicStats, int level) {
 	Pokemon pokemon = new Pokemon();
+
 	pokemon.basicStats = basicStats;
 	pokemon.hiddenId = idCounter++;
 	pokemon.nickname = basicStats.name;
@@ -93,12 +76,6 @@ public class Pokemon {
 	return pokemon;
     }
 
-    /**
-     * Sets the Ability for the Pokemon when created. If 2 possibilities are
-     * available, it's chosen by random.
-     * 
-     * @param abilityname
-     */
     public void setAbility(String abilityname) {
 	if (abilityname.split(",").length == 1) {
 	    ability = AbilityMap.abilities.get(abilityname);
@@ -111,20 +88,11 @@ public class Pokemon {
 	}
     }
 
-    /**
-     * Sets a random nature for the Pokemon when created.
-     */
     private void setNature() {
 	List<Nature> natures = Arrays.asList(NatureModifier.Nature.values());
 	nature = natures.get(random.nextInt(25));
     }
 
-    /**
-     * Randomly assigns a gender for the created Pokemon by using the genderRate.
-     * 
-     * @param genderRate
-     *            The Float (String) probability of being male.
-     */
     private void setGender(String genderRate) {
 	if (genderRate.equals("-")) {
 	    gender = Gender.N;
@@ -138,9 +106,6 @@ public class Pokemon {
 	}
     }
 
-    /**
-     * Calculates the new Stats of a pokemon, e.g. after a level up.
-     */
     public void calculateMaximumStats() {
 	int oldMaxHitpoints = maxHitpoints;
 

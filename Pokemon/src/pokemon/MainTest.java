@@ -34,6 +34,7 @@ public class MainTest {
 	pokemon.individualSpecialDefense = 31;
 	pokemon.individualSpeed = 31;
 	pokemon.calculateMaximumStats();
+
 	System.out.println(pokemon.toString());
     }
 
