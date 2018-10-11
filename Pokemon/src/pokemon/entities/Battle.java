@@ -9,8 +9,6 @@ public abstract class Battle {
     public Battle() {
     }
 
-    public void init() {
-
-    }
+    public abstract void init();
 
 }
