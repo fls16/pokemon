@@ -51,7 +51,7 @@ public class Level {
 	    e_1.update(delta, window, camera, this);
 
 	    if (e_1.isSolid()) {
-		e_1.collideWithTiles(this);
+		// e_1.collideWithTiles(this);
 		for (int j = i + 1; j < entities.size(); j++) {
 		    Entity e_2 = entities.get(j);
 		    if (e_2.isSolid()) {

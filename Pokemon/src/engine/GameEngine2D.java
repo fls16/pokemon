@@ -98,7 +98,7 @@ public abstract class GameEngine2D {
 	handleWindow(window);
 
 	GL.createCapabilities();
-	GL11.glEnable(GL11.GL_BLEND); // TRANSPARENCY
+	GL11.glEnable(GL11.GL_BLEND);
 	GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TRANSPARENCY
 	GL11.glEnable(GL11.GL_TEXTURE_2D);
 	GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -130,11 +130,9 @@ public abstract class GameEngine2D {
 	long timer = System.currentTimeMillis();
 	int updates = 0;
 	int frames = 0;
+	boolean running = true;
 
-	while (!window.shouldClose()) {
-	    if (input.isKeyReleased(Input.ESC)) {
-		window.requestClose();
-	    }
+	while (running) {
 	    long now = System.nanoTime();
 	    delta += (now - lastTime) / ns;
 	    lastTime = now;
@@ -153,6 +151,13 @@ public abstract class GameEngine2D {
 		Logger.printMsg(updates + " ups, " + frames + " fps");
 		updates = 0;
 		frames = 0;
+	    }
+
+	    if (input.isKeyReleased(Input.ESC)) {
+		window.requestClose();
+	    }
+	    if (window.shouldClose()) {
+		running = false;
 	    }
 
 	}

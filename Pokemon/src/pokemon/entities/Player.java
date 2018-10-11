@@ -3,6 +3,7 @@ package pokemon.entities;
 import engine.Camera;
 import engine.Window;
 import engine.entity.Entity;
+import engine.entity.Tile;
 import engine.entity.Transform;
 import engine.gfx.Animation;
 import engine.gfx.TileSheet;
@@ -54,6 +55,7 @@ public class Player extends Entity {
 
 	} else {
 	    float tempSpeed = speed * 1.0f / 60.0f;
+	    movement.set(0.0f, 0.0f);
 	    switch (direction) {
 	    case 0: // W
 		if (!targetTileSolid(level, transform.pos.x, moveTo) && -transform.pos.y - tempSpeed * 2 >= moveTo)
@@ -85,11 +87,25 @@ public class Player extends Entity {
 
     }
 
+    int tempX;
+    int tempY;
+    Tile tempT;
+
     private boolean targetTileSolid(Level level, float x, float y) {
-	System.out.println(level.getPrimaryTileAt((int) x, (int) +y).isSolid());
-	System.out.println("target: " + x / 2 + " " + y / 2);
-	System.out.println(transform.pos.x / 2 + " " + transform.pos.y / 2);
-	return (level.getPrimaryTileAt((int) x / 2, (int) +y / 2).isSolid());
+	tempX = Math.round(x / 2);
+	tempY = Math.round(+y / 2);
+	tempT = level.getSecondaryTileAt(tempX, tempY);
+	if (tempT != null) {
+	    return tempT.isSolid();
+	} else {
+	    tempT = level.getSecondaryTileAt(tempX, tempY);
+	    if (tempT != null) {
+		return tempT.isSolid();
+
+	    } else {
+		return true;
+	    }
+	}
     }
 
     @Override
@@ -103,10 +119,10 @@ public class Player extends Entity {
 	animations[3] = new Animation(new int[][] { { 0, 1, 2 }, { 1, 1, 1 } }, tile_sheet, 6);
 
 	// standing
-	animations[4] = new Animation(new int[][] { { 0, 1 }, { 3, 3 } }, tile_sheet, 3);
-	animations[5] = new Animation(new int[][] { { 0, 1 }, { 2, 2 } }, tile_sheet, 3);
-	animations[6] = new Animation(new int[][] { { 0, 1 }, { 0, 0 } }, tile_sheet, 3);
-	animations[7] = new Animation(new int[][] { { 0, 1 }, { 1, 1 } }, tile_sheet, 3);
+	animations[4] = new Animation(new int[][] { { 1 }, { 3 } }, tile_sheet, 3);
+	animations[5] = new Animation(new int[][] { { 1 }, { 2 } }, tile_sheet, 3);
+	animations[6] = new Animation(new int[][] { { 1 }, { 0 } }, tile_sheet, 3);
+	animations[7] = new Animation(new int[][] { { 1 }, { 1 } }, tile_sheet, 3);
 
 	return animations;
     }

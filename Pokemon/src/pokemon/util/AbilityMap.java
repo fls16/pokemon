@@ -22,7 +22,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Battle Armor", new Ability("Battle Armor", "The Pokémon is protected against critical hits.")//
+	abilities.put("Battle Armor", new Ability("Battle Armor", "The PokÃ©mon is protected against critical hits.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -36,14 +36,14 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Chlorophyll", new Ability("Chlorophyll", "Boosts the Pokémon's Speed in sunshine.")//
+	abilities.put("Chlorophyll", new Ability("Chlorophyll", "Boosts the PokÃ©mon's Speed in sunshine.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Clear Body", new Ability("Clear Body", "Prevents other Pokémon from lowering its stats.")//
+	abilities.put("Clear Body", new Ability("Clear Body", "Prevents other PokÃ©mon from lowering its stats.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -57,21 +57,21 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Color Change", new Ability("Color Change", "Changes the Pokémon's type to the foe's move.")//
+	abilities.put("Color Change", new Ability("Color Change", "Changes the PokÃ©mon's type to the foe's move.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Compound Eyes", new Ability("Compound Eyes", "The Pokémon's accuracy is boosted.")//
+	abilities.put("Compound Eyes", new Ability("Compound Eyes", "The PokÃ©mon's accuracy is boosted.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Cute Charm", new Ability("Cute Charm", "Contact with the Pokémon may cause infatuation.")//
+	abilities.put("Cute Charm", new Ability("Cute Charm", "Contact with the PokÃ©mon may cause infatuation.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -85,21 +85,21 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Drizzle", new Ability("Drizzle", "The Pokémon makes it rain when it enters a battle.")//
+	abilities.put("Drizzle", new Ability("Drizzle", "The PokÃ©mon makes it rain when it enters a battle.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Drought", new Ability("Drought", "Turns the sunlight harsh when the Pokémon enters a battle.")//
+	abilities.put("Drought", new Ability("Drought", "Turns the sunlight harsh when the PokÃ©mon enters a battle.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Early Bird", new Ability("Early Bird", "The Pokémon awakens quickly from sleep.")//
+	abilities.put("Early Bird", new Ability("Early Bird", "The PokÃ©mon awakens quickly from sleep.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -113,7 +113,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Flame Body", new Ability("Flame Body", "Contact with the Pokémon may burn the attacker.")//
+	abilities.put("Flame Body", new Ability("Flame Body", "Contact with the PokÃ©mon may burn the attacker.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -141,7 +141,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Huge Power", new Ability("Huge Power", "Raises the Pokémon's Attack stat.")//
+	abilities.put("Huge Power", new Ability("Huge Power", "Raises the PokÃ©mon's Attack stat.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -155,35 +155,35 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Hyper Cutter", new Ability("Hyper Cutter", "Prevents other Pokémon from lowering Attack stat.")//
+	abilities.put("Hyper Cutter", new Ability("Hyper Cutter", "Prevents other PokÃ©mon from lowering Attack stat.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Illuminate", new Ability("Illuminate", "Raises the likelihood of meeting wild Pokémon.")//
+	abilities.put("Illuminate", new Ability("Illuminate", "Raises the likelihood of meeting wild PokÃ©mon.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Immunity", new Ability("Immunity", "Prevents the Pokémon from getting poisoned.")//
+	abilities.put("Immunity", new Ability("Immunity", "Prevents the PokÃ©mon from getting poisoned.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Inner Focus", new Ability("Inner Focus", "The Pokémon is protected from flinching.")//
+	abilities.put("Inner Focus", new Ability("Inner Focus", "The PokÃ©mon is protected from flinching.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Insomnia", new Ability("Insomnia", "Prevents the Pokémon from falling asleep.")//
+	abilities.put("Insomnia", new Ability("Insomnia", "Prevents the PokÃ©mon from falling asleep.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -197,7 +197,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Keen Eye", new Ability("Keen Eye", "Prevents other Pokémon from lowering accuracy.")//
+	abilities.put("Keen Eye", new Ability("Keen Eye", "Prevents other PokÃ©mon from lowering accuracy.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -219,7 +219,7 @@ public class AbilityMap {
 			    // some code
 			})//
 	);
-	abilities.put("Limber", new Ability("Limber", "The Pokémon is protected from paralysis.")//
+	abilities.put("Limber", new Ability("Limber", "The PokÃ©mon is protected from paralysis.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -233,14 +233,14 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Magma Armor", new Ability("Magma Armor", "Prevents the Pokémon from becoming frozen.")//
+	abilities.put("Magma Armor", new Ability("Magma Armor", "Prevents the PokÃ©mon from becoming frozen.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Magnet Pull", new Ability("Magnet Pull", "Prevents Steel-type Pokémon from escaping.")//
+	abilities.put("Magnet Pull", new Ability("Magnet Pull", "Prevents Steel-type PokÃ©mon from escaping.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -254,7 +254,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Minus", new Ability("Minus", "Ups Sp. Atk if another Pokémon has Plus or Minus.")//
+	abilities.put("Minus", new Ability("Minus", "Ups Sp. Atk if another PokÃ©mon has Plus or Minus.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -282,56 +282,56 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Own Tempo", new Ability("Own Tempo", "Prevents the Pokémon from becoming confused.")//
+	abilities.put("Own Tempo", new Ability("Own Tempo", "Prevents the PokÃ©mon from becoming confused.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Pickup", new Ability("Pickup", "The Pokémon may pick up items.")//
+	abilities.put("Pickup", new Ability("Pickup", "The PokÃ©mon may pick up items.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Plus", new Ability("Plus", "Ups Sp. Atk if another Pokémon has Plus or Minus.")//
+	abilities.put("Plus", new Ability("Plus", "Ups Sp. Atk if another PokÃ©mon has Plus or Minus.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Poison Point", new Ability("Poison Point", "Contact with the Pokémon may poison the attacker.")//
+	abilities.put("Poison Point", new Ability("Poison Point", "Contact with the PokÃ©mon may poison the attacker.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Pressure", new Ability("Pressure", "The Pokémon raises the foe's PP usage.")//
+	abilities.put("Pressure", new Ability("Pressure", "The PokÃ©mon raises the foe's PP usage.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Pure Power", new Ability("Pure Power", "Raises the Pokémon's Attack stat.")//
+	abilities.put("Pure Power", new Ability("Pure Power", "Raises the PokÃ©mon's Attack stat.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Rain Dish", new Ability("Rain Dish", "The Pokémon gradually regains HP in rain.")//
+	abilities.put("Rain Dish", new Ability("Rain Dish", "The PokÃ©mon gradually regains HP in rain.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Rock Head", new Ability("Rock Head", "Protects the Pokémon from recoil damage.")//
+	abilities.put("Rock Head", new Ability("Rock Head", "Protects the PokÃ©mon from recoil damage.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -345,21 +345,21 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Run Away", new Ability("Run Away", "Enables a sure getaway from wild Pokémon.")//
+	abilities.put("Run Away", new Ability("Run Away", "Enables a sure getaway from wild PokÃ©mon.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Sand Stream", new Ability("Sand Stream", "The Pokémon summons a sandstorm in battle.")//
+	abilities.put("Sand Stream", new Ability("Sand Stream", "The PokÃ©mon summons a sandstorm in battle.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Sand Veil", new Ability("Sand Veil", "Boosts the Pokémon's evasion in a sandstorm.")//
+	abilities.put("Sand Veil", new Ability("Sand Veil", "Boosts the PokÃ©mon's evasion in a sandstorm.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -380,14 +380,14 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Shed Skin", new Ability("Shed Skin", "The Pokémon may heal its own status problems.")//
+	abilities.put("Shed Skin", new Ability("Shed Skin", "The PokÃ©mon may heal its own status problems.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Shell Armor", new Ability("Shell Armor", "The Pokémon is protected against critical hits.")//
+	abilities.put("Shell Armor", new Ability("Shell Armor", "The PokÃ©mon is protected against critical hits.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -401,7 +401,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Soundproof", new Ability("Soundproof", "Gives immunity to sound-based moves.")//
+	abilities.put("Soundproof", new Ability("Soundproof", "Gives immunity to \"sound-based\" moves.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -415,7 +415,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Static", new Ability("Static", "Contact with the Pokémon may cause paralysis.")//
+	abilities.put("Static", new Ability("Static", "Contact with the PokÃ©mon may cause paralysis.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -429,7 +429,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Sticky Hold", new Ability("Sticky Hold", "Protects the Pokémon from item theft.")//
+	abilities.put("Sticky Hold", new Ability("Sticky Hold", "Protects the PokÃ©mon from item theft.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -457,7 +457,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Swift Swim", new Ability("Swift Swim", "Boosts the Pokémon's Speed in rain.")//
+	abilities.put("Swift Swim", new Ability("Swift Swim", "Boosts the PokÃ©mon's Speed in rain.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -485,21 +485,21 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Trace", new Ability("Trace", "The Pokémon copies a foe's Ability.")//
+	abilities.put("Trace", new Ability("Trace", "The PokÃ©mon copies a foe's Ability.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Truant", new Ability("Truant", "Pokémon can't attack on consecutive turns.")//
+	abilities.put("Truant", new Ability("Truant", "PokÃ©mon can't attack on consecutive turns.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Vital Spirit", new Ability("Vital Spirit", "Prevents the Pokémon from falling asleep.")//
+	abilities.put("Vital Spirit", new Ability("Vital Spirit", "Prevents the PokÃ©mon from falling asleep.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -520,14 +520,14 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Water Veil", new Ability("Water Veil", "Prevents the Pokémon from getting a burn.")//
+	abilities.put("Water Veil", new Ability("Water Veil", "Prevents the PokÃ©mon from getting a burn.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("White Smoke", new Ability("White Smoke", "Prevents other Pokémon from lowering its stats.")//
+	abilities.put("White Smoke", new Ability("White Smoke", "Prevents other PokÃ©mon from lowering its stats.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -597,7 +597,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Flower Gift", new Ability("Flower Gift", "Powers up party Pokémon when it is sunny.")//
+	abilities.put("Flower Gift", new Ability("Flower Gift", "Powers up party PokÃ©mon when it is sunny.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -611,7 +611,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Frisk", new Ability("Frisk", "The Pokémon can check a foe's held item.")//
+	abilities.put("Frisk", new Ability("Frisk", "The PokÃ©mon can check a foe's held item.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -632,7 +632,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Honey Gather", new Ability("Honey Gather", "The Pokémon may gather Honey from somewhere.")//
+	abilities.put("Honey Gather", new Ability("Honey Gather", "The PokÃ©mon may gather Honey from somewhere.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -646,7 +646,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Ice Body", new Ability("Ice Body", "The Pokémon gradually regains HP in a hailstorm.")//
+	abilities.put("Ice Body", new Ability("Ice Body", "The PokÃ©mon gradually regains HP in a hailstorm.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -660,7 +660,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Klutz", new Ability("Klutz", "The Pokémon can't use any held items.")//
+	abilities.put("Klutz", new Ability("Klutz", "The PokÃ©mon can't use any held items.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -674,7 +674,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Magic Guard", new Ability("Magic Guard", "The Pokémon only takes damage from attacks.")//
+	abilities.put("Magic Guard", new Ability("Magic Guard", "The PokÃ©mon only takes damage from attacks.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -702,21 +702,21 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("No Guard", new Ability("No Guard", "Ensures attacks by or against the Pokémon land.")//
+	abilities.put("No Guard", new Ability("No Guard", "Ensures attacks by or against the PokÃ©mon land.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Normalize", new Ability("Normalize", "All the Pokémon's moves become the Normal type.")//
+	abilities.put("Normalize", new Ability("Normalize", "All the PokÃ©mon's moves become the Normal type.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Poison Heal", new Ability("Poison Heal", "Restores HP if the Pokémon is poisoned.")//
+	abilities.put("Poison Heal", new Ability("Poison Heal", "Restores HP if the PokÃ©mon is poisoned.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -737,14 +737,14 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Rivalry", new Ability("Rivalry", "Deals more damage to a Pokémon of same gender.")//
+	abilities.put("Rivalry", new Ability("Rivalry", "Deals more damage to a PokÃ©mon of same gender.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Scrappy", new Ability("Scrappy", "Enables moves to hit Ghost-type Pokémon.")//
+	abilities.put("Scrappy", new Ability("Scrappy", "Enables moves to hit Ghost-type PokÃ©mon.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -786,7 +786,7 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Snow Warning", new Ability("Snow Warning", "The Pokémon summons a hailstorm in battle.")//
+	abilities.put("Snow Warning", new Ability("Snow Warning", "The PokÃ©mon summons a hailstorm in battle.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -807,14 +807,14 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Stall", new Ability("Stall", "The Pokémon moves after all other Pokémon do.")//
+	abilities.put("Stall", new Ability("Stall", "The PokÃ©mon moves after all other PokÃ©mon do.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Steadfast", new Ability("Steadfast", "Raises Speed each time the Pokémon flinches.")//
+	abilities.put("Steadfast", new Ability("Steadfast", "Raises Speed each time the PokÃ©mon flinches.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
@@ -835,28 +835,28 @@ public class AbilityMap {
 		    // some code
 		})//
 	);
-	abilities.put("Tangled Feet", new Ability("Tangled Feet", "Raises evasion if the Pokémon is confused.")//
+	abilities.put("Tangled Feet", new Ability("Tangled Feet", "Raises evasion if the PokÃ©mon is confused.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Technician", new Ability("Technician", "Powers up the Pokémon's weaker moves.")//
+	abilities.put("Technician", new Ability("Technician", "Powers up the PokÃ©mon's weaker moves.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Tinted Lens", new Ability("Tinted Lens", "Powers up “not very effective” moves.")//
+	abilities.put("Tinted Lens", new Ability("Tinted Lens", "Powers up \"not very effective\" moves.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
 		    // some code
 		})//
 	);
-	abilities.put("Unaware", new Ability("Unaware", "Ignores any stat changes in the Pokémon.")//
+	abilities.put("Unaware", new Ability("Unaware", "Ignores any stat changes in the PokÃ©mon.")//
 		.setOnUpdate(() -> {
 		    // some code
 		}).setOnDamageCalculation(b -> {
