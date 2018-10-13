@@ -38,8 +38,8 @@ public abstract class GameEngine2D {
     private Settings settings;
     private Input input;
 
-    private int UPS = 0;
-    private int FPS = 0;
+    private int UPS = 60;
+    private int FPS = 60;
 
     public void run() {
 	Logger.printMsg("Running.. " + Version.getVersion());
@@ -124,33 +124,38 @@ public abstract class GameEngine2D {
     }
 
     private void loop() {
-	long lastTime = System.nanoTime();
-	double delta = 0.0;
-	double ns = 1000000000.0 / 60.0;
+	long initialTime = System.nanoTime();
+	final double timeU = 1000000000 / UPS;
+	final double timeF = 1000000000 / FPS;
+	double deltaU = 0, deltaF = 0;
+	int frames = 0, ticks = 0;
 	long timer = System.currentTimeMillis();
-	int updates = 0;
-	int frames = 0;
 	boolean running = true;
 
 	while (running) {
-	    long now = System.nanoTime();
-	    delta += (now - lastTime) / ns;
-	    lastTime = now;
-	    if (delta >= 1.0) { // UPDATE
-		update((float) delta);
-		updates++;
-		delta--;
+
+	    long currentTime = System.nanoTime();
+	    deltaU += (currentTime - initialTime) / timeU;
+	    deltaF += (currentTime - initialTime) / timeF;
+	    initialTime = currentTime;
+
+	    if (deltaU >= 1) {
+		update((float) deltaU);
+		ticks++;
+		deltaU--;
 	    }
-	    // RENDER
-	    render();
-	    frames++;
+
+	    if (deltaF >= 1) {
+		render();
+		frames++;
+		deltaF--;
+	    }
+
 	    if (System.currentTimeMillis() - timer > 1000) {
-		timer += 1000;
-		UPS = updates;
-		FPS = frames;
-		Logger.printMsg(updates + " ups, " + frames + " fps");
-		updates = 0;
+		window.setTitle(window.getTitle() + " UPS: " + ticks + " FPS: " + frames);
 		frames = 0;
+		ticks = 0;
+		timer += 1000;
 	    }
 
 	    if (input.isKeyReleased(Input.ESC)) {
@@ -159,9 +164,7 @@ public abstract class GameEngine2D {
 	    if (window.shouldClose()) {
 		running = false;
 	    }
-
 	}
-
     }
 
     protected void showLevelEditor() {

@@ -19,6 +19,11 @@ public class Transform {
 	this.scale = new Vector3f(1, 1, 1);
     }
 
+    public Transform(float x, float y, float width, float height) {
+	this.pos = new Vector3f(x, y, 0);
+	this.scale = new Vector3f(width, width, 1);
+    }
+
     public Transform(float x, float y, float z) {
 	this.pos = new Vector3f(x, y, z);
 	this.scale = new Vector3f(1, 1, 1);

@@ -7,6 +7,7 @@ import engine.GameEngine2D;
 import engine.Logger;
 import engine.Settings;
 import engine.Window;
+import engine.entity.Entity;
 import engine.entity.Tile;
 import engine.entity.Transform;
 import engine.gfx.Assets.DrawOrder;
@@ -19,6 +20,7 @@ import engine.input.Input;
 import engine.level.Level;
 import engine.level.LevelManager;
 import pokemon.entities.Player;
+import pokemon.entities.PokeCenter;
 
 public class Game extends GameEngine2D {
 
@@ -43,7 +45,7 @@ public class Game extends GameEngine2D {
 	// settings.height = 1080;
 	// settings.fullscreen = true;
 
-	settings.vsync = true;
+	settings.vsync = false;
 
     }
 
@@ -96,6 +98,7 @@ public class Game extends GameEngine2D {
 	// INIT ALL TILES
 	tsm.addTileSheet(new TileSheet("test", 16));
 	tsm.addTileSheet(new TileSheet("player", 8));
+	tsm.addTileSheet(new TileSheet("entities", 64));
 	this.tile_sheet_manager = tsm;
     }
 
@@ -131,11 +134,17 @@ public class Game extends GameEngine2D {
     protected void handleLevelManager(LevelManager level_manager) {
 	this.level_manager = level_manager;
 	Level test_level_1 = level_manager.getLevel("BLUBB");
+	test_level_1 = new Level("BLUBB", 512, 512);
+	test_level_1.calculateView(window);
+	level_manager.addLevel("BLUBB", test_level_1);
 
 	// adding test-entities
-	Player player = new Player(new Transform(8, -8), tile_sheet_manager.getTileSheet("player"));
-	player.setSolid(true);
-	test_level_1.addEntity(player);
+	Entity player = new Player(new Transform(8, -8), tile_sheet_manager.getTileSheet("player")).setSolid(true);
+
+	Entity pokeCenter = new PokeCenter(new Transform(16, -16, 5, 5), tile_sheet_manager.getTileSheet("entities"))
+		.setSolid(true);
+
+	test_level_1.addEntities(player, pokeCenter);
     }
 
     // for camera controll

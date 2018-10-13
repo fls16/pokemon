@@ -1,33 +1,44 @@
 package engine.gfx;
 
 import engine.math.Matrix4f;
-import engine.math.Vector3f;
 
 public class TileSheet {
 
     private String name;
     private Texture texture;
-    private Matrix4f scale;
-    private Matrix4f translation;
     private int amount_of_tiles;
     private int tile_size;
     private int grid_size;
+    private Matrix4f temp;
+    private float defaultScale;
 
     public TileSheet(String name, int amount_of_tiles) {
 	this.name = name;
-	texture = new Texture("sheets/" + name + ".png");
-	scale = new Matrix4f().scale(1.0f / (float) amount_of_tiles);
-	translation = new Matrix4f();
+	this.texture = new Texture("sheets/" + name + ".png");
 	this.amount_of_tiles = amount_of_tiles;
-	tile_size = texture.getWidth() / amount_of_tiles;
-	grid_size = texture.getWidth();
+	this.tile_size = texture.getWidth() / amount_of_tiles;
+	this.grid_size = texture.getWidth();
+	this.defaultScale = (float) tile_size / grid_size;
+	this.temp = new Matrix4f();
     }
 
     public void bindTile(Shader shader, int x, int y) {
-	Matrix4f temp = new Matrix4f().translate(new Vector3f(x, y, 0));
-	Matrix4f.mul(scale, temp, translation);
+	temp.m00 = defaultScale;
+	temp.m11 = defaultScale;
+	temp.m30 = x * defaultScale;
+	temp.m31 = y * defaultScale;
 	shader.setUniform1i("sampler", 0);
-	shader.setUniformMatrix4f("texModifier", translation);
+	shader.setUniformMatrix4f("texModifier", temp);
+	texture.bind(0);
+    }
+
+    public void bindTile(Shader shader, int x, int y, int width, int height) {
+	temp.m00 = (float) (width * tile_size) / texture.getWidth();
+	temp.m11 = (float) (height * tile_size) / texture.getHeight();
+	temp.m30 = x * temp.m00;
+	temp.m31 = y * temp.m11;
+	shader.setUniform1i("sampler", 0);
+	shader.setUniformMatrix4f("texModifier", temp);
 	texture.bind(0);
     }
 

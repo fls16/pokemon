@@ -25,84 +25,92 @@ import engine.input.Input;
 
 public class Window {
 
-	private long window;
-	public int width, height;
-	private String title;
-	private boolean fullscreen;
-	private boolean vsync;
-	private Camera camera;
+    private long window;
+    public int width, height;
+    private String title;
+    private boolean fullscreen;
+    private boolean vsync;
+    private Camera camera;
 
-	private Input input;
+    private Input input;
 
-	public Window(int width, int height, String title, boolean fullscreen, boolean vsync) {
-		this.width = width;
-		this.height = height;
-		this.title = title;
-		this.fullscreen = fullscreen;
-		this.vsync = vsync;
-		this.camera = new Camera(width, height);
+    public Window(int width, int height, String title, boolean fullscreen, boolean vsync) {
+	this.width = width;
+	this.height = height;
+	this.title = title;
+	this.fullscreen = fullscreen;
+	this.vsync = vsync;
+	this.camera = new Camera(width, height);
+    }
+
+    public void createWindow() {
+	GLFW.glfwDefaultWindowHints(); // optional, the current window hints are already the default
+	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+
+	window = GLFW.glfwCreateWindow(width, height, title, fullscreen ? GLFW.glfwGetPrimaryMonitor() : 0, 0);
+	if (window == MemoryUtil.NULL)
+	    throw new RuntimeException("Failed to create the GLFW window");
+
+	GLFW.glfwShowWindow(window);
+	GLFW.glfwMakeContextCurrent(window);
+
+	glfwSwapInterval(vsync ? 1 : 0);// Enable v-sync
+
+	input = new Input(window);
+
+	if (!fullscreen) {
+	    try (MemoryStack stack = stackPush()) {
+		IntBuffer pWidth = stack.mallocInt(1);
+		IntBuffer pHeight = stack.mallocInt(1);
+		glfwGetWindowSize(window, pWidth, pHeight);
+		GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+		glfwSetWindowPos(window, (vidmode.width() - pWidth.get(0)) / 2,
+			(vidmode.height() - pHeight.get(0)) / 2);
+	    }
 	}
+    }
 
-	public void createWindow() {
-		GLFW.glfwDefaultWindowHints(); // optional, the current window hints are already the default
-		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+    public void update() {
+	input.update();
+	GLFW.glfwPollEvents();
+    }
 
-		window = GLFW.glfwCreateWindow(width, height, title, fullscreen ? GLFW.glfwGetPrimaryMonitor() : 0, 0);
-		if (window == MemoryUtil.NULL)
-			throw new RuntimeException("Failed to create the GLFW window");
+    public Input getInput() {
+	return input;
+    }
 
-		GLFW.glfwShowWindow(window);
-		GLFW.glfwMakeContextCurrent(window);
+    public void requestClose() {
+	GLFW.glfwSetWindowShouldClose(window, true);
+    }
 
-		glfwSwapInterval(vsync ? 1 : 0);// Enable v-sync
+    public boolean shouldClose() {
+	return GLFW.glfwWindowShouldClose(window);
+    }
 
-		input = new Input(window);
+    public void swapBuffers() {
+	glfwSwapBuffers(window);
+    }
 
-		if (!fullscreen) {
-			try (MemoryStack stack = stackPush()) {
-				IntBuffer pWidth = stack.mallocInt(1);
-				IntBuffer pHeight = stack.mallocInt(1);
-				glfwGetWindowSize(window, pWidth, pHeight);
-				GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-				glfwSetWindowPos(window, (vidmode.width() - pWidth.get(0)) / 2,
-						(vidmode.height() - pHeight.get(0)) / 2);
-			}
-		}
-	}
+    public void cleanUp() {
+	glfwFreeCallbacks(window);
+	glfwDestroyWindow(window);
+    }
 
-	public void update() {
-		input.update();
-		GLFW.glfwPollEvents();
-	}
+    public Camera getCamera() {
+	return camera;
+    }
 
-	public Input getInput() {
-		return input;
-	}
+    public void setOnResize(GLFWWindowSizeCallbackI callback) {
+	GLFW.glfwSetWindowSizeCallback(window, callback);
+    }
 
-	public void requestClose() {
-		GLFW.glfwSetWindowShouldClose(window, true);
-	}
+    public void setTitle(String text) {
+	GLFW.glfwSetWindowTitle(window, text);
+    }
 
-	public boolean shouldClose() {
-		return GLFW.glfwWindowShouldClose(window);
-	}
-
-	public void swapBuffers() {
-		glfwSwapBuffers(window);
-	}
-
-	public void cleanUp() {
-		glfwFreeCallbacks(window);
-		glfwDestroyWindow(window);
-	}
-
-	public Camera getCamera() {
-		return camera;
-	}
-
-	public void setOnResize(GLFWWindowSizeCallbackI callback) {
-		GLFW.glfwSetWindowSizeCallback(window, callback);
-	}
+    public String getTitle() {
+	return title;
+    }
 
 }

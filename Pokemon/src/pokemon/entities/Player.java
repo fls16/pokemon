@@ -6,6 +6,7 @@ import engine.entity.Entity;
 import engine.entity.Tile;
 import engine.entity.Transform;
 import engine.gfx.Animation;
+import engine.gfx.Graphic;
 import engine.gfx.TileSheet;
 import engine.input.Input;
 import engine.level.Level;
@@ -38,18 +39,22 @@ public class Player extends Entity {
 	    if (input.isKeyDown(Input.W)) {
 		moveTo = (int) Math.round(-transform.pos.y) - 2;
 		canMove = false;
+		((Animation) graphics[use_animation]).reset();
 		use_animation = direction = 0;
 	    } else if (input.isKeyDown(Input.D)) {
 		moveTo = (int) Math.round(transform.pos.x) + 2;
 		canMove = false;
+		((Animation) graphics[use_animation]).reset();
 		use_animation = direction = 1;
 	    } else if (input.isKeyDown(Input.S)) {
 		moveTo = (int) Math.round(-transform.pos.y) + 2;
 		canMove = false;
+		((Animation) graphics[use_animation]).reset();
 		use_animation = direction = 2;
 	    } else if (input.isKeyDown(Input.A)) {
 		moveTo = (int) Math.round(transform.pos.x) - 2;
 		canMove = false;
+		((Animation) graphics[use_animation]).reset();
 		use_animation = direction = 3;
 	    }
 
@@ -109,8 +114,8 @@ public class Player extends Entity {
     }
 
     @Override
-    protected Animation[] addAnimations(TileSheet tile_sheet) {
-	Animation[] animations = new Animation[8];
+    protected Graphic[] addGraphics(TileSheet tile_sheet) {
+	Graphic[] animations = new Animation[8];
 
 	// running
 	animations[0] = new Animation(new int[][] { { 0, 1, 2 }, { 3, 3, 3 } }, tile_sheet, 6);
@@ -125,6 +130,12 @@ public class Player extends Entity {
 	animations[7] = new Animation(new int[][] { { 1 }, { 1 } }, tile_sheet, 3);
 
 	return animations;
+    }
+
+    @Override
+    protected void onCollision(Entity entity) {
+	// TODO Auto-generated method stub
+
     }
 
 }

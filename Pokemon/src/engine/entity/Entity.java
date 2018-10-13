@@ -2,9 +2,9 @@ package engine.entity;
 
 import engine.Camera;
 import engine.Window;
-import engine.gfx.Animation;
 import engine.gfx.Assets;
 import engine.gfx.Assets.DrawOrder;
+import engine.gfx.Graphic;
 import engine.gfx.Model;
 import engine.gfx.Shader;
 import engine.gfx.TileSheet;
@@ -21,7 +21,7 @@ public abstract class Entity {
     protected int use_animation;
     protected boolean solid;
     protected Model model = Assets.get(DrawOrder.HIGH);
-    protected Animation[] animations;
+    protected Graphic[] graphics;
 
     public Entity(Transform transform, TileSheet tile_sheet) {
 	this.transform = transform;
@@ -29,10 +29,12 @@ public abstract class Entity {
 		new Vector2f(transform.scale.x, transform.scale.y));
 	this.use_animation = 0;
 	this.solid = false;
-	this.animations = addAnimations(tile_sheet);
+	this.graphics = addGraphics(tile_sheet);
     }
 
-    protected abstract Animation[] addAnimations(TileSheet tile_sheet);
+    protected abstract Graphic[] addGraphics(TileSheet tile_sheet);
+
+    protected abstract void onCollision(Entity entity);
 
     public void useAnimation(int index) {
 	this.use_animation = index;
@@ -56,6 +58,7 @@ public abstract class Entity {
 
     public void update(float delta, Window window, Camera camera, Level world) {
 	onUpdate(delta, window, camera, world);
+	graphics[use_animation].update();
     }
 
     public void render(Shader shader, Camera camera, Level world) {
@@ -64,7 +67,7 @@ public abstract class Entity {
 	shader.bind();
 	shader.setUniform1i("sampler", 0);
 	shader.setUniformMatrix4f("projection", transform.getProjection(target));
-	animations[use_animation].bind(shader);
+	graphics[use_animation].render(shader);
 	model.render();
     }
 
@@ -77,6 +80,8 @@ public abstract class Entity {
 	    transform.pos.set(bounding_box.getCenter().x, bounding_box.getCenter().y);
 	    entity.bounding_box.correctPosition(bounding_box, collision);
 	    entity.transform.pos.set(entity.bounding_box.getCenter().x, entity.bounding_box.getCenter().y);
+	    this.onCollision(entity);
+	    entity.onCollision(this);
 	}
     }
 

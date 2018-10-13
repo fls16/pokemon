@@ -29,7 +29,7 @@ public class AnimatedImage extends GUIElement {
 
 	shader.setUniformMatrix4f("projection", transform);
 	shader.setUniform1i("sampler", 0);
-	animation.bind(shader);
+	animation.render(shader);
 	model.render();
     }
 
