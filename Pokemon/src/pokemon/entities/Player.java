@@ -63,7 +63,7 @@ public class Player extends Entity {
 	    movement.set(0.0f, 0.0f);
 	    switch (direction) {
 	    case 0: // W
-		if (!targetTileSolid(level, transform.pos.x, moveTo) && -transform.pos.y - tempSpeed * 2 >= moveTo)
+		if (!targetTileSolid(level, transform.pos.x, moveTo) && -transform.pos.y > moveTo)
 		    movement.set(0.0f, tempSpeed);
 		else
 		    canMove = true;
@@ -81,13 +81,13 @@ public class Player extends Entity {
 		    canMove = true;
 		break;
 	    case 3: // A
-		if (!targetTileSolid(level, moveTo, -transform.pos.y) && transform.pos.x - tempSpeed * 2 > moveTo)
+		if (!targetTileSolid(level, moveTo, -transform.pos.y) && transform.pos.x > moveTo)
 		    movement.set(-tempSpeed, 0.0f);
 		else
 		    canMove = true;
 		break;
 	    }
-	    move(movement);
+	    move(movement, level);
 	}
 
     }

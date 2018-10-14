@@ -3,6 +3,8 @@ package engine.gfx;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.Logger;
+
 public class Assets {
 
     public enum DrawOrder {
@@ -28,6 +30,7 @@ public class Assets {
 	model.put(DrawOrder.GUI, new Model(getVertices(0.6f), texture, indices));
 	model.put(DrawOrder.GUI_TXT, new Model(getVertices(0.7f), texture, indices));
 	model.put(DrawOrder.MAX, new Model(getVertices(1.0f), texture, indices));
+	Logger.printMsg(model.toString());
     }
 
     private static float[] getVertices(float z) {

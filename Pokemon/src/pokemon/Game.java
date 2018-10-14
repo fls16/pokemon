@@ -32,6 +32,8 @@ public class Game extends GameEngine2D {
     private GUIManager gui_manager;
     private LevelManager level_manager;
 
+    private Entity player;
+
     @Override
     protected void onSetUp(Settings settings) {
 	Logger.printMsg("Started..");
@@ -59,38 +61,8 @@ public class Game extends GameEngine2D {
     @Override
     protected void declareTiles() {
 	// TILES
-	Tile t_grass = new Tile(0, 0).setSolid(false);
+	Tile t_grass = new Tile(0, 0).setSolid(false).changeDrawOrder(DrawOrder.LOW);
 	Tile t_flower_1 = new Tile(0, 1).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
-
-	new Tile(8, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
-	new Tile(9, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
-	new Tile(10, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
-	new Tile(11, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
-	new Tile(12, 5).setSolid(false).changeDrawOrder(DrawOrder.HIGH);
-
-	new Tile(8, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(9, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(10, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(11, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(12, 6).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-
-	new Tile(8, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(9, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(10, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(11, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(12, 7).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-
-	new Tile(8, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(9, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(10, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(11, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(12, 8).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-
-	new Tile(8, 9).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(9, 9).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(10, 9).setSolid(true).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(11, 9).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
-	new Tile(12, 9).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
     }
 
     @Override
@@ -138,8 +110,11 @@ public class Game extends GameEngine2D {
 	test_level_1.calculateView(window);
 	level_manager.addLevel("BLUBB", test_level_1);
 
+	// adding test-tiles
+	test_level_1.setSecondaryTile(Tile.tiles[1], 3, 3);
+
 	// adding test-entities
-	Entity player = new Player(new Transform(8, -8), tile_sheet_manager.getTileSheet("player")).setSolid(true);
+	player = new Player(new Transform(8, -8), tile_sheet_manager.getTileSheet("player")).setSolid(true);
 
 	Entity pokeCenter = new PokeCenter(new Transform(16, -16, 5, 5), tile_sheet_manager.getTileSheet("entities"))
 		.setSolid(true);
@@ -155,26 +130,28 @@ public class Game extends GameEngine2D {
 	level_manager.getCurrentLevel().ifPresent(level -> {
 
 	    // entity camera follow
-	    if (input.isKeyPressed(Input.N1)) {
-		entIndex++;
-		if (entIndex >= level.getEntities().size()) {
-		    entIndex = 0;
-		}
-	    }
-	    if (!level.getEntities().isEmpty()) {
-		camera.focusOn(level.getEntities().get(entIndex), level);
+	    // if (input.isKeyPressed(Input.N1)) {
+	    // entIndex++;
+	    // if (entIndex >= level.getEntities().size()) {
+	    // entIndex = 0;
+	    // }
+	    // }
+	    if (player != null) {
+		camera.focusOn(player, level);
 	    }
 
 	    // zoom
 	    if (window.getInput().isKeyPressed(GLFW.GLFW_KEY_KP_ADD)) {
 		level.zoomIn(window);
-		if (!level.getEntities().isEmpty())
-		    camera.focusOn(level.getEntities().get(entIndex), level);
+		if (player != null) {
+		    camera.focusOn(player, level);
+		}
 	    }
 	    if (window.getInput().isKeyPressed(GLFW.GLFW_KEY_KP_SUBTRACT)) {
 		level.zoomOut(window);
-		if (!level.getEntities().isEmpty())
-		    camera.focusOn(level.getEntities().get(entIndex), level);
+		if (player != null) {
+		    camera.focusOn(player, level);
+		}
 	    }
 	});
     }

@@ -67,6 +67,8 @@ public abstract class GameEngine2D {
 
     private void render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+	GL11.glClearDepth(1.0);
+	GL11.glDepthFunc(GL11.GL_LEQUAL);
 	level_manager.getCurrentLevel().ifPresent(level -> {
 	    level.correctCamera(camera, window);
 	    level.render(shader, camera);
