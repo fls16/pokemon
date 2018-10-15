@@ -119,6 +119,7 @@ public class Game extends GameEngine2D {
 	Entity pokeCenter = new PokeCenter(new Transform(16, -16, 5, 5), tile_sheet_manager.getTileSheet("entities"))
 		.setSolid(true);
 
+	test_level_1.player = (Player) player;
 	test_level_1.addEntities(player, pokeCenter);
     }
 

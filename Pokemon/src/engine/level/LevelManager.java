@@ -1,13 +1,10 @@
 package engine.level;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import engine.Window;
-import engine.utils.CSVLevelParser;
-import engine.utils.IOUtils;
 
 public class LevelManager {
 
@@ -15,13 +12,13 @@ public class LevelManager {
     private Level current_level;
 
     public void init(Window window) {
-	for (File f : IOUtils.listFilesForFolder("level")) {
-	    String level_name = f.getName().replace(".csv", "");
-	    Level level = CSVLevelParser.load(level_name);
-	    level.calculateView(window);
-	    levels.put(level_name, level);
-	    System.out.println("Loaded: " + level_name);
-	}
+	// for (File f : IOUtils.listFilesForFolder("level")) {
+	// String level_name = f.getName().replace(".csv", "");
+	// Level level = CSVLevelParser.load(level_name);
+	// level.calculateView(window);
+	// levels.put(level_name, level);
+	// System.out.println("Loaded: " + level_name);
+	// }
     }
 
     public LevelManager() {

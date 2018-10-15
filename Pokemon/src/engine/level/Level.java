@@ -8,6 +8,7 @@ import engine.entity.TileRenderer;
 import engine.gfx.Shader;
 import engine.math.Matrix4f;
 import engine.math.Vector3f;
+import pokemon.entities.Player;
 
 public class Level {
 
@@ -20,7 +21,8 @@ public class Level {
     private short[][] primaryTiles;
     private short[][] secondaryTiles;
     private Collidable[][] collidables;
-    private Entity[][][] entities;
+    private Chunk[][] chunks;
+    // private Entity[][][] entities;
     // private AABB[][] bounding_boxes;
     // private List<Entity> entities;
     private int width, height;
@@ -32,9 +34,12 @@ public class Level {
     private int posX, posY;
     private Tile tempPrimaryTile;
     private Tile tempSecondaryTile;
-    private Entity[] tempEntities;
+    // private Entity[] tempEntities;
+    public Player player;
 
     public Level(String name, int width, int height) {
+	if (width < 64 && width % 32 != 0 && height < 64 && height % 32 != 0)
+	    throw new IllegalArgumentException("Level width and height must be at least 64 and dividable by 32!");
 	this.name = name;
 	this.width = width;
 	this.height = height;
@@ -43,11 +48,20 @@ public class Level {
 	secondaryTiles = new short[width][height];
 	// bounding_boxes = new AABB[width][height];
 	this.collidables = new Collidable[width][height];
-	this.entities = new Entity[width][height][1];
+	this.chunks = new Chunk[width / 16][height / 16];
+	for (int x = 0; x < width / 16 - 1; x++) {
+	    for (int y = 0; y < height / 16 - 1; y++) {
+		chunks[x][y] = new Chunk(x, y);
+	    }
+	}
+	// this.entities = new Entity[width][height][1];
 	// entities = new ArrayList<>();
 	world = new Matrix4f().setTranslation(new Vector3f());
 	world.scale(new Vector3f(scale, scale, 1));
     }
+
+    private int tempChunkX, tempChunkY;
+    private Chunk[] activeChunks = new Chunk[9];
 
     public void update(float delta, Window window, Camera camera) {
 	// EntityMover.update(delta);
@@ -69,19 +83,37 @@ public class Level {
 	// camX = (int) camera.getPosition().x / (scale * 2);
 	// camY = (int) camera.getPosition().y / (scale * 2);
 
-	// for (int w = 0; w < viewX; w++) {
-	// for (int h = 0; h < viewY; h++) {
-	// posX = w - camX - (viewX / 2) + 1;
-	// posY = h + camY - (viewY / 2);
-	// tempEntities = getEntitiesAt(posX, posY);
-	// if (tempEntities != null) {
-	// for (Entity entity : tempEntities) {
-	// entity.update(delta, window, camera, this);
-	// }
-	// }
-	// }
-	// }
-	entities[8][8][0].update(delta, window, camera, this);
+	// posX = camX - (viewX / 2) + 1;
+	// posY = camY - (viewY / 2);
+	camX = -((int) camera.getPosition().x / (scale * 2));
+	camY = (int) camera.getPosition().y / (scale * 2);
+
+	tempChunkX = camX / 16;
+	tempChunkY = camY / 16;
+	int mw = width / 16;
+	int mh = height / 16;
+
+	activeChunks[0] = camX - 16 < 0 && camY - 16 < 0 ? null : chunks[(camX - 16) / 16][(camY - 16) / 16];
+	activeChunks[1] = camY - 16 < 0 ? null : chunks[camX / 16][(camY - 16) / 16];
+
+	activeChunks[2] = camX + 16 > mw && camY - 16 < 0 ? null : chunks[(camX + 16) / 16][(camY - 16) / 16];
+	activeChunks[3] = camX + 16 > mw ? null : chunks[camX + 16 / 16][camY / 16];
+
+	activeChunks[4] = camX + 16 > mw && camY - 16 < 0 ? null : chunks[(camX + 16) / 16][(camY - 16) / 16];
+	activeChunks[5] = camX + 16 > mw ? null : chunks[camX + 16 / 16][camY / 16];
+
+	activeChunks[6] = camX + 16 > mw && camY - 16 < 0 ? null : chunks[(camX + 16) / 16][(camY - 16) / 16];
+	activeChunks[7] = camX + 16 > mw ? null : chunks[camX + 16 / 16][camY / 16];
+
+	activeChunks[8] = chunks[camX / 16][camY / 16];
+
+	for (Chunk c : tempActiveChunks) {
+	    if (c != null)
+		c.update(delta, window, camera, this);
+	}
+	System.out.println(tempActiveChunks);
+	player.update(delta, window, camera, this);
+	// entities[8][8][0].update(delta, window, camera, this);
     }
 
     public void move(Entity entity) {
@@ -90,12 +122,10 @@ public class Level {
 
     public void render(Shader shader, Camera camera) {
 	// oldRender(shader, camera);
-	camX = (int) camera.getPosition().x / (scale * 2);
-	camY = (int) camera.getPosition().y / (scale * 2);
 
 	for (int w = 0; w < viewX; w++) {
 	    for (int h = 0; h < viewY; h++) {
-		posX = w - camX - (viewX / 2) + 1;
+		posX = w + camX - (viewX / 2) + 1;
 		posY = h + camY - (viewY / 2);
 		// tiles
 		tempPrimaryTile = getPrimaryTileAt(posX, posY);
@@ -105,6 +135,7 @@ public class Level {
 		    if (tempSecondaryTile != null) {
 			tile_renderer.render(tempSecondaryTile, posX, -posY, shader, world, camera);
 		    }
+
 		}
 		// entities
 		// tempEntities = getEntitiesAt(posX, posY);
@@ -113,9 +144,11 @@ public class Level {
 		// entity.render(shader, camera, this);
 		// }
 		// }
-		entities[8][8][0].render(shader, camera, this);
+		// entities[8][8][0].render(shader, camera, this);
 	    }
 	}
+	chunks[-camX / 32][camY / 32].render(shader, camera, this);
+	player.render(shader, camera, this);
 
 	// float left = (-camera.getPosition().x / scale) - viewX;
 	// float right = (-camera.getPosition().x / scale) + viewX;
@@ -149,7 +182,8 @@ public class Level {
 		    tile_renderer.render(t2, w - posX - (viewX / 2) + 1, -h - posY + (viewY / 2), shader, world,
 			    camera);
 
-		    entities[8][8][0].render(shader, camera, this);
+		    player.render(shader, camera, this);
+		    // entities[8][8][0].render(shader, camera, this);
 
 		}
 	    }
@@ -216,8 +250,10 @@ public class Level {
     }
 
     public Entity[] getEntitiesAt(int x, int y) {
-	return (x < 0 || x > entities.length || y < 0 || y > entities[x].length) || entities[x][y][0] == null ? //
-		null : entities[x][y];
+	// return (x < 0 || x > entities.length || y < 0 || y > entities[x].length) ||
+	// entities[x][y][0] == null ? //
+	// null : entities[x][y];
+	return null;
     }
 
     // public AABB getTileBoundingBoxAt(int x, int y) {
@@ -260,9 +296,12 @@ public class Level {
     // }
 
     public void addEntity(Entity entity) {
-	entities[(int) entity.transform.pos.x][(int) -entity.transform.pos.y][0] = entity;
-	collidables[(int) entity.transform.pos.x][(int) -entity.transform.pos.y] = new Collidable(entity.isSolid())
-		.setOnCollision(entity.getOnCollision());
+	// entities[(int) entity.transform.pos.x][(int) -entity.transform.pos.y][0] =
+	// entity;
+	// collidables[(int) entity.transform.pos.x][(int) -entity.transform.pos.y] =
+	// new Collidable(entity.isSolid())
+	// .setOnCollision(entity.getOnCollision());
+
     }
 
     public void addEntities(Entity... entities) {
@@ -276,12 +315,15 @@ public class Level {
     // }
 
     public boolean removeEntity(Entity entity) {
-	if (entities[(int) entity.transform.pos.x][(int) entity.transform.pos.y][0] == null) {
-	    return false;
-	} else {
-	    entities[(int) entity.transform.pos.x][(int) entity.transform.pos.y][0] = null;
-	    return true;
-	}
+	// if (entities[(int) entity.transform.pos.x][(int) entity.transform.pos.y][0]
+	// == null) {
+	// return false;
+	// } else {
+	// entities[(int) entity.transform.pos.x][(int) entity.transform.pos.y][0] =
+	// null;
+	// return true;
+	// }
+	return false;
     }
 
     public int getScale() {
