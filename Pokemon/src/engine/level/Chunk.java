@@ -29,7 +29,7 @@ public class Chunk {
 
     @Override
     public String toString() {
-	return "Chunk at: " + x + " | " + y;
+	return x + "|" + y;
     }
 
 }

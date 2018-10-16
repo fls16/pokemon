@@ -1,5 +1,8 @@
 package engine.level;
 
+import java.util.ArrayDeque;
+import java.util.Collection;
+
 import engine.Camera;
 import engine.Window;
 import engine.entity.Entity;
@@ -22,12 +25,16 @@ public class Level {
     private short[][] secondaryTiles;
     private Collidable[][] collidables;
     private Chunk[][] chunks;
+    private int chunkScale = 16;
     // private Entity[][][] entities;
     // private AABB[][] bounding_boxes;
-    // private List<Entity> entities;
+    public Collection<Entity> globalEntities;
     private int width, height;
     private int scale;
     private Matrix4f world;
+
+    // player
+    public Player player;
 
     // temp variables
     private int camX, camY;
@@ -35,22 +42,22 @@ public class Level {
     private Tile tempPrimaryTile;
     private Tile tempSecondaryTile;
     // private Entity[] tempEntities;
-    public Player player;
 
     public Level(String name, int width, int height) {
-	if (width < 64 && width % 32 != 0 && height < 64 && height % 32 != 0)
+	if (width < chunkScale * 4 && width % chunkScale != 0 && height < chunkScale * 4 && height % chunkScale != 0)
 	    throw new IllegalArgumentException("Level width and height must be at least 64 and dividable by 32!");
 	this.name = name;
 	this.width = width;
 	this.height = height;
-	scale = default_scale;
-	primaryTiles = new short[width][height];
-	secondaryTiles = new short[width][height];
+	this.scale = default_scale;
+	this.primaryTiles = new short[width][height];
+	this.secondaryTiles = new short[width][height];
+	this.globalEntities = new ArrayDeque<>();
 	// bounding_boxes = new AABB[width][height];
 	this.collidables = new Collidable[width][height];
-	this.chunks = new Chunk[width / 16][height / 16];
-	for (int x = 0; x < width / 16 - 1; x++) {
-	    for (int y = 0; y < height / 16 - 1; y++) {
+	this.chunks = new Chunk[width / chunkScale][height / chunkScale];
+	for (int x = 0; x < width / chunkScale; x++) {
+	    for (int y = 0; y < height / chunkScale; y++) {
 		chunks[x][y] = new Chunk(x, y);
 	    }
 	}
@@ -80,40 +87,39 @@ public class Level {
 	// }
 	// }
 
-	// camX = (int) camera.getPosition().x / (scale * 2);
-	// camY = (int) camera.getPosition().y / (scale * 2);
-
-	// posX = camX - (viewX / 2) + 1;
-	// posY = camY - (viewY / 2);
+	// camera position calculation
 	camX = -((int) camera.getPosition().x / (scale * 2));
 	camY = (int) camera.getPosition().y / (scale * 2);
 
-	tempChunkX = camX / 16;
-	tempChunkY = camY / 16;
-	int mw = width / 16;
-	int mh = height / 16;
+	// active chunk calculation
+	activeChunks[0] = camX - chunkScale < 0 || camY - chunkScale < 0 ? // left top
+		null : chunks[(camX - chunkScale) / chunkScale][(camY - chunkScale) / chunkScale];
+	activeChunks[1] = camY - chunkScale < 0 ? // top center
+		null : chunks[camX / chunkScale][(camY - chunkScale) / chunkScale];
 
-	activeChunks[0] = camX - 16 < 0 && camY - 16 < 0 ? null : chunks[(camX - 16) / 16][(camY - 16) / 16];
-	activeChunks[1] = camY - 16 < 0 ? null : chunks[camX / 16][(camY - 16) / 16];
+	activeChunks[2] = camX + chunkScale >= width || camY - chunkScale < 0 ? // top right
+		null : chunks[(camX + chunkScale) / chunkScale][(camY - chunkScale) / chunkScale];
+	activeChunks[3] = camX + chunkScale >= width ? // right center
+		null : chunks[(camX + chunkScale) / chunkScale][camY / chunkScale];
 
-	activeChunks[2] = camX + 16 > mw && camY - 16 < 0 ? null : chunks[(camX + 16) / 16][(camY - 16) / 16];
-	activeChunks[3] = camX + 16 > mw ? null : chunks[camX + 16 / 16][camY / 16];
+	activeChunks[4] = camX + chunkScale >= width || camY + chunkScale >= height ? // right bottom
+		null : chunks[(camX + chunkScale) / chunkScale][(camY + chunkScale) / chunkScale];
+	activeChunks[5] = camY + chunkScale >= height ? // bottom center
+		null : chunks[camX / chunkScale][(camY + chunkScale) / chunkScale];
 
-	activeChunks[4] = camX + 16 > mw && camY - 16 < 0 ? null : chunks[(camX + 16) / 16][(camY - 16) / 16];
-	activeChunks[5] = camX + 16 > mw ? null : chunks[camX + 16 / 16][camY / 16];
+	activeChunks[6] = camX - chunkScale < 0 || camY + chunkScale >= height ? // bottom left
+		null : chunks[(camX - chunkScale) / chunkScale][(camY + chunkScale) / chunkScale];
+	activeChunks[7] = camX - chunkScale < 0 ? // left center
+		null : chunks[(camX - chunkScale) / chunkScale][camY / chunkScale];
 
-	activeChunks[6] = camX + 16 > mw && camY - 16 < 0 ? null : chunks[(camX + 16) / 16][(camY - 16) / 16];
-	activeChunks[7] = camX + 16 > mw ? null : chunks[camX + 16 / 16][camY / 16];
+	activeChunks[8] = chunks[camX / chunkScale][camY / chunkScale]; // center
 
-	activeChunks[8] = chunks[camX / 16][camY / 16];
-
-	for (Chunk c : tempActiveChunks) {
-	    if (c != null)
+	for (Chunk c : activeChunks) {
+	    if (c != null) {
 		c.update(delta, window, camera, this);
+	    }
 	}
-	System.out.println(tempActiveChunks);
 	player.update(delta, window, camera, this);
-	// entities[8][8][0].update(delta, window, camera, this);
     }
 
     public void move(Entity entity) {
@@ -121,13 +127,10 @@ public class Level {
     }
 
     public void render(Shader shader, Camera camera) {
-	// oldRender(shader, camera);
-
 	for (int w = 0; w < viewX; w++) {
 	    for (int h = 0; h < viewY; h++) {
 		posX = w + camX - (viewX / 2) + 1;
 		posY = h + camY - (viewY / 2);
-		// tiles
 		tempPrimaryTile = getPrimaryTileAt(posX, posY);
 		if (tempPrimaryTile != null) {
 		    tile_renderer.render(tempPrimaryTile, posX, -posY, shader, world, camera);
@@ -135,20 +138,18 @@ public class Level {
 		    if (tempSecondaryTile != null) {
 			tile_renderer.render(tempSecondaryTile, posX, -posY, shader, world, camera);
 		    }
-
 		}
-		// entities
-		// tempEntities = getEntitiesAt(posX, posY);
-		// if (tempEntities != null) {
-		// for (Entity entity : tempEntities) {
-		// entity.render(shader, camera, this);
-		// }
-		// }
-		// entities[8][8][0].render(shader, camera, this);
 	    }
 	}
-	chunks[-camX / 32][camY / 32].render(shader, camera, this);
 	player.render(shader, camera, this);
+	for (Entity e : globalEntities) {
+	    e.render(shader, camera, this);
+	}
+	for (Chunk c : activeChunks) {
+	    if (c != null) {
+		c.render(shader, camera, this);
+	    }
+	}
 
 	// float left = (-camera.getPosition().x / scale) - viewX;
 	// float right = (-camera.getPosition().x / scale) + viewX;
@@ -181,10 +182,6 @@ public class Level {
 		    Tile t2 = getSecondaryTileAt(w - posX - (viewX / 2) + 1, h + posY - (viewY / 2));
 		    tile_renderer.render(t2, w - posX - (viewX / 2) + 1, -h - posY + (viewY / 2), shader, world,
 			    camera);
-
-		    player.render(shader, camera, this);
-		    // entities[8][8][0].render(shader, camera, this);
-
 		}
 	    }
 	}
@@ -240,13 +237,11 @@ public class Level {
     }
 
     public Tile getPrimaryTileAt(int x, int y) {
-	return (x < 0 || x > primaryTiles.length || y < 0 || y > primaryTiles[0].length) ? //
-		null : Tile.tiles[primaryTiles[x][y]];
+	return (x < 0 || x >= width || y < 0 || y >= height) ? null : Tile.tiles[primaryTiles[x][y]];
     }
 
     public Tile getSecondaryTileAt(int x, int y) {
-	return (x < 0 || x > secondaryTiles.length || y < 0 || y > secondaryTiles[0].length) ? //
-		null : Tile.tiles[secondaryTiles[x][y]];
+	return (x < 0 || x >= width || y < 0 || y >= height) ? null : Tile.tiles[secondaryTiles[x][y]];
     }
 
     public Entity[] getEntitiesAt(int x, int y) {
@@ -296,6 +291,8 @@ public class Level {
     // }
 
     public void addEntity(Entity entity) {
+	chunks[(int) entity.transform.pos.x / chunkScale][(int) -entity.transform.pos.y / chunkScale].entities
+		.add(entity);
 	// entities[(int) entity.transform.pos.x][(int) -entity.transform.pos.y][0] =
 	// entity;
 	// collidables[(int) entity.transform.pos.x][(int) -entity.transform.pos.y] =

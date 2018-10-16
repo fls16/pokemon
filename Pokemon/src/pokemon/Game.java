@@ -106,7 +106,7 @@ public class Game extends GameEngine2D {
     protected void handleLevelManager(LevelManager level_manager) {
 	this.level_manager = level_manager;
 	Level test_level_1 = level_manager.getLevel("BLUBB");
-	test_level_1 = new Level("BLUBB", 512, 512);
+	test_level_1 = new Level("BLUBB", 64, 64);
 	test_level_1.calculateView(window);
 	level_manager.addLevel("BLUBB", test_level_1);
 
@@ -120,7 +120,7 @@ public class Game extends GameEngine2D {
 		.setSolid(true);
 
 	test_level_1.player = (Player) player;
-	test_level_1.addEntities(player, pokeCenter);
+	test_level_1.addEntities(pokeCenter);
     }
 
     // for camera controll
