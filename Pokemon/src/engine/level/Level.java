@@ -45,7 +45,7 @@ public class Level {
 
     public Level(String name, int width, int height) {
 	if (width < chunkScale * 4 && width % chunkScale != 0 && height < chunkScale * 4 && height % chunkScale != 0)
-	    throw new IllegalArgumentException("Level width and height must be at least 64 and dividable by 32!");
+	    throw new IllegalArgumentException("Level width/height must be at least 64 and dividable by " + chunkScale);
 	this.name = name;
 	this.width = width;
 	this.height = height;
@@ -351,6 +351,18 @@ public class Level {
 
     public int getHeight() {
 	return height;
+    }
+
+    public Entity getEntityAt(int x, int y) {
+	Entity temp = null;
+	for (Chunk c : activeChunks) {
+	    if (c != null) {
+		temp = c.getEntityAt(x, y);
+		if (temp != null)
+		    return temp;
+	    }
+	}
+	return null;
     }
 
 }

@@ -10,12 +10,13 @@ import engine.gfx.Shader;
 
 public class Chunk {
 
-    public int x, y;
+    public int xOffset, yOffset;
     public Collection<Entity> entities;
+    // public Collidable[][] collidables;
 
-    public Chunk(int x, int y) {
-	this.x = x;
-	this.y = y;
+    public Chunk(int xOffset, int yOffset) {
+	this.xOffset = xOffset;
+	this.yOffset = yOffset;
 	this.entities = new ArrayDeque<>();
     }
 
@@ -27,9 +28,22 @@ public class Chunk {
 	entities.forEach(e -> e.render(shader, camera, level));
     }
 
+    public boolean addEntity(Entity entity) {
+	return entities.add(entity);
+    }
+
+    public Entity getEntityAt(int x, int y) {
+	for (Entity e : entities) {
+	    if (e.bounding_box.contains(x, y)) {
+		return e;
+	    }
+	}
+	return null;
+    }
+
     @Override
     public String toString() {
-	return x + "|" + y;
+	return xOffset + "|" + yOffset;
     }
 
 }

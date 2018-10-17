@@ -38,4 +38,19 @@ public class PokeCenter extends Entity {
 	}
     }
 
+    @Override
+    public void onPlayerCall(Player player) {
+	((Animation) graphics[use_animation]).running(true);
+    }
+
+    @Override
+    public void onPlayerCollision(Player player) {
+	if (player.direction == 0 && Math.round(player.transform.pos.x) == Math.round(transform.pos.x)) {
+	    ((Animation) graphics[use_animation]).running(true);
+
+	    // TEST
+
+	}
+    }
+
 }

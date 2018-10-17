@@ -13,12 +13,13 @@ import engine.level.OnCollision;
 import engine.math.Matrix4f;
 import engine.math.Vector2f;
 import engine.math.Vector3f;
+import pokemon.entities.Player;
 
 public abstract class Entity {
 
     public Transform transform;
     protected OnCollision onCollision;
-    protected AABB bounding_box;
+    public AABB bounding_box;
     protected int use_animation;
     protected boolean solid;
     protected Model model = Assets.get(DrawOrder.NORMAL);
@@ -58,16 +59,20 @@ public abstract class Entity {
 	level.move(this);
     }
 
-    protected abstract void onUpdate(float delta, Window window, Camera camera, Level world);
+    protected abstract void onUpdate(float delta, Window window, Camera camera, Level level);
+
+    public abstract void onPlayerCall(Player player);
+
+    public abstract void onPlayerCollision(Player player);
 
     public void update(float delta, Window window, Camera camera, Level world) {
 	onUpdate(delta, window, camera, world);
 	graphics[use_animation].update();
     }
 
-    public void render(Shader shader, Camera camera, Level world) {
+    public void render(Shader shader, Camera camera, Level level) {
 	Matrix4f target = camera.getProjection();
-	Matrix4f.mul(target, world.getWorldMatrix(), target);
+	Matrix4f.mul(target, level.getWorldMatrix(), target);
 	shader.bind();
 	shader.setUniform1i("sampler", 0);
 	shader.setUniformMatrix4f("projection", transform.getProjection(target));
