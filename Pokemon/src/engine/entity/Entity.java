@@ -84,10 +84,6 @@ public abstract class Entity {
 	model.render();
     }
 
-    public void secondRender(Shader shader, Camera camera, Level level) {
-
-    }
-
     Collision collision;
 
     public void collideWithEntity(Entity entity) {
