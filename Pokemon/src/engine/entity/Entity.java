@@ -40,6 +40,10 @@ public abstract class Entity {
 
     protected abstract void onCollision(Entity entity);
 
+    public boolean contains(int x, int y) {
+	return bounding_box.contains(x, y);
+    }
+
     public void useAnimation(int index) {
 	this.use_animation = index;
     }
@@ -78,6 +82,10 @@ public abstract class Entity {
 	shader.setUniformMatrix4f("projection", transform.getProjection(target));
 	graphics[use_animation].render(shader);
 	model.render();
+    }
+
+    public void secondRender(Shader shader, Camera camera, Level level) {
+
     }
 
     Collision collision;

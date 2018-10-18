@@ -44,7 +44,7 @@ public class BitmapFont {
 	    Matrix4f target = new Matrix4f();
 	    Matrix4f.translate(charPos, new Matrix4f(), target).scale(new Vector3f(scale.x, scale.y, 1));
 	    shader.setUniformMatrix4f("projection", Matrix4f.mul(camera.getProjection(), target, new Matrix4f()));
-	    Assets.get(DrawOrder.GUI_TXT).render();
+	    Assets.get(DrawOrder.GUI).render();
 	    TILE_SHEET.bindTile(shader, cellX, cellY);
 	}
 

@@ -122,6 +122,10 @@ public class Level {
 	player.update(delta, window, camera, this);
     }
 
+    public void addPreFab(PreFab preFab) {
+
+    }
+
     public void move(Entity entity) {
 
     }

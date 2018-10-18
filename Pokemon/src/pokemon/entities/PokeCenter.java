@@ -13,6 +13,7 @@ public class PokeCenter extends Entity {
 
     public PokeCenter(Transform transform, TileSheet tile_sheet) {
 	super(transform, tile_sheet);
+	bounding_box.half_extend.y -= 2;
     }
 
     @Override
@@ -47,7 +48,6 @@ public class PokeCenter extends Entity {
     public void onPlayerCollision(Player player) {
 	if (player.direction == 0 && Math.round(player.transform.pos.x) == Math.round(transform.pos.x)) {
 	    ((Animation) graphics[use_animation]).running(true);
-
 	    // TEST
 
 	}

@@ -4,7 +4,7 @@ import engine.math.Vector2f;
 
 public class AABB {
 
-    private Vector2f center, half_extend;
+    public Vector2f center, half_extend;
 
     public AABB(Vector2f center, Vector2f half_extend) {
 	this.center = center;
