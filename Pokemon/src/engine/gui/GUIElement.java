@@ -3,8 +3,6 @@ package engine.gui;
 import engine.Camera;
 import engine.Window;
 import engine.gfx.Assets;
-import engine.gfx.Assets.DrawOrder;
-import engine.gfx.Model;
 import engine.gfx.Shader;
 import engine.gfx.TileSheet;
 import engine.input.Input;
@@ -19,7 +17,7 @@ public abstract class GUIElement {
     protected Rectangle bounding_box;
     protected boolean enabled;
     protected int texture_x, texture_y;
-    protected Model model = Assets.get(DrawOrder.GUI);
+    // protected Model model = Assets.get(DrawOrder.GUI);
     private Matrix4f transform;
 
     public GUIElement(float x, float y, float width, float height) {
@@ -43,7 +41,7 @@ public abstract class GUIElement {
 
 	shader.setUniformMatrix4f("projection", transform);
 	tile_sheet.bindTile(shader, texture_x, texture_y);
-	model.render();
+	Assets.model.render();
 	onRender(camera, shader, window, position);
 
     }

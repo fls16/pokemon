@@ -67,8 +67,8 @@ public abstract class GameEngine2D {
 
     private void render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-	GL11.glClearDepth(1.0);
-	GL11.glDepthFunc(GL11.GL_LEQUAL);
+	// GL11.glClearDepth(1.0);
+	// GL11.glDepthFunc(GL11.GL_LEQUAL);
 	level_manager.getCurrentLevel().ifPresent(level -> {
 	    level.correctCamera(camera, window);
 	    level.render(shader, camera);
@@ -103,7 +103,7 @@ public abstract class GameEngine2D {
 	GL11.glEnable(GL11.GL_BLEND);
 	GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TRANSPARENCY
 	GL11.glEnable(GL11.GL_TEXTURE_2D);
-	GL11.glEnable(GL11.GL_DEPTH_TEST);
+	// GL11.glEnable(GL11.GL_DEPTH_TEST);
 	GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	Assets.init();

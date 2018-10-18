@@ -119,11 +119,7 @@ public class Level {
 		c.update(delta, window, camera, this);
 	    }
 	}
-	player.update(delta, window, camera, this);
-    }
-
-    public void addPreFab(PreFab preFab) {
-
+	// player.update(delta, window, camera, this);
     }
 
     public void move(Entity entity) {
@@ -145,7 +141,7 @@ public class Level {
 		}
 	    }
 	}
-	player.render(shader, camera, this);
+	// player.render(shader, camera, this);
 	for (Entity e : globalEntities) {
 	    e.render(shader, camera, this);
 	}

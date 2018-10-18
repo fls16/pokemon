@@ -3,6 +3,7 @@ package engine.gui;
 import engine.Camera;
 import engine.Window;
 import engine.gfx.Animation;
+import engine.gfx.Assets;
 import engine.gfx.Shader;
 import engine.input.Input;
 import engine.math.Matrix4f;
@@ -30,7 +31,7 @@ public class AnimatedImage extends GUIElement {
 	shader.setUniformMatrix4f("projection", transform);
 	shader.setUniform1i("sampler", 0);
 	animation.render(shader);
-	model.render();
+	Assets.model.render();
     }
 
     @Override

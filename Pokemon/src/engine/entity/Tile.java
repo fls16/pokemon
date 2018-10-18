@@ -1,14 +1,10 @@
 package engine.entity;
 
-import engine.gfx.Assets;
-import engine.gfx.Assets.DrawOrder;
-import engine.gfx.Model;
-
 public class Tile {
 
     public static Tile[] tiles = new Tile[Short.MAX_VALUE];
     public static short number_of_tiles = 0;
-    public Model model;
+    // public Model model;
     // private final static Tile default_tile = new Tile(0, 0);
 
     private short id;
@@ -17,7 +13,7 @@ public class Tile {
     private boolean solid;
 
     public Tile() {
-	model = Assets.get(DrawOrder.LOW);
+	// model = Assets.get(DrawOrder.LOW);
     }
 
     public Tile(int texture_x, int texture_y) {
@@ -29,12 +25,7 @@ public class Tile {
 	tiles[id] = this;
 	this.texture_x = texture_x;
 	this.texture_y = texture_y;
-	model = Assets.get(DrawOrder.LOW);
-    }
-
-    public Tile changeDrawOrder(DrawOrder drawOrder) {
-	this.model = Assets.get(drawOrder);
-	return this;
+	// model = Assets.get(DrawOrder.LOW);
     }
 
     public boolean isSolid() {

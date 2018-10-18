@@ -10,7 +10,6 @@ import engine.Window;
 import engine.entity.Entity;
 import engine.entity.Tile;
 import engine.entity.Transform;
-import engine.gfx.Assets.DrawOrder;
 import engine.gfx.TileSheet;
 import engine.gfx.TileSheetManager;
 import engine.gui.Button;
@@ -62,8 +61,8 @@ public class Game extends GameEngine2D {
     @Override
     protected void declareTiles() {
 	// TILES
-	Tile t_grass = new Tile(0, 0).setSolid(false).changeDrawOrder(DrawOrder.LOW);
-	Tile t_flower_1 = new Tile(0, 1).setSolid(false).changeDrawOrder(DrawOrder.NORMAL);
+	Tile t_grass = new Tile(0, 0).setSolid(false);
+	Tile t_flower_1 = new Tile(0, 1).setSolid(false);
     }
 
     @Override
@@ -112,17 +111,20 @@ public class Game extends GameEngine2D {
 	level_manager.addLevel("BLUBB", test_level_1);
 
 	// adding test-tiles
-	test_level_1.setSecondaryTile(Tile.tiles[1], 3, 3);
+	// test_level_1.setSecondaryTile(Tile.tiles[1], 3, 3);
 
 	// adding test-entities
 	player = new Player(new Transform(8, -8), tile_sheet_manager.getTileSheet("player")).setSolid(true);
 
-	Entity pokeCenter = new PokeCenter(new Transform(16, -16, 5, 5), tile_sheet_manager.getTileSheet("entities"))
+	Entity pokeCenter = new PokeCenter(new Transform(12, -12, 5, 5), tile_sheet_manager.getTileSheet("entities"))
 		.setSolid(true);
-	Entity pokeSpawn = new PokeSpawn(new Transform(6, -6), tile_sheet_manager.getTileSheet("entities"));
+	Entity pokeSpawn1 = new PokeSpawn(new Transform(2, -2), tile_sheet_manager.getTileSheet("entities"));
+	Entity pokeSpawn2 = new PokeSpawn(new Transform(4, -2), tile_sheet_manager.getTileSheet("entities"));
+	Entity pokeSpawn3 = new PokeSpawn(new Transform(4, -4), tile_sheet_manager.getTileSheet("entities"));
+	Entity pokeSpawn4 = new PokeSpawn(new Transform(2, -4), tile_sheet_manager.getTileSheet("entities"));
 
 	test_level_1.player = (Player) player;
-	test_level_1.addEntities(pokeSpawn, pokeCenter);
+	test_level_1.addEntities(pokeSpawn1, pokeSpawn2, pokeSpawn3, pokeSpawn4, pokeCenter, player);
     }
 
     // for camera controll

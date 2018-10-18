@@ -18,9 +18,10 @@ public class PokeSpawn extends Entity {
 
     @Override
     protected Graphic[] addGraphics(TileSheet tile_sheet) {
-	Graphic[] graphics = new Graphic[1];
+	Graphic[] graphics = new Graphic[2];
 
-	graphics[0] = new Graphic(1, 1, tile_sheet);
+	graphics[0] = new Graphic(0, 5, tile_sheet);
+	graphics[1] = new Graphic(1, 5, tile_sheet);
 
 	return graphics;
     }
@@ -31,20 +32,28 @@ public class PokeSpawn extends Entity {
     }
 
     @Override
+    public int compareDrawOrder(Entity entity) {
+	return -1;
+    }
+
+    @Override
     protected void onUpdate(float delta, Window window, Camera camera, Level level) {
 	if (Math.round(level.player.transform.pos.x) == Math.round(transform.pos.x)) {
 	    if (Math.round(level.player.transform.pos.y) == Math.round(transform.pos.y)) {
 		if (!initBattleFlag) {
 		    initBattleFlag = true;
+		    use_animation = 1;
 		    System.out.println("init battle");
 		    // battle init
 		}
 
 	    } else {
 		initBattleFlag = false;
+		use_animation = 0;
 	    }
 	} else {
 	    initBattleFlag = false;
+	    use_animation = 0;
 	}
     }
 

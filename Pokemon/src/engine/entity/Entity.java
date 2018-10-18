@@ -3,9 +3,7 @@ package engine.entity;
 import engine.Camera;
 import engine.Window;
 import engine.gfx.Assets;
-import engine.gfx.Assets.DrawOrder;
 import engine.gfx.Graphic;
-import engine.gfx.Model;
 import engine.gfx.Shader;
 import engine.gfx.TileSheet;
 import engine.level.Level;
@@ -22,7 +20,7 @@ public abstract class Entity {
     public AABB bounding_box;
     protected int use_animation;
     protected boolean solid;
-    protected Model model = Assets.get(DrawOrder.NORMAL);
+    // protected Model model = Assets.get(DrawOrder.NORMAL);
     protected Graphic[] graphics;
 
     public Entity(Transform transform, TileSheet tile_sheet) {
@@ -34,6 +32,19 @@ public abstract class Entity {
 	this.graphics = addGraphics(tile_sheet);
 	this.onCollision = (e1, e2) -> {
 	};
+    }
+
+    @Override
+    public String toString() {
+	return "Entity " + transform.pos;
+    }
+
+    public int compareDrawOrder(Entity entity) {
+	if (entity.transform.pos.y < this.transform.pos.y) {
+	    return -1;
+	} else {
+	    return 1;
+	}
     }
 
     protected abstract Graphic[] addGraphics(TileSheet tile_sheet);
@@ -81,7 +92,7 @@ public abstract class Entity {
 	shader.setUniform1i("sampler", 0);
 	shader.setUniformMatrix4f("projection", transform.getProjection(target));
 	graphics[use_animation].render(shader);
-	model.render();
+	Assets.model.render();
     }
 
     Collision collision;
@@ -152,10 +163,6 @@ public abstract class Entity {
 	// transform.pos.set(bounding_box.getCenter().x, bounding_box.getCenter().y, 0);
 	// }
 	// }
-    }
-
-    public void changeDrawOrder(DrawOrder drawOrder) {
-	this.model = Assets.get(drawOrder);
     }
 
     public OnCollision getOnCollision() {

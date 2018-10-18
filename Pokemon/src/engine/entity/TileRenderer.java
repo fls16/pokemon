@@ -1,6 +1,7 @@
 package engine.entity;
 
 import engine.Camera;
+import engine.gfx.Assets;
 import engine.gfx.Model;
 import engine.gfx.Shader;
 import engine.gfx.TileSheet;
@@ -37,7 +38,7 @@ public class TileRenderer {
 	shader.setUniform1i("sampler", 0);
 	shader.setUniformMatrix4f("projection", target);
 
-	tile.model.render();
+	Assets.model.render();
     }
 
 }
