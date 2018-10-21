@@ -2,11 +2,11 @@ package pokemon.entities;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import pokemon.dto.BattleInfoDTO;
 import pokemon.util.Ability;
 import pokemon.util.AbilityMap;
+import pokemon.util.GlobalData;
 import pokemon.util.NatureModifier;
 import pokemon.util.NatureModifier.Nature;
 
@@ -17,7 +17,6 @@ public class Pokemon {
     }
 
     // util
-    Random random = new Random();
     private static long idCounter = 0;
     public BasicStats basicStats;
 
@@ -42,12 +41,12 @@ public class Pokemon {
     public int speed;
 
     // iv's
-    public int individualHitpoints = random.nextInt(32);
-    public int individualAttack = random.nextInt(32);
-    public int individualDefense = random.nextInt(32);
-    public int individualSpecialAttack = random.nextInt(32);
-    public int individualSpecialDefense = random.nextInt(32);
-    public int individualSpeed = random.nextInt(32);
+    public int individualHitpoints = GlobalData.random.nextInt(32);
+    public int individualAttack = GlobalData.random.nextInt(32);
+    public int individualDefense = GlobalData.random.nextInt(32);
+    public int individualSpecialAttack = GlobalData.random.nextInt(32);
+    public int individualSpecialDefense = GlobalData.random.nextInt(32);
+    public int individualSpeed = GlobalData.random.nextInt(32);
 
     // ev's
     public int effortHitpoints = 0;
@@ -80,7 +79,7 @@ public class Pokemon {
 	if (abilityname.split(",").length == 1) {
 	    ability = AbilityMap.abilities.get(abilityname);
 	} else {
-	    if (random.nextInt(100) < 50) {
+	    if (GlobalData.random.nextInt(100) < 50) {
 		ability = AbilityMap.abilities.get(abilityname.split(",")[0]);
 	    } else {
 		ability = AbilityMap.abilities.get(abilityname.split(",")[1]);
@@ -90,7 +89,7 @@ public class Pokemon {
 
     private void setNature() {
 	List<Nature> natures = Arrays.asList(NatureModifier.Nature.values());
-	nature = natures.get(random.nextInt(25));
+	nature = natures.get(GlobalData.random.nextInt(25));
     }
 
     private void setGender(String genderRate) {
@@ -98,7 +97,7 @@ public class Pokemon {
 	    gender = Gender.N;
 	} else {
 	    float genderRatio = Float.parseFloat(genderRate);
-	    if (random.nextFloat() * 100 < genderRatio) {
+	    if (GlobalData.random.nextFloat() * 100 < genderRatio) {
 		gender = Gender.M;
 	    } else {
 		gender = Gender.W;
@@ -139,7 +138,7 @@ public class Pokemon {
     public void createEgg() {
 	// TO-DO
 	// ...
-	// eggSteps -= random.nextInt(301);
+	// eggSteps -= GlobalData.random.nextInt(301);
     }
 
     public void gainExp(BattleInfoDTO battleInfoDTO) {
