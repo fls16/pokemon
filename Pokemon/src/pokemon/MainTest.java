@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pokemon.entities.Pokemon;
-import pokemon.entities.PokemonTemplate;
-import pokemon.util.GlobalData;
-import pokemon.util.GlobalData.Encounter;
+import pokemon.util.PokemonTemplate;
 import pokemon.util.TypeModifier;
 import pokemon.util.TypeModifier.Type;
 
@@ -43,15 +41,16 @@ public class MainTest {
 
 	System.out.println(TypeModifier.attackTypeModifier(Type.Fighting, Type.Rock, null));
 
-	System.out.println(getRandomEncounter(GlobalData.region1_1));
+	// System.out.println(getRandomEncounter(GlobalData.region1_1));
     }
 
-    private static Pokemon getRandomEncounter(List<Encounter> region) {
-	int pokemonNumber = GlobalData.random.nextInt(region.size());
-	Encounter encounter = region.get(pokemonNumber);
-	// return Pokemon.create(PokemonTemplate.pokemonMap.get(pokemonNumber),
-	// encounter.);
-	return null;
-    }
+    // private static Pokemon getRandomEncounter(List<pokemon.util.Encounter>
+    // region) {
+    // int pokemonNumber = GlobalData.random.nextInt(region.size());
+    // Encounter encounter = region.get(pokemonNumber);
+    // // return Pokemon.create(PokemonTemplate.pokemonMap.get(pokemonNumber),
+    // // encounter.);
+    // return null;
+    // }
 
 }

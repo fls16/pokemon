@@ -1,4 +1,4 @@
-package pokemon.entities;
+package pokemon.util;
 
 import pokemon.util.TypeModifier.Type;
 

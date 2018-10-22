@@ -1,4 +1,4 @@
-package pokemon.entities;
+package pokemon.util;
 
 import engine.Camera;
 import engine.Window;
@@ -7,6 +7,7 @@ import engine.entity.Transform;
 import engine.gfx.Graphic;
 import engine.gfx.TileSheet;
 import engine.level.Level;
+import pokemon.entities.Player;
 
 public class PokeSpawn extends Entity {
 

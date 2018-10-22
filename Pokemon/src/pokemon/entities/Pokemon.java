@@ -6,6 +6,7 @@ import java.util.List;
 import pokemon.dto.BattleInfoDTO;
 import pokemon.util.Ability;
 import pokemon.util.AbilityMap;
+import pokemon.util.BasicStats;
 import pokemon.util.GlobalData;
 import pokemon.util.NatureModifier;
 import pokemon.util.NatureModifier.Nature;

@@ -20,7 +20,7 @@ import engine.level.Level;
 import engine.level.LevelManager;
 import pokemon.entities.Player;
 import pokemon.entities.PokeCenter;
-import pokemon.entities.PokeSpawn;
+import pokemon.util.PokeSpawn;
 
 public class Game extends GameEngine2D {
 

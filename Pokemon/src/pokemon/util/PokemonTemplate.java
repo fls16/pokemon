@@ -1,4 +1,4 @@
-package pokemon.entities;
+package pokemon.util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import pokemon.entities.BasicStats.EggGroup;
-import pokemon.entities.BasicStats.LevelingRate;
+import pokemon.util.BasicStats.EggGroup;
+import pokemon.util.BasicStats.LevelingRate;
 import pokemon.util.TypeModifier.Type;
 
 public class PokemonTemplate {
