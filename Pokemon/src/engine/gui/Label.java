@@ -25,9 +25,11 @@ public class Label extends GUIElement {
     public void onRender(Camera camera, Shader shader, Window window, Vector2f position) {
 	if (!text.equals("")) {
 	    int max_chars = (int) (bounding_box.width / bounding_box.height);
-	    visible_text = text.length() > max_chars ? text.substring(0, max_chars) : text;
+	    // visible_text = text.length() > max_chars ? text.substring(0, max_chars) :
+	    // text;
+	    visible_text = text;
 	    Vector2f pos = new Vector2f(position.x - bounding_box.width / 2, position.y);
-	    Vector2f scale = new Vector2f(bounding_box.width / 2 / max_chars, bounding_box.height / 2);
+	    Vector2f scale = new Vector2f(bounding_box.width / 6 / max_chars, bounding_box.height / 6);
 	    BitmapFont.render(visible_text, pos, scale, camera);
 	}
     }

@@ -26,7 +26,6 @@ import engine.level.LevelManager;
 public abstract class GameEngine2D {
 
     private TileSheetManager tile_sheet_manager;
-
     private GUIManager gui_manager;
     private LevelManager level_manager;
     private LevelEditor level_editor;
@@ -89,12 +88,12 @@ public abstract class GameEngine2D {
 	window = new Window(settings.width, settings.height, settings.title, settings.fullscreen, settings.vsync);
 	window.createWindow();
 	window.setOnResize((windowID, width, height) -> {
-	    this.window.width = width;
-	    this.window.height = height;
-	    camera.setProjection(width, height);
+	    // this.window.width = width;
+	    // this.window.height = height;
+	    // camera.setProjection(width, height);
 	    GL11.glViewport(0, 0, width, height);
-	    level_manager.calculateView(this.window);
-	    gui_manager.resize(width, height);
+	    // level_manager.calculateView(this.window);
+	    // gui_manager.resize(width, height);
 	});
 
 	handleWindow(window);

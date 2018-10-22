@@ -12,9 +12,9 @@ import engine.entity.Tile;
 import engine.entity.Transform;
 import engine.gfx.TileSheet;
 import engine.gfx.TileSheetManager;
-import engine.gui.Button;
 import engine.gui.GUI;
 import engine.gui.GUIManager;
+import engine.gui.Option;
 import engine.input.Input;
 import engine.level.Level;
 import engine.level.LevelManager;
@@ -79,17 +79,17 @@ public class Game extends GameEngine2D {
 	// MAINMENU
 	GUI main_menu = new GUI(window);
 
-	Button play = new Button("PLAY", window.width / 2 - 256 / 2, window.height / 2 - 200, 256, 64);
-	play.setOnReleased(() -> {
+	Option play = new Option("PLAY", window.width / 2 - 256 / 2, window.height / 2 - 200, 256, 64);
+	play.setOnAction(() -> {
 	    level_manager.setCurrentLevel("BLUBB");
 	    gui_manager.setCurrentGUI("ingame");
 	});
-	Button editor = new Button("EDITOR", window.width / 2 - 256 / 2, window.height / 2 - 100, 256, 64);
-	editor.setOnReleased(() -> {
+	Option editor = new Option("EDITOR", window.width / 2 - 256 / 2, window.height / 2 - 100, 256, 64);
+	editor.setOnAction(() -> {
 	    super.showLevelEditor();
 	});
-	Button quit = new Button("QUIT", window.width / 2 - 256 / 2, window.height / 2, 256, 64);
-	quit.setOnReleased(() -> {
+	Option quit = new Option("QUIT", window.width / 2 - 256 / 2, window.height / 2, 256, 64);
+	quit.setOnAction(() -> {
 	    super.requestClose();
 	});
 
@@ -100,6 +100,23 @@ public class Game extends GameEngine2D {
 	// INGAME
 	GUI ingame = new GUI(window);
 	gui_manager.addGUI("ingame", ingame);
+
+	// BATTLE
+	GUI battle = new GUI(window);
+
+	Option fight = new Option("FIGHT", window.width / 2, window.height - window.height / 4, window.width / 4,
+		window.height / 8);
+	Option bag = new Option("BAG", window.width / 2 + window.width / 4, window.height - window.height / 4,
+		window.width / 4, window.height / 8);
+	Option pokemon = new Option("POKEMON", window.width / 2, window.height - window.height / 8, window.width / 4,
+		window.height / 8);
+	Option run = new Option("RUN", window.width / 2 + window.width / 4, window.height - window.height / 8,
+		window.width / 4, window.height / 8);
+
+	battle.addElements(fight, bag, pokemon, run);
+
+	gui_manager.addGUI("battle", battle);
+	// gui_manager.setCurrentGUI("battle");
     }
 
     @Override
