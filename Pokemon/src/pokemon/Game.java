@@ -14,6 +14,7 @@ import engine.gfx.TileSheet;
 import engine.gfx.TileSheetManager;
 import engine.gui.GUI;
 import engine.gui.GUIManager;
+import engine.gui.Image;
 import engine.gui.Option;
 import engine.input.Input;
 import engine.level.Level;
@@ -104,6 +105,12 @@ public class Game extends GameEngine2D {
 	// BATTLE
 	GUI battle = new GUI(window);
 
+	Image boarder_1 = new Image(window.width / 2, window.height - window.height / 4, window.height / 4,
+		window.height / 4, tile_sheet_manager.getTileSheet("gui"), 0, 2);
+	Image boarder_2 = new Image(window.width / 2 + window.height / 4, window.height - window.height / 4,
+		window.width / 4, window.height / 4, tile_sheet_manager.getTileSheet("gui"), 1, 2);
+	Image boarder_3 = new Image(window.width - window.height / 4, window.height - window.height / 4,
+		window.height / 4, window.height / 4, tile_sheet_manager.getTileSheet("gui"), 2, 2);
 	Option fight = new Option("FIGHT", window.width / 2, window.height - window.height / 4, window.width / 4,
 		window.height / 8);
 	Option bag = new Option("BAG", window.width / 2 + window.width / 4, window.height - window.height / 4,
@@ -113,10 +120,10 @@ public class Game extends GameEngine2D {
 	Option run = new Option("RUN", window.width / 2 + window.width / 4, window.height - window.height / 8,
 		window.width / 4, window.height / 8);
 
-	battle.addElements(fight, bag, pokemon, run);
+	battle.addElements(boarder_1, boarder_2, boarder_3, fight, bag, pokemon, run);
 
 	gui_manager.addGUI("battle", battle);
-	// gui_manager.setCurrentGUI("battle");
+	gui_manager.setCurrentGUI("battle");
     }
 
     @Override

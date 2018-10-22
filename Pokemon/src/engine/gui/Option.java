@@ -52,7 +52,7 @@ public class Option extends GUIElement {
     @Override
     public void onRender(Camera camera, Shader shader, Window window, Vector2f position) {
 	if (!text.equals("")) {
-	    drawnText = selected ? "-" + text : " " + text;
+	    drawnText = selected ? " >" + text : "  " + text;
 	    int max_chars = (int) (bounding_box.width / bounding_box.height);
 	    Vector2f pos = new Vector2f(position.x - bounding_box.width / 2, position.y);
 	    Vector2f scale = new Vector2f(bounding_box.width / 6 / max_chars, bounding_box.height / 6);

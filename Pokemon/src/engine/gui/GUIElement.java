@@ -2,7 +2,6 @@ package engine.gui;
 
 import engine.Camera;
 import engine.Window;
-import engine.gfx.Assets;
 import engine.gfx.Shader;
 import engine.gfx.TileSheet;
 import engine.input.Input;
@@ -40,8 +39,8 @@ public abstract class GUIElement {
 	Matrix4f.mul(camera.getProjection(), transform, transform);
 
 	shader.setUniformMatrix4f("projection", transform);
-	tile_sheet.bindTile(shader, texture_x, texture_y);
-	Assets.model.render();
+	// tile_sheet.bindTile(shader, texture_x, texture_y);
+	// Assets.model.render();
 	onRender(camera, shader, window, position);
 
     }
