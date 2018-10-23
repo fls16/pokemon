@@ -105,20 +105,37 @@ public class Game extends GameEngine2D {
 	// BATTLE
 	GUI battle = new GUI(window);
 
-	Image boarder_1 = new Image(window.width / 2, window.height - window.height / 4, window.height / 4,
-		window.height / 4, tile_sheet_manager.getTileSheet("gui"), 0, 2);
-	Image boarder_2 = new Image(window.width / 2 + window.height / 4, window.height - window.height / 4,
-		window.width / 4, window.height / 4, tile_sheet_manager.getTileSheet("gui"), 1, 2);
-	Image boarder_3 = new Image(window.width - window.height / 4, window.height - window.height / 4,
-		window.height / 4, window.height / 4, tile_sheet_manager.getTileSheet("gui"), 2, 2);
-	Option fight = new Option("FIGHT", window.width / 2, window.height - window.height / 4, window.width / 4,
-		window.height / 8);
-	Option bag = new Option("BAG", window.width / 2 + window.width / 4, window.height - window.height / 4,
-		window.width / 4, window.height / 8);
-	Option pokemon = new Option("POKEMON", window.width / 2, window.height - window.height / 8, window.width / 4,
-		window.height / 8);
-	Option run = new Option("RUN", window.width / 2 + window.width / 4, window.height - window.height / 8,
-		window.width / 4, window.height / 8);
+	int x, y, w, h;
+
+	x = window.width / 2;
+	y = window.height - window.height / 4;
+	w = window.height / 4;
+	h = window.height / 4;
+	Image boarder_1 = new Image(x, y, w, h, tile_sheet_manager.getTileSheet("gui"), 0, 2);
+
+	x = window.width / 2 + window.height / 4;
+	w = window.width / 4;
+	Image boarder_2 = new Image(x, y, w, h, tile_sheet_manager.getTileSheet("gui"), 1, 2);
+
+	x = window.width - window.height / 4;
+	w = window.height / 4;
+	Image boarder_3 = new Image(x, y, w, h, tile_sheet_manager.getTileSheet("gui"), 2, 2);
+
+	x = (int) (window.width / 1.9);
+	y = (int) (window.height - window.height / 5);
+	w = window.width / 4;
+	h = (int) (window.height / 12);
+	Option fight = new Option("FIGHT", x, y, w, h);
+
+	x = (int) (window.width / 2 + window.width / 3.4);
+	Option bag = new Option("BAG", x, y, w, h);
+
+	x = (int) (window.width / 1.9);
+	y = (int) (window.height - window.height / 7.5);
+	Option pokemon = new Option("POKEMON", x, y, w, h);
+
+	x = (int) (window.width / 2 + window.width / 3.4);
+	Option run = new Option("RUN", x, y, w, h);
 
 	battle.addElements(boarder_1, boarder_2, boarder_3, fight, bag, pokemon, run);
 
@@ -140,8 +157,9 @@ public class Game extends GameEngine2D {
 	// adding test-entities
 	player = new Player(new Transform(8, -8), tile_sheet_manager.getTileSheet("player")).setSolid(true);
 
-	Entity pokeCenter = new PokeCenter(new Transform(12, -12, 5, 5), tile_sheet_manager.getTileSheet("entities"))
+	Entity pokeCenter = new PokeCenter(new Transform(16, -16, 5, 5), tile_sheet_manager.getTileSheet("entities"))
 		.setSolid(true);
+
 	Entity pokeSpawn1 = new PokeSpawn(new Transform(2, -2), tile_sheet_manager.getTileSheet("entities"));
 	Entity pokeSpawn2 = new PokeSpawn(new Transform(4, -2), tile_sheet_manager.getTileSheet("entities"));
 	Entity pokeSpawn3 = new PokeSpawn(new Transform(4, -4), tile_sheet_manager.getTileSheet("entities"));

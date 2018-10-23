@@ -4,11 +4,13 @@ import engine.Camera;
 import engine.gfx.Assets;
 import engine.gfx.Shader;
 import engine.gfx.TileSheet;
+import engine.level.Level;
 import engine.math.Matrix4f;
 import engine.math.Vector3f;
 
 public class Tile {
 
+    private final static TileSheet TILE_SHEET = new TileSheet("tiles", 64);
     public static Tile[] tiles = new Tile[Short.MAX_VALUE];
     public static short number_of_tiles = 0;
     // public Model model;
@@ -35,20 +37,24 @@ public class Tile {
 	// model = Assets.get(DrawOrder.LOW);
     }
 
-    public void render(int x, int y, Shader shader, TileSheet tileSheet, Camera camera, Matrix4f world) {
-	shader.bind();
-
-	tileSheet.bindTile(shader, texture_x, texture_y);
-
+    public void render(int x, int y, Shader shader, Camera camera, Level level) {
 	Matrix4f tile_pos = new Matrix4f().translate(new Vector3f(x * 2, y * 2, 0));
 	Matrix4f target = new Matrix4f();
-	Matrix4f.mul(camera.getProjection(), world, target);
+	Matrix4f.mul(camera.getProjection(), level.getWorldMatrix(), target);
 	Matrix4f.mul(target, tile_pos, target);
 
-	// graphics[use_animation].render(shader);
+	shader.bind();
+	TILE_SHEET.bindTile(shader, texture_x, texture_y);
 	shader.setUniform1i("sampler", 0);
 	shader.setUniformMatrix4f("projection", target);
+	Assets.model.render();
+    }
 
+    public void render(Shader shader, Matrix4f target) {
+	shader.bind();
+	TILE_SHEET.bindTile(shader, texture_x, texture_y);
+	shader.setUniform1i("sampler", 0);
+	shader.setUniformMatrix4f("projection", target);
 	Assets.model.render();
     }
 

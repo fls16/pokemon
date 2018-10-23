@@ -7,9 +7,10 @@ import engine.Camera;
 import engine.Window;
 import engine.entity.Entity;
 import engine.entity.Tile;
-import engine.entity.TileRenderer;
 import engine.gfx.Shader;
 import engine.input.Input;
+import engine.math.Matrix4f;
+import engine.math.Vector3f;
 
 public class Chunk {
 
@@ -41,6 +42,9 @@ public class Chunk {
 	entities.forEach(e -> e.update(delta, window, camera, level));
     }
 
+    // temp
+    Matrix4f tilePos, target;
+
     public void render(int camX, int camY, Shader shader, Camera camera, Level level) {
 	// for (int w = 0; w < chunkScale; w++) {
 	// for (int h = 0; h < chunkScale; h++) {
@@ -58,12 +62,20 @@ public class Chunk {
 	// }
 	// }
 	// }
+	// for (int x = 0; x < chunkScale; x++) {
+	// for (int y = 0; y < chunkScale; y++) {
+	// tiles[x][y].render((xOffset * chunkScale) + x, (-yOffset * chunkScale) + -y,
+	// shader, camera, level);
+	// }
+	// }
 	for (int x = 0; x < chunkScale; x++) {
 	    for (int y = 0; y < chunkScale; y++) {
-		// int posX = x + camX - chunkScale / 2 - 1;
-		// int posY = y + camY - chunkScale / 2;
-		tiles[x][y].render((xOffset * chunkScale) + x, (-yOffset * chunkScale) + -y, shader,
-			TileRenderer.TILE_SHEET, camera, level.getWorldMatrix());
+		tilePos = new Matrix4f()
+			.translate(new Vector3f((xOffset * chunkScale + x) * 2, (-yOffset * chunkScale - y) * 2, 0));
+		target = new Matrix4f();
+		Matrix4f.mul(camera.getProjection(), level.getWorldMatrix(), target);
+		Matrix4f.mul(target, tilePos, target);
+		tiles[x][y].render(shader, target);
 	    }
 	}
 	entities.forEach(e -> e.render(shader, camera, level));
