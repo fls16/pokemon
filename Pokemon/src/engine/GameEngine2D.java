@@ -38,7 +38,7 @@ public abstract class GameEngine2D {
     private Input input;
 
     private int UPS = 60;
-    private int FPS = 60;
+    private int FPS = 144;
 
     public void run() {
 	Logger.printMsg("Running.. " + Version.getVersion());

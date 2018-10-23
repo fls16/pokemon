@@ -42,13 +42,13 @@ public class Game extends GameEngine2D {
 
 	settings.width = 1216;
 	settings.height = 704;
-	settings.fullscreen = false;
+	settings.fullscreen = true;
 
 	// settings.width = 1920;
 	// settings.height = 1080;
 	// settings.fullscreen = true;
 
-	settings.vsync = false;
+	settings.vsync = true;
 
     }
 
