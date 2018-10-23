@@ -25,6 +25,8 @@ public class TileRenderer {
 	model = new Model(vertices, texture, indices);
     }
 
+    private Matrix4f translation;
+
     public void render(Tile tile, int x, int y, Shader shader, Matrix4f world, Camera camera) {
 	shader.bind();
 
@@ -32,8 +34,22 @@ public class TileRenderer {
 
 	Matrix4f tile_pos = new Matrix4f().translate(new Vector3f(x * 2, y * 2, 0));
 	Matrix4f target = new Matrix4f();
+	Matrix4f camProjection = camera.getProjection();
 	Matrix4f.mul(camera.getProjection(), world, target);
 	Matrix4f.mul(target, tile_pos, target);
+
+	// new
+	// translation = new Matrix4f();
+	// float m30 = left.m00 * right.m30 + left.m10 * right.m31 + left.m20 *
+	// right.m32 + left.m30 * right.m33;
+	// float m31 = left.m01 * right.m30 + left.m11 * right.m31 + left.m21 *
+	// right.m32 + left.m31 * right.m33;
+	// translation.m30 = camera.getProjection().m00 * world.m30 +
+	// camera.getProjection().m30;
+	// translation.m30 = translation.m00 * (x * 2) + translation.m30;
+	// translation.m31 = y * 2 * camera.getProjection().m11;
+	// translation.m00 = camera.getProjection().m00 * world.m00;
+	// translation.m11 = camera.getProjection().m11 * world.m11;
 
 	shader.setUniform1i("sampler", 0);
 	shader.setUniformMatrix4f("projection", target);

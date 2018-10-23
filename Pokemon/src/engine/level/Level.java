@@ -50,15 +50,15 @@ public class Level {
 	this.width = width;
 	this.height = height;
 	this.scale = default_scale;
-	this.primaryTiles = new short[width][height];
-	this.secondaryTiles = new short[width][height];
+	// this.primaryTiles = new short[width][height];
+	// this.secondaryTiles = new short[width][height];
 	this.globalEntities = new ArrayDeque<>();
 	// bounding_boxes = new AABB[width][height];
-	this.collidables = new Collidable[width][height];
+	// this.collidables = new Collidable[width][height];
 	this.chunks = new Chunk[width / chunkScale][height / chunkScale];
 	for (int x = 0; x < width / chunkScale; x++) {
 	    for (int y = 0; y < height / chunkScale; y++) {
-		chunks[x][y] = new Chunk(x, y);
+		chunks[x][y] = new Chunk(x, y, chunkScale);
 	    }
 	}
 	// this.entities = new Entity[width][height][1];
@@ -119,7 +119,7 @@ public class Level {
 		c.update(delta, window, camera, this);
 	    }
 	}
-	// player.update(delta, window, camera, this);
+	player.update(delta, window, camera, this);
     }
 
     public void move(Entity entity) {
@@ -127,29 +127,17 @@ public class Level {
     }
 
     public void render(Shader shader, Camera camera) {
-	for (int w = 0; w < viewX; w++) {
-	    for (int h = 0; h < viewY; h++) {
-		posX = w + camX - (viewX / 2) + 1;
-		posY = h + camY - (viewY / 2);
-		tempPrimaryTile = getPrimaryTileAt(posX, posY);
-		if (tempPrimaryTile != null) {
-		    tile_renderer.render(tempPrimaryTile, posX, -posY, shader, world, camera);
-		    tempSecondaryTile = getSecondaryTileAt(posX, posY);
-		    if (tempSecondaryTile != null) {
-			tile_renderer.render(tempSecondaryTile, posX, -posY, shader, world, camera);
-		    }
-		}
+	// renderTiles(shader, camera);
+
+	for (Chunk c : activeChunks) {
+	    if (c != null) {
+		c.render(camX, camY, shader, camera, this);
 	    }
 	}
-	// player.render(shader, camera, this);
 	for (Entity e : globalEntities) {
 	    e.render(shader, camera, this);
 	}
-	for (Chunk c : activeChunks) {
-	    if (c != null) {
-		c.render(shader, camera, this);
-	    }
-	}
+	player.render(shader, camera, this);
 
 	// float left = (-camera.getPosition().x / scale) - viewX;
 	// float right = (-camera.getPosition().x / scale) + viewX;
@@ -165,6 +153,23 @@ public class Level {
 	// }
 	// }
 
+    }
+
+    private void renderTiles(Shader shader, Camera camera) {
+	for (int w = 0; w < viewX; w++) {
+	    for (int h = 0; h < viewY; h++) {
+		posX = w + camX - (viewX / 2) + 1;
+		posY = h + camY - (viewY / 2);
+		tempPrimaryTile = getPrimaryTileAt(posX, posY);
+		if (tempPrimaryTile != null) {
+		    tile_renderer.render(tempPrimaryTile, posX, -posY, shader, world, camera);
+		    tempSecondaryTile = getSecondaryTileAt(posX, posY);
+		    if (tempSecondaryTile != null) {
+			tile_renderer.render(tempSecondaryTile, posX, -posY, shader, world, camera);
+		    }
+		}
+	    }
+	}
     }
 
     private void oldRender(Shader shader, Camera camera) {
@@ -237,11 +242,16 @@ public class Level {
     }
 
     public Tile getPrimaryTileAt(int x, int y) {
-	return (x < 0 || x >= width || y < 0 || y >= height) ? null : Tile.tiles[primaryTiles[x][y]];
+	// return (x < 0 || x >= width || y < 0 || y >= height) ? null :
+	// Tile.tiles[primaryTiles[x][y]];
+	return (x < 0 || x >= width || y < 0 || y >= height) ? null
+		: chunks[x / chunkScale][y / chunkScale].tiles[0][0];
     }
 
     public Tile getSecondaryTileAt(int x, int y) {
-	return (x < 0 || x >= width || y < 0 || y >= height) ? null : Tile.tiles[secondaryTiles[x][y]];
+	// return (x < 0 || x >= width || y < 0 || y >= height) ? null :
+	// Tile.tiles[secondaryTiles[x][y]];
+	return (x < 0 || x >= width || y < 0 || y >= height) ? null : null;
     }
 
     public Entity[] getEntitiesAt(int x, int y) {

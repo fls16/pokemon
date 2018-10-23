@@ -38,7 +38,7 @@ public class Player extends Entity {
 
 	// calcEntityInFront(level);
 
-	speed = input.isKeyDown(Input.L_SHIFT) ? 5 * 2 : 5;
+	speed = input.isKeyDown(Input.L_SHIFT) ? 5 * 10 : 5;
 
 	if (canMove) {
 	    use_animation = direction + 4;
@@ -130,7 +130,6 @@ public class Player extends Entity {
 	tempX = Math.round(x / 2);
 	tempY = Math.round(y / 2);
 	tempT = level.getPrimaryTileAt(tempX, tempY);
-
 	if (tempT != null) {
 	    return tempT.isSolid();
 	} else {
@@ -139,7 +138,7 @@ public class Player extends Entity {
 		return tempT.isSolid();
 	    }
 	}
-	return false;
+	return true;
     }
 
     @Override

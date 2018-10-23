@@ -123,14 +123,14 @@ public class Game extends GameEngine2D {
 	battle.addElements(boarder_1, boarder_2, boarder_3, fight, bag, pokemon, run);
 
 	gui_manager.addGUI("battle", battle);
-	gui_manager.setCurrentGUI("battle");
+	// gui_manager.setCurrentGUI("battle");
     }
 
     @Override
     protected void handleLevelManager(LevelManager level_manager) {
 	this.level_manager = level_manager;
 	Level test_level_1 = level_manager.getLevel("BLUBB");
-	test_level_1 = new Level("BLUBB", 64, 64);
+	test_level_1 = new Level("BLUBB", 4096, 4096);
 	test_level_1.calculateView(window);
 	level_manager.addLevel("BLUBB", test_level_1);
 
