@@ -154,6 +154,7 @@ public abstract class GameEngine2D {
 
 	    if (System.currentTimeMillis() - timer > 1000) {
 		window.setTitle(window.getTitle() + " UPS: " + ticks + " FPS: " + frames);
+
 		frames = 0;
 		ticks = 0;
 		timer += 1000;

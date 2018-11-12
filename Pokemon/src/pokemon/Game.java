@@ -42,7 +42,7 @@ public class Game extends GameEngine2D {
 
 	settings.width = 1216;
 	settings.height = 704;
-	settings.fullscreen = true;
+	settings.fullscreen = false;
 
 	// settings.width = 1920;
 	// settings.height = 1080;

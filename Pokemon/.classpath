@@ -30,5 +30,6 @@
 	<classpathentry kind="lib" path="lib/lwjgl-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/lwjgl-natives-windows.jar"/>
 	<classpathentry kind="lib" path="lib/lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="lib/aspectjrt-1.6.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
