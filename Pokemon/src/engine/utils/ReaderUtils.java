@@ -16,7 +16,7 @@ import java.util.List;
 public class ReaderUtils {
 
     private interface WhileReading {
-	public void action(String line) throws IOException;
+	public void action(String line);
     }
 
     /**
