@@ -23,18 +23,18 @@ public class MainTest {
 	}
 
 	Pokemon pokemon = Pokemon.create(PokemonTemplate.pokemonMap.get(493), 100);
-	pokemon.effortHitpoints = 255;
-	pokemon.effortAttack = 255;
-	pokemon.effortDefense = 255;
-	pokemon.effortSpecialAttack = 255;
-	pokemon.effortSpecialDefense = 255;
-	pokemon.effortSpeed = 255;
-	pokemon.individualHitpoints = 31;
-	pokemon.individualAttack = 31;
-	pokemon.individualDefense = 31;
-	pokemon.individualSpecialAttack = 31;
-	pokemon.individualSpecialDefense = 31;
-	pokemon.individualSpeed = 31;
+	pokemon.evHitpoints = 255;
+	pokemon.evAttack = 255;
+	pokemon.evDefense = 255;
+	pokemon.evSpecialAttack = 255;
+	pokemon.evSpecialDefense = 255;
+	pokemon.evSpeed = 255;
+	pokemon.ivHitpoints = 31;
+	pokemon.ivAttack = 31;
+	pokemon.ivDefense = 31;
+	pokemon.ivSpecialAttack = 31;
+	pokemon.ivSpecialDefense = 31;
+	pokemon.ivSpeed = 31;
 	pokemon.calculateMaximumStats();
 
 	System.out.println(pokemon.toString());

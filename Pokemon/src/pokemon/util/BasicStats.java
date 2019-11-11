@@ -37,7 +37,7 @@ public class BasicStats {
     public int baseSpecialDefense;
     public int baseSpeed;
 
-    // iv yield
+    // ev yield
     public int hitpointsYield;
     public int attackYield;
     public int defenseYield;

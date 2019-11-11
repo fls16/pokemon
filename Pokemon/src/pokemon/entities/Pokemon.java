@@ -42,20 +42,20 @@ public class Pokemon {
     public int speed;
 
     // iv's
-    public int individualHitpoints = GlobalData.random.nextInt(32);
-    public int individualAttack = GlobalData.random.nextInt(32);
-    public int individualDefense = GlobalData.random.nextInt(32);
-    public int individualSpecialAttack = GlobalData.random.nextInt(32);
-    public int individualSpecialDefense = GlobalData.random.nextInt(32);
-    public int individualSpeed = GlobalData.random.nextInt(32);
+    public int ivHitpoints = GlobalData.random.nextInt(32);
+    public int ivAttack = GlobalData.random.nextInt(32);
+    public int ivDefense = GlobalData.random.nextInt(32);
+    public int ivSpecialAttack = GlobalData.random.nextInt(32);
+    public int ivSpecialDefense = GlobalData.random.nextInt(32);
+    public int ivSpeed = GlobalData.random.nextInt(32);
 
     // ev's
-    public int effortHitpoints = 0;
-    public int effortAttack = 0;
-    public int effortDefense = 0;
-    public int effortSpecialAttack = 0;
-    public int effortSpecialDefense = 0;
-    public int effortSpeed = 0;
+    public int evHitpoints = 0;
+    public int evAttack = 0;
+    public int evDefense = 0;
+    public int evSpecialAttack = 0;
+    public int evSpecialDefense = 0;
+    public int evSpeed = 0;
 
     public Pokemon() {
     }
@@ -109,26 +109,26 @@ public class Pokemon {
     public void calculateMaximumStats() {
 	int oldMaxHitpoints = maxHitpoints;
 
-	maxHitpoints = (int) (((int) ((((2 * basicStats.baseHitpoints) + individualHitpoints
-		+ ((int) (effortHitpoints / 4))) * level) / 100)) + level + 10);
+	maxHitpoints = (int) (((int) ((((2 * basicStats.baseHitpoints) + ivHitpoints
+		+ ((int) (evHitpoints / 4))) * level) / 100)) + level + 10);
 
 	currentHitpoints = currentHitpoints + maxHitpoints - oldMaxHitpoints;
 
-	attack = (int) ((((int) ((((2 * basicStats.baseAttack) + individualAttack + ((int) (effortAttack / 4))) * level)
+	attack = (int) ((((int) ((((2 * basicStats.baseAttack) + ivAttack + ((int) (evAttack / 4))) * level)
 		/ 100)) + 5) * NatureModifier.attackModifier(nature));
 
-	defense = (int) ((((int) ((((2 * basicStats.baseDefense) + individualDefense + ((int) (effortDefense / 4)))
+	defense = (int) ((((int) ((((2 * basicStats.baseDefense) + ivDefense + ((int) (evDefense / 4)))
 		* level) / 100)) + 5) * NatureModifier.defenseModifier(nature));
 
-	specialAttack = (int) ((((int) ((((2 * basicStats.baseSpecialAttack) + individualSpecialAttack
-		+ ((int) (effortSpecialAttack / 4))) * level) / 100)) + 5)
+	specialAttack = (int) ((((int) ((((2 * basicStats.baseSpecialAttack) + ivSpecialAttack
+		+ ((int) (evSpecialAttack / 4))) * level) / 100)) + 5)
 		* NatureModifier.specialAttackModifier(nature));
 
-	specialDefense = (int) ((((int) ((((2 * basicStats.baseSpecialDefense) + individualSpecialDefense
-		+ ((int) (effortSpecialDefense / 4))) * level) / 100)) + 5)
+	specialDefense = (int) ((((int) ((((2 * basicStats.baseSpecialDefense) + ivSpecialDefense
+		+ ((int) (evSpecialDefense / 4))) * level) / 100)) + 5)
 		* NatureModifier.specialDefenseModifier(nature));
 
-	speed = (int) ((((int) ((((2 * basicStats.baseSpeed) + individualSpeed + ((int) (effortSpeed / 4))) * level)
+	speed = (int) ((((int) ((((2 * basicStats.baseSpeed) + ivSpeed + ((int) (evSpeed / 4))) * level)
 		/ 100)) + 5) * NatureModifier.speedModifier(nature));
     }
 
@@ -195,15 +195,15 @@ public class Pokemon {
 		+ speed + ", baseHitpoints=" + basicStats.baseHitpoints + ", baseAttack=" + basicStats.baseAttack
 		+ ", baseDefense=" + basicStats.baseDefense + ", baseSpecialAttack=" + basicStats.baseSpecialAttack
 		+ ", baseSpecialDefense=" + basicStats.baseSpecialDefense + ", baseSpeed=" + basicStats.baseSpeed
-		+ ", individualHitpoints=" + individualHitpoints + ", individualAttack=" + individualAttack
-		+ ", individualDefense=" + individualDefense + ", individualSpecialAttack=" + individualSpecialAttack
-		+ ", individualSpecialDefense=" + individualSpecialDefense + ", individualSpeed=" + individualSpeed
+		+ ", individualHitpoints=" + ivHitpoints + ", individualAttack=" + ivAttack
+		+ ", individualDefense=" + ivDefense + ", individualSpecialAttack=" + ivSpecialAttack
+		+ ", individualSpecialDefense=" + ivSpecialDefense + ", individualSpeed=" + ivSpeed
 		+ ", hitpointsYield=" + basicStats.hitpointsYield + ", attackYield=" + basicStats.attackYield
 		+ ", defenseYield=" + basicStats.defenseYield + ", specialAttackYield=" + basicStats.specialAttackYield
 		+ ", specialDefenseYield=" + basicStats.specialDefenseYield + ", speedYield=" + basicStats.speedYield
-		+ ", effortHitpoints=" + effortHitpoints + ", effortAttack=" + effortAttack + ", effortDefense="
-		+ effortDefense + ", effortSpecialAttack=" + effortSpecialAttack + ", effortSpecialDefense="
-		+ effortSpecialDefense + ", effortSpeed=" + effortSpeed + "]";
+		+ ", effortHitpoints=" + evHitpoints + ", effortAttack=" + evAttack + ", effortDefense="
+		+ evDefense + ", effortSpecialAttack=" + evSpecialAttack + ", effortSpecialDefense="
+		+ evSpecialDefense + ", effortSpeed=" + evSpeed + "]";
     }
 
 }
