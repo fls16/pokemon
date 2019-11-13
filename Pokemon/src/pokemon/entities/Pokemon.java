@@ -3,10 +3,10 @@ package pokemon.entities;
 import java.util.Arrays;
 import java.util.List;
 
-import pokemon.dto.BattleInfoDTO;
 import pokemon.util.Ability;
 import pokemon.util.AbilityMap;
 import pokemon.util.BasicStats;
+import pokemon.util.BattleInfoDTO;
 import pokemon.util.GlobalData;
 import pokemon.util.NatureModifier;
 import pokemon.util.NatureModifier.Nature;
@@ -187,8 +187,8 @@ public class Pokemon {
     public String toString() {
 	return "Pokemon [hidden_id=" + hidden_id + ", nickname=" + nickname + ", level=" + level + ", current_exp="
 		+ current_exp + ", current_hitpoints=" + current_hitpoints + ", nature=" + nature + ", ability="
-		+ ability.getName() + ", gender=" + gender + ", friendship=" + friendship + ", evolve_type="
-		+ evolve_type + ", max_hitpoints=" + max_hitpoints + ", attack=" + attack + ", defense=" + defense
+		+ ability.name + ", gender=" + gender + ", friendship=" + friendship + ", evolve_type=" + evolve_type
+		+ ", max_hitpoints=" + max_hitpoints + ", attack=" + attack + ", defense=" + defense
 		+ ", special_attack=" + special_attack + ", special_defense=" + special_defense + ", speed=" + speed
 		+ ", iv_hitpoints=" + iv_hitpoints + ", iv_attack=" + iv_attack + ", iv_defense=" + iv_defense
 		+ ", iv_special_attack=" + iv_special_attack + ", iv_special_defense=" + iv_special_defense

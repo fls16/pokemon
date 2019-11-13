@@ -1,4 +1,4 @@
-package pokemon.dto;
+package pokemon.util;
 
 public class BattleInfoDTO {
 

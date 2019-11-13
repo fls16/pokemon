@@ -1,19 +1,18 @@
 package pokemon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import pokemon.entities.Pokemon;
-import pokemon.util.PokemonTemplate;
+import pokemon.util.GlobalData;
+import pokemon.util.Region;
+import pokemon.util.Region.Encounter;
 import pokemon.util.TypeModifier;
 import pokemon.util.TypeModifier.Type;
 
 public class MainTest {
 
     public static void main(String[] args) {
-	PokemonTemplate pokemon_template = new PokemonTemplate();
-	pokemon_template.init();
-	List<Pokemon> pokemon_list = new ArrayList<>();
+	GlobalData global_data = new GlobalData();
+	global_data.init();
+	// List<Pokemon> pokemon_list = new ArrayList<>();
 
 	// for (int i = 1; i < 494; i++) {
 	// pokemon_list.add(Pokemon.create(PokemonTemplate.pokemon_map.get(i), 5));
@@ -22,28 +21,63 @@ public class MainTest {
 	// System.out.println(p.toString());
 	// }
 
-	Pokemon pokemon_arceus = Pokemon.create(PokemonTemplate.pokemon_map.get(493), 100);
-	pokemon_arceus.ev_hitpoints = 255;
-	pokemon_arceus.ev_attack = 255;
-	pokemon_arceus.ev_defense = 255;
-	pokemon_arceus.ev_special_attack = 255;
-	pokemon_arceus.ev_special_defense = 255;
-	pokemon_arceus.ev_speed = 255;
-	pokemon_arceus.iv_hitpoints = 31;
-	pokemon_arceus.iv_attack = 31;
-	pokemon_arceus.iv_defense = 31;
-	pokemon_arceus.iv_special_attack = 31;
-	pokemon_arceus.iv_special_defense = 31;
-	pokemon_arceus.iv_speed = 31;
-	pokemon_arceus.calculateStats();
+	Pokemon pokemon = Pokemon.create(GlobalData.pokemon_map.get(1), 74);
+	pokemon.ev_hitpoints = 255;
+	pokemon.ev_attack = 255;
+	pokemon.ev_defense = 255;
+	pokemon.ev_special_attack = 255;
+	pokemon.ev_special_defense = 255;
+	pokemon.ev_speed = 255;
+	pokemon.iv_hitpoints = 31;
+	pokemon.iv_attack = 31;
+	pokemon.iv_defense = 31;
+	pokemon.iv_special_attack = 31;
+	pokemon.iv_special_defense = 31;
+	pokemon.iv_speed = 31;
+	pokemon.calculateStats();
 
-	System.out.println(pokemon_arceus.toString());
+	System.out.println(pokemon.toString());
 
-	System.out.println(TypeModifier.attackTypeModifier(Type.Fighting, pokemon_arceus.basic_stats.type1,
-		pokemon_arceus.basic_stats.type2));
+	System.out.println("Fighting Attack effectiveness against " + pokemon.basic_stats.type1 + " and "
+		+ pokemon.basic_stats.type2 + ": "
+		+ TypeModifier.attackTypeModifier(Type.Fighting, pokemon.basic_stats.type1, pokemon.basic_stats.type2));
 
-	System.out.println(pokemon_arceus.basic_stats.type1);
-	System.out.println(pokemon_arceus.basic_stats.type2);
+	for (Region r : GlobalData.region_map.values()) {
+	    System.out.println(r.weather);
+	    System.out.println(r.area_map_day);
+	    for (Encounter e : r.getEncounterList(1)) {
+		System.out.println(e.pokemon);
+		System.out.println(e.level);
+	    }
+	}
+
+	int counter = 0;
+	int pokemon1 = 0;
+	int pokemon2 = 0;
+	int pokemon3 = 0;
+	for (int i = 0; i < 10_000; i++) {
+	    int random_pokemon = GlobalData.random.nextInt(100);
+	    for (Encounter e : GlobalData.region_map.get(1).getEncounterList(2)) {
+		counter++;
+		if (random_pokemon < e.chance) {
+		    // Ab hier ist "e" exakt das Pokemon, welchem man begegnen wird
+		    // --> Pokemon pokemon =
+		    // Pokemon.create(PokemonTemplate.pokemonMap.get(e.pokemon), e.level);
+		    if (counter == 1) {
+			pokemon1++;
+		    }
+		    if (counter == 2) {
+			pokemon2++;
+		    }
+		    if (counter == 3) {
+			pokemon3++;
+		    }
+		    counter = 0;
+		    break;
+		}
+	    }
+	}
+	System.out.println("Pokemon 1: " + pokemon1 + " | Pokemon 2: " + pokemon2 + " | Pokemon 3: " + pokemon3);
 
 	// System.out.println(getRandomEncounter(GlobalData.region1_1));
     }

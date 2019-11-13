@@ -3,8 +3,6 @@ package pokemon.util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import pokemon.util.BasicStats.EggGroup;
 import pokemon.util.BasicStats.LevelingRate;
@@ -12,10 +10,8 @@ import pokemon.util.TypeModifier.Type;
 
 public class PokemonTemplate {
 
-    public static Map<Integer, BasicStats> pokemon_map = new HashMap<>();
-
     public void init() {
-	try (BufferedReader br = new BufferedReader(new FileReader("src/pokemon/data/pokemonvalues.csv"))) {
+	try (BufferedReader br = new BufferedReader(new FileReader("src/pokemon/data/pokemon_values.csv"))) {
 	    br.readLine();
 	    BasicStats pokemon_DTO = null;
 	    String line;
@@ -61,7 +57,7 @@ public class PokemonTemplate {
 		pokemon_DTO.special_defense_yield = Integer.parseInt(parameters[24]);
 		pokemon_DTO.speed_yield = Integer.parseInt(parameters[25]);
 
-		pokemon_map.put(pokemon_DTO.id, pokemon_DTO);
+		GlobalData.pokemon_map.put(pokemon_DTO.id, pokemon_DTO);
 	    }
 	} catch (IOException e) {
 	    e.printStackTrace();

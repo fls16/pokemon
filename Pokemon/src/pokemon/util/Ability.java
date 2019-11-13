@@ -1,7 +1,5 @@
 package pokemon.util;
 
-import pokemon.dto.BattleInfoDTO;
-
 public class Ability {
 
     // private interfaces
@@ -14,8 +12,8 @@ public class Ability {
     }
 
     // ability information
-    private String name;
-    private String description;
+    public String name;
+    public String description;
 
     // interface logic
     private OnUpdate on_update = () -> {
@@ -35,15 +33,6 @@ public class Ability {
 
     public void onDamageCalculation(BattleInfoDTO battle_info_DTO) {
 	on_damage_calculation.execute(battle_info_DTO);
-    }
-
-    // getter ability information
-    public String getDescription() {
-	return description;
-    }
-
-    public String getName() {
-	return name;
     }
 
     // setter interface logic
