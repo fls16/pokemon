@@ -11,35 +11,39 @@ import pokemon.util.TypeModifier.Type;
 public class MainTest {
 
     public static void main(String[] args) {
-	PokemonTemplate pokemonTemplate = new PokemonTemplate();
-	pokemonTemplate.init();
-	List<Pokemon> pokemonList = new ArrayList<>();
+	PokemonTemplate pokemon_template = new PokemonTemplate();
+	pokemon_template.init();
+	List<Pokemon> pokemon_list = new ArrayList<>();
 
-	for (int i = 1; i < 494; i++) {
-	    pokemonList.add(Pokemon.create(PokemonTemplate.pokemonMap.get(i), 5));
-	}
-	for (Pokemon p : pokemonList) {
-	    System.out.println(p.toString());
-	}
+	// for (int i = 1; i < 494; i++) {
+	// pokemon_list.add(Pokemon.create(PokemonTemplate.pokemon_map.get(i), 5));
+	// }
+	// for (Pokemon p : pokemon_list) {
+	// System.out.println(p.toString());
+	// }
 
-	Pokemon pokemon = Pokemon.create(PokemonTemplate.pokemonMap.get(493), 100);
-	pokemon.evHitpoints = 255;
-	pokemon.evAttack = 255;
-	pokemon.evDefense = 255;
-	pokemon.evSpecialAttack = 255;
-	pokemon.evSpecialDefense = 255;
-	pokemon.evSpeed = 255;
-	pokemon.ivHitpoints = 31;
-	pokemon.ivAttack = 31;
-	pokemon.ivDefense = 31;
-	pokemon.ivSpecialAttack = 31;
-	pokemon.ivSpecialDefense = 31;
-	pokemon.ivSpeed = 31;
-	pokemon.calculateMaximumStats();
+	Pokemon pokemon_arceus = Pokemon.create(PokemonTemplate.pokemon_map.get(493), 100);
+	pokemon_arceus.ev_hitpoints = 255;
+	pokemon_arceus.ev_attack = 255;
+	pokemon_arceus.ev_defense = 255;
+	pokemon_arceus.ev_special_attack = 255;
+	pokemon_arceus.ev_special_defense = 255;
+	pokemon_arceus.ev_speed = 255;
+	pokemon_arceus.iv_hitpoints = 31;
+	pokemon_arceus.iv_attack = 31;
+	pokemon_arceus.iv_defense = 31;
+	pokemon_arceus.iv_special_attack = 31;
+	pokemon_arceus.iv_special_defense = 31;
+	pokemon_arceus.iv_speed = 31;
+	pokemon_arceus.calculateStats();
 
-	System.out.println(pokemon.toString());
+	System.out.println(pokemon_arceus.toString());
 
-	System.out.println(TypeModifier.attackTypeModifier(Type.Fighting, Type.Rock, null));
+	System.out.println(TypeModifier.attackTypeModifier(Type.Fighting, pokemon_arceus.basic_stats.type1,
+		pokemon_arceus.basic_stats.type2));
+
+	System.out.println(pokemon_arceus.basic_stats.type1);
+	System.out.println(pokemon_arceus.basic_stats.type2);
 
 	// System.out.println(getRandomEncounter(GlobalData.region1_1));
     }

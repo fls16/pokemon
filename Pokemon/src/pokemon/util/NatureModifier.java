@@ -3,14 +3,14 @@ package pokemon.util;
 public class NatureModifier {
 
     public enum Nature {
-	// - Attack, - Defense, - SpAtk, - SpDef, - Speed
+	// - Attack, - Defense, - SpeAtk, - SpeDef, - Speed
 	// + Attack
 	Hardy, Lonely, Adamant, Naughty, Brave,
 	// + Defense
 	Bold, Docile, Impish, Lax, Relaxed,
-	// + SpAtk
+	// + SpeAtk
 	Modest, Mild, Bashful, Rash, Quiet,
-	// + SpDef
+	// + SpeDef
 	Calm, Gentle, Careful, Quirky, Sassy,
 	// + Speed
 	Timid, Hasty, Jolly, Naive, Serious;

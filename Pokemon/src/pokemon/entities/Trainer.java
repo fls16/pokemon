@@ -9,46 +9,46 @@ public class Trainer {
     public long hiddenId;
     public String name;
     public int money;
-    public String startMessage;
-    public String endMessage;
-    public List<Pokemon> pokemonList;
-    public Pokemon pokemon0;
-    public Pokemon pokemon1;
-    public Pokemon pokemon2;
-    public Pokemon pokemon3;
-    public Pokemon pokemon4;
-    public Pokemon pokemon5;
+    public String start_message;
+    public String end_message;
+    public List<Pokemon> pokemon_list;
+    public Pokemon pokemon_0;
+    public Pokemon pokemon_1;
+    public Pokemon pokemon_2;
+    public Pokemon pokemon_3;
+    public Pokemon pokemon_4;
+    public Pokemon pokemon_5;
     public Item item;
 
     public Trainer() {
     }
 
-    public static Trainer create(String name, int money, String startMessage, String endMessage, Pokemon pokemon0,
-	    Pokemon pokemon1, Pokemon pokemon2, Pokemon pokemon3, Pokemon pokemon4, Pokemon pokemon5, Item item) {
+    public static Trainer create(String name, int money, String start_message, String end_message, Pokemon pokemon_0,
+	    Pokemon pokemon_1, Pokemon pokemon_2, Pokemon pokemon_3, Pokemon pokemon_4, Pokemon pokemon_5, Item item) {
 	Trainer trainer = new Trainer();
 
 	trainer.hiddenId = idCounter++;
 	trainer.name = name;
 	trainer.money = money;
-	trainer.startMessage = startMessage;
-	trainer.endMessage = endMessage;
-	if (pokemon0 != null) {
-	    trainer.pokemonList.add(pokemon0);
+	trainer.start_message = start_message;
+	trainer.end_message = end_message;
+	if (pokemon_0 != null) {
+	    trainer.pokemon_list.add(pokemon_0);
 	}
-	if (pokemon1 != null) {
-	    trainer.pokemonList.add(pokemon1);
+	if (pokemon_1 != null) {
+	    trainer.pokemon_list.add(pokemon_1);
 	}
-	if (pokemon2 != null) {
-	    trainer.pokemonList.add(pokemon2);
+	if (pokemon_2 != null) {
+	    trainer.pokemon_list.add(pokemon_2);
 	}
-	if (pokemon3 != null) {
-	    trainer.pokemonList.add(pokemon3);
+	if (pokemon_3 != null) {
+	    trainer.pokemon_list.add(pokemon_3);
 	}
-	if (pokemon4 != null) {
-	    trainer.pokemonList.add(pokemon4);
+	if (pokemon_4 != null) {
+	    trainer.pokemon_list.add(pokemon_4);
 	}
-	if (pokemon5 != null) {
-	    trainer.pokemonList.add(pokemon5);
+	if (pokemon_5 != null) {
+	    trainer.pokemon_list.add(pokemon_5);
 	}
 	trainer.item = item;
 
@@ -56,8 +56,8 @@ public class Trainer {
     }
 
     public Pokemon sendNextPokemon() {
-	if (pokemonList.size() != 0) {
-	    return pokemonList.get(0);
+	if (pokemon_list.size() != 0) {
+	    return pokemon_list.get(0);
 	} else {
 	    return null;
 	}

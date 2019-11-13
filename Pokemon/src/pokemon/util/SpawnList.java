@@ -9,7 +9,7 @@ import java.util.List;
 public class SpawnList {
 
     // pokemon encounter list
-    public static List<Encounter> region1_1 = Arrays.asList();
+    public static List<Encounter> region_1_1 = Arrays.asList();
 
     // util
     private class Encounter {

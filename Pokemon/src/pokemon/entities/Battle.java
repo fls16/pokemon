@@ -2,8 +2,8 @@ package pokemon.entities;
 
 public abstract class Battle {
 
-    public Pokemon currentPokemon;
-    public Pokemon enemyPokemon;
+    public Pokemon current_pokemon;
+    public Pokemon enemy_pokemon;
     public Player player;
 
     public Battle() {

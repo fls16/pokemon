@@ -18,60 +18,60 @@ public class Pokemon {
     }
 
     // util
-    private static long idCounter = 0;
-    public BasicStats basicStats;
+    private static long id_counter = 0;
+    public BasicStats basic_stats;
 
     // specific stats
-    public long hiddenId;
+    public long hidden_id;
     public String nickname;
     public int level;
-    public int currentExp;
-    public int currentHitpoints;
+    public int current_exp;
+    public int current_hitpoints;
     public Nature nature;
     public Ability ability;
     public Gender gender;
     public int friendship = 70;
-    public int evolveType;
+    public int evolve_type;
 
     // calculated stats
-    public int maxHitpoints;
+    public int max_hitpoints;
     public int attack;
     public int defense;
-    public int specialAttack;
-    public int specialDefense;
+    public int special_attack;
+    public int special_defense;
     public int speed;
 
     // iv's
-    public int ivHitpoints = GlobalData.random.nextInt(32);
-    public int ivAttack = GlobalData.random.nextInt(32);
-    public int ivDefense = GlobalData.random.nextInt(32);
-    public int ivSpecialAttack = GlobalData.random.nextInt(32);
-    public int ivSpecialDefense = GlobalData.random.nextInt(32);
-    public int ivSpeed = GlobalData.random.nextInt(32);
+    public int iv_hitpoints = GlobalData.random.nextInt(32);
+    public int iv_attack = GlobalData.random.nextInt(32);
+    public int iv_defense = GlobalData.random.nextInt(32);
+    public int iv_special_attack = GlobalData.random.nextInt(32);
+    public int iv_special_defense = GlobalData.random.nextInt(32);
+    public int iv_speed = GlobalData.random.nextInt(32);
 
     // ev's
-    public int evHitpoints = 0;
-    public int evAttack = 0;
-    public int evDefense = 0;
-    public int evSpecialAttack = 0;
-    public int evSpecialDefense = 0;
-    public int evSpeed = 0;
+    public int ev_hitpoints = 0;
+    public int ev_attack = 0;
+    public int ev_defense = 0;
+    public int ev_special_attack = 0;
+    public int ev_special_defense = 0;
+    public int ev_speed = 0;
 
     public Pokemon() {
     }
 
-    public static Pokemon create(BasicStats basicStats, int level) {
+    public static Pokemon create(BasicStats basic_stats, int level) {
 	Pokemon pokemon = new Pokemon();
 
-	pokemon.basicStats = basicStats;
-	pokemon.hiddenId = idCounter++;
-	pokemon.nickname = basicStats.name;
+	pokemon.basic_stats = basic_stats;
+	pokemon.hidden_id = id_counter++;
+	pokemon.nickname = basic_stats.name;
 	pokemon.level = level;
 
 	pokemon.setNature();
-	pokemon.setAbility(basicStats.abilityname);
-	pokemon.setGender(basicStats.genderRate);
-	pokemon.calculateMaximumStats();
+	pokemon.setAbility(basic_stats.abilityname);
+	pokemon.setGender(basic_stats.gender_rate);
+	pokemon.calculateStats();
 
 	return pokemon;
     }
@@ -93,12 +93,12 @@ public class Pokemon {
 	nature = natures.get(GlobalData.random.nextInt(25));
     }
 
-    private void setGender(String genderRate) {
-	if (genderRate.equals("-")) {
+    private void setGender(String gender_rate) {
+	if (gender_rate.equals("-")) {
 	    gender = Gender.N;
 	} else {
-	    float genderRatio = Float.parseFloat(genderRate);
-	    if (GlobalData.random.nextFloat() * 100 < genderRatio) {
+	    float gender_ratio = Float.parseFloat(gender_rate);
+	    if (GlobalData.random.nextFloat() * 100 < gender_ratio) {
 		gender = Gender.M;
 	    } else {
 		gender = Gender.W;
@@ -106,60 +106,62 @@ public class Pokemon {
 	}
     }
 
-    public void calculateMaximumStats() {
-	int oldMaxHitpoints = maxHitpoints;
+    public void calculateStats() {
+	int old_max_hitpoints = max_hitpoints;
 
-	maxHitpoints = (int) (((int) ((((2 * basicStats.baseHitpoints) + ivHitpoints
-		+ ((int) (evHitpoints / 4))) * level) / 100)) + level + 10);
+	max_hitpoints = (int) (((int) ((((2 * basic_stats.base_hitpoints) + iv_hitpoints + ((int) (ev_hitpoints / 4)))
+		* level) / 100)) + level + 10);
 
-	currentHitpoints = currentHitpoints + maxHitpoints - oldMaxHitpoints;
+	current_hitpoints = current_hitpoints + max_hitpoints - old_max_hitpoints;
 
-	attack = (int) ((((int) ((((2 * basicStats.baseAttack) + ivAttack + ((int) (evAttack / 4))) * level)
-		/ 100)) + 5) * NatureModifier.attackModifier(nature));
+	attack = (int) ((((int) ((((2 * basic_stats.base_attack) + iv_attack + ((int) (ev_attack / 4))) * level) / 100))
+		+ 5) * NatureModifier.attackModifier(nature));
 
-	defense = (int) ((((int) ((((2 * basicStats.baseDefense) + ivDefense + ((int) (evDefense / 4)))
-		* level) / 100)) + 5) * NatureModifier.defenseModifier(nature));
+	defense = (int) ((((int) ((((2 * basic_stats.base_defense) + iv_defense + ((int) (ev_defense / 4))) * level)
+		/ 100)) + 5) * NatureModifier.defenseModifier(nature));
 
-	specialAttack = (int) ((((int) ((((2 * basicStats.baseSpecialAttack) + ivSpecialAttack
-		+ ((int) (evSpecialAttack / 4))) * level) / 100)) + 5)
+	special_attack = (int) ((((int) ((((2 * basic_stats.base_special_attack) + iv_special_attack
+		+ ((int) (ev_special_attack / 4))) * level) / 100)) + 5)
 		* NatureModifier.specialAttackModifier(nature));
 
-	specialDefense = (int) ((((int) ((((2 * basicStats.baseSpecialDefense) + ivSpecialDefense
-		+ ((int) (evSpecialDefense / 4))) * level) / 100)) + 5)
+	special_defense = (int) ((((int) ((((2 * basic_stats.base_special_defense) + iv_special_defense
+		+ ((int) (ev_special_defense / 4))) * level) / 100)) + 5)
 		* NatureModifier.specialDefenseModifier(nature));
 
-	speed = (int) ((((int) ((((2 * basicStats.baseSpeed) + ivSpeed + ((int) (evSpeed / 4))) * level)
-		/ 100)) + 5) * NatureModifier.speedModifier(nature));
+	speed = (int) ((((int) ((((2 * basic_stats.base_speed) + iv_speed + ((int) (ev_speed / 4))) * level) / 100))
+		+ 5) * NatureModifier.speedModifier(nature));
     }
 
-    public void onDamageCalculation(BattleInfoDTO battleInfoDTO) {
-	ability.onDamageCalculation(battleInfoDTO);
+    public void onDamageCalculation(BattleInfoDTO battle_info_DTO) {
+	ability.onDamageCalculation(battle_info_DTO);
     }
 
     public void createEgg() {
 	// TO-DO
 	// ...
-	// eggSteps -= GlobalData.random.nextInt(301);
+	// egg_steps -= GlobalData.random.nextInt(301);
     }
 
-    public void gainExp(BattleInfoDTO battleInfoDTO) {
-	// int exp = battleInfoDTO.getEnemyPokemon.expYield;
-	// gainedExp = (exp * a * b * c) / d
-	// if (currentExp + gainedExp > maxExp) {
+    public void gainExp(BattleInfoDTO battle_info_DTO) {
+	// this is a great example for using a recursive function!!
+
+	// int exp = battle_info_DTO.get_enemy_pokemon.exp_yield;
+	// gained_exp = (exp * a * b * c) / d
+	// if (current_exp + gained_exp > max_exp) {
 	// levelUp();
-	// currentExp2 = gainedExp + currentExp - maxExp;
-	// gainExp(currentExp2);
+	// current_exp2 = gained_exp + current_exp - max_exp;
+	// gainExp(current_exp2);
     }
 
     public void levelUp() {
 	level++;
-	calculateMaximumStats();
+	calculateStats();
     }
 
-    public boolean triggerEvolution() {
-	if (evolveType == 0) { // <-- can't evolve
+    public boolean triggerEvolution() { // boolean reasonable??
+	if (evolve_type == 0) { // <-- can't evolve
 	    return false;
-	} else if (evolveType == 1) { // <-- evolution via leveling up
+	} else if (evolve_type == 1) { // <-- evolution via leveling up
 	    // regular
 	    // if (friendship > 220)
 	    // if (holding certain item)
@@ -167,14 +169,14 @@ public class Pokemon {
 	    // if (at certain location)
 	    // if (at certain time of day)
 	    return true;
-	} else if (evolveType == 2) { // <-- evolution via stone
+	} else if (evolve_type == 2) { // <-- evolution via stone
 	    // regular
 	    return true;
-	} else if (evolveType == 3) { // <-- evolution via trade
+	} else if (evolve_type == 3) { // <-- evolution via trade
 	    // regular
 	    // if (holding certain item)
 	    return true;
-	} else if (evolveType == 4) { // <-- miscellaneous (e.g. Shedinja)
+	} else if (evolve_type == 4) { // <-- miscellaneous (e.g. Shedinja)
 	    // ?
 	    return true;
 	}
@@ -183,27 +185,16 @@ public class Pokemon {
 
     @Override
     public String toString() {
-	return "Pokemon [hiddenId=" + hiddenId + ", id=" + basicStats.id + ", name=" + basicStats.name + ", nickname="
-		+ nickname + ", level=" + level + ", currentHitpoints=" + currentHitpoints + ", nature=" + nature
-		+ ", type1=" + basicStats.type1 + ", type2=" + basicStats.type2 + ", ability=" + ability.getName()
-		+ ", eggGroup1=" + basicStats.eggGroup1 + ", eggGroup2=" + basicStats.eggGroup2 + ", gender=" + gender
-		+ ", captureRate=" + basicStats.captureRate + ", levelingRate=" + basicStats.levelingRate
-		+ ", expYield=" + basicStats.expYield + ", eggSteps=" + basicStats.eggSteps + ", height="
-		+ basicStats.height + ", weight=" + basicStats.weight + ", friendship=" + friendship + ", legendary="
-		+ basicStats.legendary + ", maxHitpoints=" + maxHitpoints + ", attack=" + attack + ", defense="
-		+ defense + ", specialAttack=" + specialAttack + ", specialDefense=" + specialDefense + ", speed="
-		+ speed + ", baseHitpoints=" + basicStats.baseHitpoints + ", baseAttack=" + basicStats.baseAttack
-		+ ", baseDefense=" + basicStats.baseDefense + ", baseSpecialAttack=" + basicStats.baseSpecialAttack
-		+ ", baseSpecialDefense=" + basicStats.baseSpecialDefense + ", baseSpeed=" + basicStats.baseSpeed
-		+ ", individualHitpoints=" + ivHitpoints + ", individualAttack=" + ivAttack
-		+ ", individualDefense=" + ivDefense + ", individualSpecialAttack=" + ivSpecialAttack
-		+ ", individualSpecialDefense=" + ivSpecialDefense + ", individualSpeed=" + ivSpeed
-		+ ", hitpointsYield=" + basicStats.hitpointsYield + ", attackYield=" + basicStats.attackYield
-		+ ", defenseYield=" + basicStats.defenseYield + ", specialAttackYield=" + basicStats.specialAttackYield
-		+ ", specialDefenseYield=" + basicStats.specialDefenseYield + ", speedYield=" + basicStats.speedYield
-		+ ", effortHitpoints=" + evHitpoints + ", effortAttack=" + evAttack + ", effortDefense="
-		+ evDefense + ", effortSpecialAttack=" + evSpecialAttack + ", effortSpecialDefense="
-		+ evSpecialDefense + ", effortSpeed=" + evSpeed + "]";
+	return "Pokemon [hidden_id=" + hidden_id + ", nickname=" + nickname + ", level=" + level + ", current_exp="
+		+ current_exp + ", current_hitpoints=" + current_hitpoints + ", nature=" + nature + ", ability="
+		+ ability.getName() + ", gender=" + gender + ", friendship=" + friendship + ", evolve_type="
+		+ evolve_type + ", max_hitpoints=" + max_hitpoints + ", attack=" + attack + ", defense=" + defense
+		+ ", special_attack=" + special_attack + ", special_defense=" + special_defense + ", speed=" + speed
+		+ ", iv_hitpoints=" + iv_hitpoints + ", iv_attack=" + iv_attack + ", iv_defense=" + iv_defense
+		+ ", iv_special_attack=" + iv_special_attack + ", iv_special_defense=" + iv_special_defense
+		+ ", iv_speed=" + iv_speed + ", ev_hitpoints=" + ev_hitpoints + ", ev_attack=" + ev_attack
+		+ ", ev_defense=" + ev_defense + ", ev_special_attack=" + ev_special_attack + ", ev_special_defense="
+		+ ev_special_defense + ", ev_speed=" + ev_speed + "]" + basic_stats.toString();
     }
 
 }

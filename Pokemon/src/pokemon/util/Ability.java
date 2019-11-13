@@ -10,7 +10,7 @@ public class Ability {
     }
 
     public interface OnDamageCalculation {
-	public void execute(BattleInfoDTO battleInfoDTO);
+	public void execute(BattleInfoDTO battle_info_DTO);
     }
 
     // ability information
@@ -18,9 +18,9 @@ public class Ability {
     private String description;
 
     // interface logic
-    private OnUpdate onUpdate = () -> {
+    private OnUpdate on_update = () -> {
     };
-    private OnDamageCalculation onDamageCalculation = b -> {
+    private OnDamageCalculation on_damage_calculation = b -> {
     };
 
     public Ability(String name, String description) {
@@ -30,11 +30,11 @@ public class Ability {
 
     // interface implementation
     public void update() {
-	onUpdate.execute();
+	on_update.execute();
     }
 
-    public void onDamageCalculation(BattleInfoDTO battleInfoDTO) {
-	onDamageCalculation.execute(battleInfoDTO);
+    public void onDamageCalculation(BattleInfoDTO battle_info_DTO) {
+	on_damage_calculation.execute(battle_info_DTO);
     }
 
     // getter ability information
@@ -47,13 +47,13 @@ public class Ability {
     }
 
     // setter interface logic
-    public Ability setOnUpdate(OnUpdate onUpdate) {
-	this.onUpdate = onUpdate;
+    public Ability setOnUpdate(OnUpdate on_update) {
+	this.on_update = on_update;
 	return this;
     }
 
-    public Ability setOnDamageCalculation(OnDamageCalculation onDamageCalculation) {
-	this.onDamageCalculation = onDamageCalculation;
+    public Ability setOnDamageCalculation(OnDamageCalculation on_damage_calculation) {
+	this.on_damage_calculation = on_damage_calculation;
 	return this;
     }
 

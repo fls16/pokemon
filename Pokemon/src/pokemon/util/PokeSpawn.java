@@ -11,7 +11,7 @@ import pokemon.entities.Player;
 
 public class PokeSpawn extends Entity {
 
-    private boolean initBattleFlag = false;
+    private boolean init_battle_flag = false;
 
     public PokeSpawn(Transform transform, TileSheet tile_sheet) {
 	super(transform, tile_sheet);
@@ -41,19 +41,19 @@ public class PokeSpawn extends Entity {
     protected void onUpdate(float delta, Window window, Camera camera, Level level) {
 	if (Math.round(level.player.transform.pos.x) == Math.round(transform.pos.x)) {
 	    if (Math.round(level.player.transform.pos.y) == Math.round(transform.pos.y)) {
-		if (!initBattleFlag) {
-		    initBattleFlag = true;
+		if (!init_battle_flag) {
+		    init_battle_flag = true;
 		    use_animation = 1;
 		    System.out.println("init battle");
 		    // battle init
 		}
 
 	    } else {
-		initBattleFlag = false;
+		init_battle_flag = false;
 		use_animation = 0;
 	    }
 	} else {
-	    initBattleFlag = false;
+	    init_battle_flag = false;
 	    use_animation = 0;
 	}
     }
