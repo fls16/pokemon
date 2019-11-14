@@ -2,8 +2,8 @@ package pokemon;
 
 import pokemon.entities.Pokemon;
 import pokemon.util.GlobalData;
-import pokemon.util.Region;
-import pokemon.util.Region.Encounter;
+import pokemon.util.Route.Encounter;
+import pokemon.util.Route.Weather;
 import pokemon.util.TypeModifier;
 import pokemon.util.TypeModifier.Type;
 
@@ -12,6 +12,8 @@ public class MainTest {
     public static void main(String[] args) {
 	GlobalData global_data = new GlobalData();
 	global_data.init();
+
+	// Pokemon Stats
 	// List<Pokemon> pokemon_list = new ArrayList<>();
 
 	// for (int i = 1; i < 494; i++) {
@@ -38,26 +40,20 @@ public class MainTest {
 
 	System.out.println(pokemon.toString());
 
+	// Battle Type Multiplier
 	System.out.println("Fighting Attack effectiveness against " + pokemon.basic_stats.type1 + " and "
 		+ pokemon.basic_stats.type2 + ": "
 		+ TypeModifier.attackTypeModifier(Type.Fighting, pokemon.basic_stats.type1, pokemon.basic_stats.type2));
 
-	for (Region r : GlobalData.region_map.values()) {
-	    System.out.println(r.weather);
-	    System.out.println(r.area_map_day);
-	    for (Encounter e : r.getEncounterList(1)) {
-		System.out.println(e.pokemon);
-		System.out.println(e.level);
-	    }
-	}
-
+	// Routes
 	int counter = 0;
 	int pokemon1 = 0;
 	int pokemon2 = 0;
 	int pokemon3 = 0;
 	for (int i = 0; i < 10_000; i++) {
 	    int random_pokemon = GlobalData.random.nextInt(100);
-	    for (Encounter e : GlobalData.region_map.get(1).getEncounterList(2)) {
+	    GlobalData.route_map.get(1).weather = Weather.CLEAR;
+	    for (Encounter e : GlobalData.route_map.get(1).getEncounterList(0)) {
 		counter++;
 		if (random_pokemon < e.chance) {
 		    // Ab hier ist "e" exakt das Pokemon, welchem man begegnen wird

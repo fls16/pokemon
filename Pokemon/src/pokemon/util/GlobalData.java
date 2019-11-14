@@ -10,8 +10,8 @@ public class GlobalData {
     public static Random random = new Random();
 
     // global variables
-    public static boolean day;
-    public static Map<Integer, Region> region_map = new HashMap<>();
+    public static boolean day = false;
+    public static Map<Integer, Route> route_map = new HashMap<>();
     public static Map<Integer, BasicStats> pokemon_map = new HashMap<>();
 
     // init everything
@@ -19,8 +19,7 @@ public class GlobalData {
 	PokemonTemplate pokemon_template = new PokemonTemplate();
 	pokemon_template.init();
 
-	Region region = new Region();
-	region.init();
+	RouteTemplate.init();
     }
 
 }
